@@ -1,21 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
+
+  @override
+  State<ForgotPassword> createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
+  final _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future resetPassword() async {
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: _emailController.text.trim());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-
           children: [
-
             const SizedBox(
-              height: 100,
+              height: 50,
             ),
 
             // Forgot Password Heading
@@ -63,6 +80,7 @@ class ForgotPassword extends StatelessWidget {
 
             // Email Textfield
             TextField(
+              controller: _emailController,
               style: const TextStyle(
                 fontSize: 13,
               ),
@@ -79,19 +97,15 @@ class ForgotPassword extends StatelessWidget {
             ),
 
             // Reset Password Button
-            Container(
-              width: 319,
-              height: 54,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: OutlinedButton(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+            GestureDetector(
+              onTap: resetPassword,
+              child: Container(
+                width: 319,
+                height: 54,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: const Text(
                   "Reset Password",
@@ -103,7 +117,6 @@ class ForgotPassword extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),

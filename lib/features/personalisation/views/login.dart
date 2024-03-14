@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hen_vision/features/personalisation/views/forgot_password.dart';
 
 class Login extends StatefulWidget {
-   Login({
+   const Login({
     super.key,
   });
 
@@ -31,18 +32,24 @@ class _LoginState extends State<Login> {
      );
 
      // try sign in
-     try{
+     try {
        await FirebaseAuth.instance.signInWithEmailAndPassword(
-         email: emailController.text,
-         password: passwordController.text,
+         email: emailController.text.trim(), // Trim whitespace
+         password: passwordController.text.trim(),
        );
-     } on FirebaseAuthException catch (error) {
+       Navigator.pop(context); // Dismiss loading dialog
+     } on FirebaseAuthException catch (e) {
+       Navigator.pop(context); // Dismiss loading dialog
 
+       if (e.code == 'user-not-found') {
+         wrongEmailMessage();
+       } else if (e.code == 'wrong-password') {
+         wrongPasswordMessage();
+       } else {
+         // Handle other errors generically
+         genericErrorMessage(e.message!);
+       }
      }
-
-     // Pop the loading circle
-     Navigator.pop(context);
-
    }
 
   @override
@@ -162,14 +169,24 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(left: 25.0),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 13,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.black,
-                      decoration: TextDecoration.underline,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const ForgotPassword();
+                        }),
+                      );
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),
@@ -179,6 +196,59 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+    );
+  }
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Incorrect email"),
+          content: const Text("The user could not be found. Please check the email and try again."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Incorrect password"),
+          content: const Text("The password you entered is incorrect. Please try again."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void genericErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("An error occurred"),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
