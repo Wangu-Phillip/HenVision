@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  fl_chart: ^0.65.0
+  flutter_charts: ^0.5.2
 
   #============== UITILITY PACKAGES ================#
   http: ^1.1.0
