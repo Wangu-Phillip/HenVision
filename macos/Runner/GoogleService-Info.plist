@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyD9oDF07azU_4bBBrG0cScpP80gPRKPlZ4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>996719308318</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.henvision.henVision.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>hen-vision</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hen-vision.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:996719308318:ios:66bb147eec6b4c9eb6480f</string>
+</dict>
+</plist>

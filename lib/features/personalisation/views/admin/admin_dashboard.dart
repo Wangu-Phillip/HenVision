@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -8,6 +9,10 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+
+  // get user name
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +25,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
         elevation: 1,
         child: Container(
           child: ListView(
-            children: const [
-              DrawerHeader(
+            children: [
+               DrawerHeader(
                   child: Column(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundColor: Colors.black,
                         radius: 50,
                         child: Icon(
@@ -32,17 +37,28 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
 
-                      Text("Admin: John Doe"),
+                      Text("${user.email}"),
                     ],
                   ),
               ),
 
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.home),
                 title: Text(
                   "Dashboard",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+
+              ListTile(
+                onTap: logoutUser,
+                leading: const Icon(Icons.logout),
+                title: const Text(
+                  "Logout",
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -55,5 +71,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
         ),
       ),
     );
+  }
+
+  void logoutUser() {
+    FirebaseAuth.instance.signOut();
   }
 }

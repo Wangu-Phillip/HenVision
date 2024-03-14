@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "996719308318",
+    "project_id": "hen-vision",
+    "storage_bucket": "hen-vision.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996719308318:android:dae49f751ad9864ab6480f",
+        "android_client_info": {
+          "package_name": "com.henvision.hen_vision"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYxbiazEIcu27IjZuuKtJ9bqrd7HO_v3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
