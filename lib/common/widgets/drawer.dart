@@ -37,41 +37,7 @@ class SidebarMenu extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("${user.email}"),
-
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return UserProfile(user: user);
-                            }),
-                          );
-                        },
-
-                        child: Container(
-                          width: 43,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(17),
-                          ),
-
-                          child: const Text(
-                              "Edit",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                  Text("${user.email}")
 
                 ],
               ),
@@ -155,7 +121,14 @@ class SidebarMenu extends StatelessWidget {
 
             // Settings
             ListTile(
-              onTap: () =>  (), //navigateToSettings(), // Replace with your navigation logic
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return UserProfile(user: user);
+                  }),
+                );
+              }, //navigateToSettings(), // Replace with your navigation logic
               leading: const Icon(Icons.settings),
               title: const Text(
                 "Settings",

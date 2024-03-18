@@ -28,9 +28,10 @@ class _ReportsState extends State<Reports> {
       body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
+
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
 
@@ -39,18 +40,79 @@ class _ReportsState extends State<Reports> {
                 width: 400,
                 height: 250,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(5),
+                ),
+                
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25.0, top: 10),
+                      child: Row(
+                        children: [
+                          const Text(
+                              "Montlhy Sales",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+
+                          const SizedBox(width: 90,),
+
+                          // Broilers Tag
+                          Container(
+                            width: 55,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.blue,
+                            ),
+                            child: const Text(
+                                "Broilers",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                                ),
+                            ),
+                          ),
+
+
+                          const SizedBox(width: 8,),
+
+                          // Layers Tag
+                          Container(
+                            width: 55,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.green.shade500,
+                            ),
+                            child: const Text(
+                              "Layers",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
 
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
+
               // Poultry Finances
               Container(
                 width: 400,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(5),
                 ),
 
@@ -144,19 +206,45 @@ class _ReportsState extends State<Reports> {
                 ),
               ),
 
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
 
               // Line chart
               Container(
                 width: 400,
                 height: 150,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(5),
+                ),
+
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 25.0, top: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "500k",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+
+                      SizedBox(width: 230,),
+
+                      Text(
+                        "P24000",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                    ],
+                  ),
                 ),
               ),
 
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
 
               //  Graph
               Padding(
@@ -165,7 +253,7 @@ class _ReportsState extends State<Reports> {
                   width: 400,
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
