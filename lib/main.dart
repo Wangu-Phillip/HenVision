@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hen_vision/features/authentication/controllers/auth_page.dart';
+import 'package:hen_vision/features/personalisation/views/reports.dart';
 import 'firebase_options.dart';
 import 'package:hen_vision/features/personalisation/views/admin/admin_dashboard.dart';
 import 'package:hen_vision/features/personalisation/views/change_password.dart';
