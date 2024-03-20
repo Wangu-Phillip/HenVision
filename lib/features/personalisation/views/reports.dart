@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/common/widgets/drawer.dart';
+import 'package:hen_vision/features/personalisation/views/Sales.dart';
 import 'package:hen_vision/features/personalisation/views/admin/admin_dashboard.dart';
+import 'package:hen_vision/features/personalisation/views/operations.dart';
 
 class Reports extends StatefulWidget {
   const Reports({super.key});
@@ -18,7 +20,7 @@ class _ReportsState extends State<Reports> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reports"),
+        title: const Text("Reports Overview"),
         centerTitle: true,
       ),
 
@@ -34,6 +36,74 @@ class _ReportsState extends State<Reports> {
               const SizedBox(
                 height: 25,
               ),
+
+              // Sales & Operations Report buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Sales Report
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const SalesReport();
+                        }),
+                      );
+                    },
+                    child: Container(
+                      width: 55,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.black,
+                      ),
+                      child: const Text(
+                        "Sales",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  // Operations Report
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const OperationsReport();
+                        }),
+                      );
+                    },
+                    child: Container(
+                      width: 70,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.black,
+                      ),
+                      child: const Text(
+                        "Operations",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+
+              SizedBox(height: 15,),
 
               // Monthly Sales
               Container(
@@ -201,7 +271,6 @@ class _ReportsState extends State<Reports> {
                       ],
                     ),
 
-
                   ],
                 ),
               ),
@@ -249,12 +318,39 @@ class _ReportsState extends State<Reports> {
               //  Graph
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
-                child: Container(
+                child: // Line chart
+                Container(
                   width: 400,
-                  height: 200,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(5),
+                  ),
+
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 25.0, top: 10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "500k",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+
+                        SizedBox(width: 230,),
+
+                        Text(
+                          "2022",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                      ],
+                    ),
                   ),
                 ),
               ),
