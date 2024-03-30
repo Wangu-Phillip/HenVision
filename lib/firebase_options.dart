@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,15 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyATngjaG8tGwzhuarOIfxY0WcF5F5eOO3s',
-    appId: '1:996719308318:web:83aa5176750e4f0eb6480f',
-    messagingSenderId: '996719308318',
-    projectId: 'hen-vision',
-    authDomain: 'hen-vision.firebaseapp.com',
-    storageBucket: 'hen-vision.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDYxbiazEIcu27IjZuuKtJ9bqrd7HO_v3I',
     appId: '1:996719308318:android:dae49f751ad9864ab6480f',
@@ -67,14 +64,5 @@ class DefaultFirebaseOptions {
     projectId: 'hen-vision',
     storageBucket: 'hen-vision.appspot.com',
     iosBundleId: 'com.henvision.henVision',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD9oDF07azU_4bBBrG0cScpP80gPRKPlZ4',
-    appId: '1:996719308318:ios:66bb147eec6b4c9eb6480f',
-    messagingSenderId: '996719308318',
-    projectId: 'hen-vision',
-    storageBucket: 'hen-vision.appspot.com',
-    iosBundleId: 'com.henvision.henVision.RunnerTests',
   );
 }

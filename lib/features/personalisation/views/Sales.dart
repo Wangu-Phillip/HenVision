@@ -37,77 +37,9 @@ class _SalesReportState extends State<SalesReport> {
                 height: 25,
               ),
 
-              // Sales & Operations Report buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Sales Report
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return const SalesReport();
-                        }),
-                      );
-                    },
-                    child: Container(
-                      width: 55,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Colors.black,
-                      ),
-                      child: const Text(
-                        "Sales",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  // Operations Report
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return const OperationsReport();
-                        }),
-                      );
-                    },
-                    child: Container(
-                      width: 70,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Colors.black,
-                      ),
-                      child: const Text(
-                        "Operations",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),
-                      ),
-                    ),
-                  ),
-
-                ],
-              ),
-
-              SizedBox(height: 15,),
-
               // Monthly Sales
               Container(
-                width: 400,
+                width: 350,
                 height: 250,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -120,6 +52,7 @@ class _SalesReportState extends State<SalesReport> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0, top: 10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const Text(
                             "Montlhy Sales",
@@ -129,42 +62,39 @@ class _SalesReportState extends State<SalesReport> {
                             ),
                           ),
 
-                          const SizedBox(width: 90,),
-
                           // Broilers Tag
                           Container(
+                            alignment: Alignment.center,
                             width: 55,
-                            height: 18,
+                            height: 20,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.blue,
                             ),
                             child: const Text(
                               "Broilers",
-                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15,
                                   color: Colors.white
                               ),
                             ),
                           ),
 
-
-                          const SizedBox(width: 8,),
-
                           // Layers Tag
                           Container(
+                            alignment: Alignment.center,
                             width: 55,
-                            height: 18,
+                            height: 20,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.green.shade500,
                             ),
                             child: const Text(
                               "Layers",
-                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15,
                                   color: Colors.white
                               ),
                             ),
@@ -229,7 +159,7 @@ class _SalesReportState extends State<SalesReport> {
 
               // Bar Graph
               Container(
-                width: 400,
+                width: 350,
                 height: 150,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -239,6 +169,7 @@ class _SalesReportState extends State<SalesReport> {
                 child: const Padding(
                   padding: EdgeInsets.only(left: 25.0, top: 10.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -248,8 +179,7 @@ class _SalesReportState extends State<SalesReport> {
                         ),
                       ),
 
-
-                      SizedBox(width: 140,),
+                      SizedBox(width: 20,),
 
                       Text(
                         "Mar - June",
@@ -269,7 +199,7 @@ class _SalesReportState extends State<SalesReport> {
           ),
         ),
       ),
-    );;
+    );
   }
 
   void logoutUser() {

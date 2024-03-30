@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               const SizedBox(
-                height: 100,
+                height: 70,
               ),
 
               // Place Logo here
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 76,
+                height: 50,
               ),
 
               // Username TextField
@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
 
               // Password TextField
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 25,
+                height: 20,
               ),
 
               // Remember me CheckBox
@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 50,
+                height: 25,
               ),
 
               // Login Button
@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
                 onTap: signUserIn,
                 child: Container(
                   width: 319,
-                  height: 54,
+                  height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.black,
@@ -165,28 +165,25 @@ class _LoginState extends State<Login> {
               ),
 
               // forgot password
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return const ForgotPassword();
-                        }),
-                      );
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 13,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                        decoration: TextDecoration.underline,
-                      ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const ForgotPassword();
+                      }),
+                    );
+                  },
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),

@@ -41,6 +41,7 @@ class _ReportsState extends State<Reports> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   // Sales Report
                   GestureDetector(
                     onTap: () {
@@ -52,8 +53,9 @@ class _ReportsState extends State<Reports> {
                       );
                     },
                     child: Container(
-                      width: 55,
-                      height: 20,
+                      alignment: Alignment.center,
+                      width: 75,
+                      height: 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: Colors.black,
@@ -72,6 +74,7 @@ class _ReportsState extends State<Reports> {
                   const SizedBox(
                     width: 15,
                   ),
+
                   // Operations Report
                   GestureDetector(
                     onTap: () {
@@ -83,8 +86,9 @@ class _ReportsState extends State<Reports> {
                       );
                     },
                     child: Container(
-                      width: 70,
-                      height: 20,
+                      alignment: Alignment.center,
+                      width: 75,
+                      height: 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: Colors.black,
@@ -107,7 +111,7 @@ class _ReportsState extends State<Reports> {
 
               // Monthly Sales
               Container(
-                width: 400,
+                width: 350,
                 height: 250,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
@@ -119,6 +123,7 @@ class _ReportsState extends State<Reports> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0, top: 10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const Text(
                               "Montlhy Sales",
@@ -128,42 +133,40 @@ class _ReportsState extends State<Reports> {
                             ),
                           ),
 
-                          const SizedBox(width: 90,),
 
                           // Broilers Tag
                           Container(
+                            alignment: Alignment.center,
                             width: 55,
-                            height: 18,
+                            height: 20,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.blue,
                             ),
                             child: const Text(
                                 "Broilers",
-                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                 fontWeight: FontWeight.bold,
+                                  fontSize: 15,
                                   color: Colors.white
                                 ),
                             ),
                           ),
 
-
-                          const SizedBox(width: 8,),
-
                           // Layers Tag
                           Container(
+                            alignment: Alignment.center,
                             width: 55,
-                            height: 18,
+                            height: 20,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: Colors.green.shade500,
                             ),
                             child: const Text(
                               "Layers",
-                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15,
                                   color: Colors.white
                               ),
                             ),
@@ -187,29 +190,27 @@ class _ReportsState extends State<Reports> {
                 ),
 
                 child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                              "Poultry Finances",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                            "Poultry Finances",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
+                        ),
 
-                          Text(
-                            "Jan - Dec 2022",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                        Text(
+                          "Jan - Dec 2022",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
 
                     // Finances Report Percentages
@@ -220,7 +221,7 @@ class _ReportsState extends State<Reports> {
                           "79%",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: 30,
                           ),
                         ),
 
@@ -228,7 +229,7 @@ class _ReportsState extends State<Reports> {
                           "239%",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: 30,
                           ),
                         ),
 
@@ -236,7 +237,7 @@ class _ReportsState extends State<Reports> {
                           "+17",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: 30,
                           ),
                         ),
 
@@ -287,8 +288,9 @@ class _ReportsState extends State<Reports> {
                 ),
 
                 child: const Padding(
-                  padding: EdgeInsets.only(left: 25.0, top: 10.0),
+                  padding: EdgeInsets.only(top: 10.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -299,7 +301,7 @@ class _ReportsState extends State<Reports> {
                       ),
 
 
-                      SizedBox(width: 230,),
+                      SizedBox(width: 50,),
 
                       Text(
                         "P24000",
@@ -328,8 +330,9 @@ class _ReportsState extends State<Reports> {
                   ),
 
                   child: const Padding(
-                    padding: EdgeInsets.only(left: 25.0, top: 10.0),
+                    padding: EdgeInsets.only(top: 10.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -340,7 +343,7 @@ class _ReportsState extends State<Reports> {
                         ),
 
 
-                        SizedBox(width: 230,),
+                        SizedBox(width: 50,),
 
                         Text(
                           "2022",

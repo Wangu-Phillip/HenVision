@@ -20,16 +20,17 @@ class SidebarMenu extends StatelessWidget {
 
     // Side bar menu
     return Drawer(
-      elevation: 1,
       child: Container(
         child: ListView(
           children: [
+
+            // user photo
             DrawerHeader(
               child: Column(
                 children: [
                   const CircleAvatar(
                     backgroundColor: Colors.black,
-                    radius: 50,
+                    radius: 45,
                     child: Icon(
                       Icons.person,
                       color: Colors.white,
@@ -37,7 +38,13 @@ class SidebarMenu extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
 
-                  Text("${user.email}")
+                  // user name
+                  Text(
+                      "${user.email}",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
 
                 ],
               ),
@@ -45,7 +52,7 @@ class SidebarMenu extends StatelessWidget {
 
             const SizedBox(height: 25,),
 
-            // Dashboard
+            // Dashboard or Home
             ListTile(
               onTap: () {
                 Navigator.push(
@@ -66,7 +73,7 @@ class SidebarMenu extends StatelessWidget {
 
             // Manage Data
             ListTile(
-              onTap: () => (), //navigateToManageData(), // Replace with your navigation logic
+              onTap: () => (),
               leading: const Icon(Icons.edit),
               title: const Text(
                 "Manage Data",
@@ -85,7 +92,7 @@ class SidebarMenu extends StatelessWidget {
                     return const Reports();
                   }),
                 );
-              }, //navigateToReports(), // Replace with your navigation logic
+              },
               leading: const Icon(Icons.bar_chart),
               title: const Text(
                 "Reports",
@@ -97,7 +104,7 @@ class SidebarMenu extends StatelessWidget {
 
             // Calendar
             ListTile(
-              onTap: () => (), //navigateToCalendar(), // Replace with your navigation logic
+              onTap: () => (),
               leading: const Icon(Icons.calendar_today),
               title: const Text(
                 "Calendar",
@@ -109,7 +116,7 @@ class SidebarMenu extends StatelessWidget {
 
             // Export Data
             ListTile(
-              onTap: () => (), //navigateToExportData(), // Replace with your navigation logic
+              onTap: () => (),
               leading: const Icon(Icons.download),
               title: const Text(
                 "Export Data",
@@ -128,7 +135,7 @@ class SidebarMenu extends StatelessWidget {
                     return UserProfile(user: user);
                   }),
                 );
-              }, //navigateToSettings(), // Replace with your navigation logic
+              },
               leading: const Icon(Icons.settings),
               title: const Text(
                 "Settings",
@@ -138,7 +145,7 @@ class SidebarMenu extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 140,),
+            const SizedBox(height: 25,),
 
             // Logout
             ListTile(

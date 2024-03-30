@@ -18,6 +18,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Future resetPassword() async {
+
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.black,
+          ),
+        );
+      },
+    );
+
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: _emailController.text.trim());
@@ -30,6 +43,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   _emailController.text),
             );
           });
+
+      Navigator.pop(context); // Dismiss loading dialog
       
     } on FirebaseAuthException catch (e) {
       // print(e);
@@ -40,6 +55,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               content: Text(e.message!.toString()),
             );
           });
+
+      Navigator.pop(context); // Dismiss loading dialog
     }
   }
 
@@ -49,96 +66,98 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-
-            // Forgot Password Heading
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Forgot Password",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.normal,
-                ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 20,
               ),
-            ),
 
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Please enter your email to reset the password.",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-
-            const SizedBox(
-              height: 72,
-            ),
-
-            // Textfield label
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Your Email:",
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            // Email Textfield
-            TextField(
-              controller: _emailController,
-              style: const TextStyle(
-                fontSize: 13,
-              ),
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-              ),
-            ),
-
-            const SizedBox(
-              height: 53,
-            ),
-
-            // Reset Password Button
-            GestureDetector(
-              onTap: resetPassword,
-              child: Container(
-                width: 319,
-                height: 54,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+              // Forgot Password Heading
+              Container(
+                alignment: Alignment.centerLeft,
                 child: const Text(
-                  "Reset Password",
+                  "Forgot Password",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 25,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
-            ),
-          ],
+
+              Container(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "Please enter your email to reset the password.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 40,
+              ),
+
+              // Textfield label
+              Container(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "Your Email:",
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+
+              // Email Textfield
+              TextField(
+                controller: _emailController,
+                style: const TextStyle(
+                  fontSize: 13,
+                ),
+                decoration: InputDecoration(
+                  hintText: "Enter your email",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+
+              // Reset Password Button
+              GestureDetector(
+                onTap: resetPassword,
+                child: Container(
+                  width: 319,
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: const Text(
+                    "Reset Password",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

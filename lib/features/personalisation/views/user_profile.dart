@@ -30,26 +30,30 @@ class UserProfile extends StatelessWidget {
           const Center(
             child: CircleAvatar(
               backgroundColor: Colors.black,
-              radius: 50,
+              radius: 45,
               child: Icon(
                 Icons.person,
                 color: Colors.white,
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
 
           // username
           Text(
               "${user.email}",
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
           ),
 
-          const Divider(
-            height: 50,
-            thickness: 0.3,
+          const Padding(
+            padding: EdgeInsets.only(left: 18.0, right: 18.0),
+            child: Divider(
+              height: 50,
+              thickness: 0.3,
+
+            ),
           ),
 
           const SizedBox(height: 20),
@@ -59,29 +63,20 @@ class UserProfile extends StatelessWidget {
             width: 312,
             height: 107,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 0.0,
-              ),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 //
                 BoxShadow(
                   color: Colors.grey.shade500,
-                  offset: const Offset(0, 4.0),
+                  offset: const Offset(0, 4),
                   blurRadius: 4.0,
                   spreadRadius: 0.0,
                 ),
 
-                const BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(-4.0, -4.0),
-                  blurRadius: 4.0,
-                  spreadRadius: 4.0,
-                ),
               ]
             ),
-            
+
             child: const Padding(
               padding: EdgeInsets.only(left: 25.0, top: 10),
               child: Column(
@@ -152,25 +147,14 @@ class UserProfile extends StatelessWidget {
             width: 312,
             height: 75,
             decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 0.0,
-                ),
+              color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
-                  //
                   BoxShadow(
                     color: Colors.grey.shade500,
                     offset: const Offset(0, 4.0),
                     blurRadius: 4.0,
                     spreadRadius: 0.0,
-                  ),
-
-                  const BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(-4.0, -4.0),
-                    blurRadius: 4.0,
-                    spreadRadius: 4.0,
                   ),
                 ]
             ),
@@ -233,25 +217,14 @@ class UserProfile extends StatelessWidget {
             width: 312,
             height: 107,
             decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 0.0,
-                ),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
-                  //
                   BoxShadow(
                     color: Colors.grey.shade500,
                     offset: const Offset(0, 4.0),
                     blurRadius: 4.0,
                     spreadRadius: 0.0,
-                  ),
-
-                  const BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(-4.0, -4.0),
-                    blurRadius: 4.0,
-                    spreadRadius: 4.0,
                   ),
                 ]
             ),
@@ -320,7 +293,7 @@ class UserProfile extends StatelessWidget {
               ),
             ),
           ),
-          
+
 
         ],
       ),
