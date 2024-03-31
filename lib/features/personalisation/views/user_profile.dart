@@ -66,7 +66,6 @@ class UserProfile extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
-                //
                 BoxShadow(
                   color: Colors.grey.shade500,
                   offset: const Offset(0, 4),
@@ -74,7 +73,7 @@ class UserProfile extends StatelessWidget {
                   spreadRadius: 0.0,
                 ),
 
-              ]
+              ],
             ),
 
             child: const Padding(

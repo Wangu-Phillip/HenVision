@@ -117,7 +117,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 10,
               ),
 
-              // Email Textfield
+              // Email TextField
               TextField(
                 controller: _emailController,
                 style: const TextStyle(
