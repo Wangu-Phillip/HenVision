@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
+import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 
 import '../../features/personalisation/views/admin/admin_dashboard.dart';
@@ -50,8 +52,6 @@ class SidebarMenu extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 25,),
-
             // Dashboard or Home
             ListTile(
               onTap: () {
@@ -62,7 +62,10 @@ class SidebarMenu extends StatelessWidget {
                   }),
                 );
               },
-              leading: const Icon(Icons.home),
+              leading: const Icon(
+                  Icons.home,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Dashboard",
                 style: TextStyle(
@@ -73,8 +76,18 @@ class SidebarMenu extends StatelessWidget {
 
             // Manage Data
             ListTile(
-              onTap: () => (),
-              leading: const Icon(Icons.edit),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const ManageFinances();
+                  }),
+                );
+              },
+              leading: const Icon(
+                  Icons.edit_document,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Manage Data",
                 style: TextStyle(
@@ -93,9 +106,34 @@ class SidebarMenu extends StatelessWidget {
                   }),
                 );
               },
-              leading: const Icon(Icons.bar_chart),
+              leading: Icon(
+                  Icons.document_scanner,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Reports",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+
+            // Analytics
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const Analytics();
+                  }),
+                );
+              },
+              leading: const Icon(
+                  Icons.bar_chart,
+                color: Color(0xFF6D62F7),
+              ),
+              title: const Text(
+                "Analytics",
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -105,7 +143,10 @@ class SidebarMenu extends StatelessWidget {
             // Calendar
             ListTile(
               onTap: () => (),
-              leading: const Icon(Icons.calendar_today),
+              leading: const Icon(
+                  Icons.calendar_today,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Calendar",
                 style: TextStyle(
@@ -117,7 +158,10 @@ class SidebarMenu extends StatelessWidget {
             // Export Data
             ListTile(
               onTap: () => (),
-              leading: const Icon(Icons.download),
+              leading: const Icon(
+                  Icons.download,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Export Data",
                 style: TextStyle(
@@ -136,7 +180,10 @@ class SidebarMenu extends StatelessWidget {
                   }),
                 );
               },
-              leading: const Icon(Icons.settings),
+              leading: const Icon(
+                  Icons.settings,
+                color: Color(0xFF6D62F7),
+              ),
               title: const Text(
                 "Settings",
                 style: TextStyle(

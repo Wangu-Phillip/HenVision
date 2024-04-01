@@ -35,7 +35,7 @@ class _HPieChartState extends State<HPieChart> {
             swapAnimationDuration: const Duration(milliseconds: 750),
             swapAnimationCurve: Curves.easeInOutQuint,
             PieChartData(
-              centerSpaceRadius: 100,
+              centerSpaceRadius: 90,
               sectionsSpace: 1,
               sections: [
                 // item-1
