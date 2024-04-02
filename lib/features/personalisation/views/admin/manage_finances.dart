@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/drawer.dart';
+import '../../services/firestore_service.dart';
 
 class ManageFinances extends StatefulWidget {
   const ManageFinances({super.key});
@@ -12,11 +14,32 @@ class ManageFinances extends StatefulWidget {
 
 class _ManageFinancesState extends State<ManageFinances> {
 
+  // Initialize firestore Service
+  final FireStoreService fireStoreService = FireStoreService();
+
+  // buttons checker
   bool isIncomeSelected = false;
   bool isExpenseSelected = false;
 
+  //
   DateTime? selectedDate;
   String? selectedCategory;
+
+  // Text fields controllers
+  final _amountController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    _categoryController.dispose();
+    _dateController.dispose();
+    _descriptionController.dispose();
+
+    super.dispose();
+  }
 
   // categories list
   List<String> categories = [
@@ -25,7 +48,6 @@ class _ManageFinancesState extends State<ManageFinances> {
     'Category 3',
     'Category 4',
   ];
-
 
   // Pick a date
   Future<void> _selectDate(BuildContext context) async {
@@ -171,6 +193,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
                                 TextField(
+                                  controller: _amountController,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,
@@ -268,6 +291,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
 
                             TextField(
+                              controller: _descriptionController,
                               maxLines: null,
                               keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
@@ -466,7 +490,13 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                 // Save Button
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    fireStoreService.addExpense(
+                      double.parse(_amountController.text.trim()),
+                      selectedCategory!,
+                      _descriptionController.text.trim(),
+                    );
+                  },
                   child: Container(
                     width: 100,
                     height: 40,
