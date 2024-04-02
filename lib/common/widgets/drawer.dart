@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 
@@ -80,7 +81,7 @@ class SidebarMenu extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return const ManageFinances();
+                    return const ManageOperations();
                   }),
                 );
               },

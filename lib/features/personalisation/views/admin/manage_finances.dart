@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/drawer.dart';
 import '../../services/firestore_service.dart';
+import 'admin_dashboard.dart';
 
 class ManageFinances extends StatefulWidget {
   const ManageFinances({super.key});
@@ -18,35 +19,51 @@ class _ManageFinancesState extends State<ManageFinances> {
   final FireStoreService fireStoreService = FireStoreService();
 
   // buttons checker
-  bool isIncomeSelected = false;
+  bool isIncomeSelected = true;
   bool isExpenseSelected = false;
+
+  // loading checker
+  bool _isLoading = false;
 
   //
   DateTime? selectedDate;
-  String? selectedCategory;
+  String? expenseSelectedCategory;
+  String? incomeSelectedCategory;
 
   // Text fields controllers
-  final _amountController = TextEditingController();
-  final _categoryController = TextEditingController();
-  final _dateController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  final _expenseAmountController = TextEditingController();
+  final _expenseDescriptionController = TextEditingController();
+
+  final _incomeAmountController = TextEditingController();
+  final _incomeDescriptionController = TextEditingController();
 
   @override
   void dispose() {
-    _amountController.dispose();
-    _categoryController.dispose();
-    _dateController.dispose();
-    _descriptionController.dispose();
+    _expenseAmountController.dispose();
+    _expenseDescriptionController.dispose();
+
+    _incomeAmountController.dispose();
+    _incomeDescriptionController.dispose();
 
     super.dispose();
   }
 
-  // categories list
-  List<String> categories = [
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
+  // Expenses categories list
+  List<String> expensesCategories = [
+    'Feed Costs',
+    'Labor Costs',
+    'Utilities',
+    'Veterinary Care',
+    'Equipment & Supplies',
+  ];
+
+  // Income categories list
+  List<String> incomeCategories = [
+    'Egg Sales',
+    'Meat Sales',
+    'Feather Sales',
+    'Fertilizer Sales',
+    'Chicken Sales',
   ];
 
   // Pick a date
@@ -62,6 +79,22 @@ class _ManageFinancesState extends State<ManageFinances> {
         selectedDate = picked;
       });
     }
+  }
+
+  void _showLoadingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  void _hideLoadingDialog() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -86,74 +119,76 @@ class _ManageFinancesState extends State<ManageFinances> {
           children: [
 
             // Expenses and Income Buttons
-            Container(
-              width: 250,
-              height: 40,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 0.3,
+            Center(
+              child: Container(
+                width: 250,
+                height: 40,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
 
-                  // Expenses button
-                  GestureDetector(
-                    onTap: () {
+                    // Expenses button
+                    GestureDetector(
+                      onTap: () {
+                          setState(() {
+                          isExpenseSelected = false;
+                          isIncomeSelected = true;
+                        });
+                      },
+                      child: Container(
+                        width: 120,
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: isIncomeSelected ? Color(0xFF6D62F7) : Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Text(
+                          "Expenses",
+                          style: TextStyle(
+                            color: isIncomeSelected ? Colors.white : Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Income Button
+                    GestureDetector(
+                      onTap: () {
                         setState(() {
-                        isExpenseSelected = false;
-                        isIncomeSelected = true;
-                      });
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: isIncomeSelected ? Color(0xFF6D62F7) : Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Text(
-                        "Expenses",
-                        style: TextStyle(
-                          color: isIncomeSelected ? Colors.white : Colors.black,
-                          fontSize: 20,
+                          isExpenseSelected = true;
+                          isIncomeSelected = false;
+                        });
+                      },
+                      child: Container(
+                        width: 120,
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: isExpenseSelected ? Color(0xFF6D62F7) : Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Text(
+                          "Income",
+                          style: TextStyle(
+                            color: isExpenseSelected ? Colors.white : Colors.black,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-
-                  // Income Button
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isExpenseSelected = true;
-                        isIncomeSelected = false;
-                      });
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: isExpenseSelected ? Color(0xFF6D62F7) : Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Text(
-                        "Income",
-                        style: TextStyle(
-                          color: isExpenseSelected ? Colors.white : Colors.black,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
 
 
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -193,7 +228,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
                                 TextField(
-                                  controller: _amountController,
+                                  controller: _expenseAmountController,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,
@@ -218,9 +253,9 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
                             DropdownButtonFormField<String>(
-                              value: selectedCategory,
+                              value: expenseSelectedCategory,
                               hint: Text('Select Category'),
-                              items: categories.map((category) {
+                              items: expensesCategories.map((category) {
                                 return DropdownMenuItem(
                                   value: category,
                                   child: Text(
@@ -233,7 +268,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  selectedCategory = value;
+                                  expenseSelectedCategory = value;
                                 });
                               },
                               decoration: InputDecoration(
@@ -291,7 +326,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
 
                             TextField(
-                              controller: _descriptionController,
+                              controller: _expenseDescriptionController,
                               maxLines: null,
                               keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
@@ -338,6 +373,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
                                 TextField(
+                                  controller: _incomeAmountController,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,
@@ -362,9 +398,9 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
                                 DropdownButtonFormField<String>(
-                                  value: selectedCategory,
+                                  value: incomeSelectedCategory,
                                   hint: Text('Select Category'),
-                                  items: categories.map((category) {
+                                  items: incomeCategories.map((category) {
                                     return DropdownMenuItem(
                                       value: category,
                                       child: Text(
@@ -377,7 +413,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   }).toList(),
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedCategory = value;
+                                      incomeSelectedCategory = value;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -435,6 +471,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
 
                                 TextField(
+                                  controller: _incomeDescriptionController,
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
                                   decoration: InputDecoration(
@@ -460,63 +497,190 @@ class _ManageFinancesState extends State<ManageFinances> {
               ),
             ),
 
-            SizedBox(height: 25,),
-
             // Button Rows
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+            AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              height: isExpenseSelected || isIncomeSelected ? 100 : 0,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
 
-                // Cancel button
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 100,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF6C63DC),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                    if (isIncomeSelected)
+                      Row(
+                        children: [
+                          // Cancel button
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30.0, left: 30.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const AdminDashboard();
+                                  }),
+                                );
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF6C63DC),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Save Button
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: GestureDetector(
+                              onTap: () {
+
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                _showLoadingDialog();
+                                Future.delayed(Duration(seconds: 3), () {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  _hideLoadingDialog();
+                                  _expenseAmountController.clear();
+                                  _expenseDescriptionController.clear();
+                                });
+
+                                fireStoreService.addExpense(
+                                  double.parse(_expenseAmountController.text.trim()),
+                                  expenseSelectedCategory!,
+                                  _expenseDescriptionController.text.trim(),
+                                );
+                                expenseSelectedCategory = null;
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF6D62F7),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Text(
+                                  "Save",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ),
 
-                // Save Button
-                GestureDetector(
-                  onTap: () {
-                    fireStoreService.addExpense(
-                      double.parse(_amountController.text.trim()),
-                      selectedCategory!,
-                      _descriptionController.text.trim(),
-                    );
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF6D62F7),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                    if (isExpenseSelected)
+                      Row(
+                        children: [
+                          // Cancel button
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const AdminDashboard();
+                                  }),
+                                );
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF6C63DC),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          // Save Button
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: GestureDetector(
+                              onTap: () {
+
+
+                                setState(() {
+                                  _isLoading = true;
+                                });
+
+                                // show loading circle
+                                _showLoadingDialog();
+
+                                // after 3 seconds remove loading circle
+                                Future.delayed(Duration(seconds: 3), () {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  // remove loading circle
+                                  _hideLoadingDialog();
+
+                                  // clear data after saving in database
+                                  _incomeAmountController.clear();
+                                  _incomeDescriptionController.clear();
+                                });
+
+
+                                // save data in database
+                                fireStoreService.addIncome(
+                                  double.parse(_incomeAmountController.text.trim()),
+                                  incomeSelectedCategory!,
+                                  _incomeDescriptionController.text.trim(),
+                                );
+
+                                // clear data after sending
+                                incomeSelectedCategory = null;
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF6D62F7),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Text(
+                                  "Save",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
+                  ],
                 ),
-
-
-              ],
+              ),
             ),
 
 
