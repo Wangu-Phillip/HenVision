@@ -13,6 +13,13 @@ class _ManageUsersState extends State<ManageUsers> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Manage Users"),
+        centerTitle:  true,
+      ),
+
+      body: const Column(
+
+        /// TODO: Add user form in a dialogue
+        /// TODO: Display users in a table formart with edit and delete icons
       ),
     );
   }

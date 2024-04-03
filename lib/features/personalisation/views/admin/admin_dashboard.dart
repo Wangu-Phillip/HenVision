@@ -244,6 +244,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
 
+                          // calendar
                           Container(
                             width: 50,
                             height: 50,
@@ -276,6 +277,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             ),
                           ),
 
+                          // manage users
                           Container(
                             width: 50,
                             height: 50,
@@ -316,6 +318,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
 
+                          // reports
                           Container(
                             width: 50,
                             height: 50,
@@ -348,6 +351,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             ),
                           ),
 
+                          // download
                           Container(
                             width: 50,
                             height: 50,
@@ -382,6 +386,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ],
             ),
 
+            /// TODO: Display layers and broilers data using line chart
             // Line chart
             Center(
               child: Container(
@@ -403,6 +408,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ),
 
+            /// TODO: Calculate finances used from the total budget
             // Finances used
             HPercentageIndicator(),
           ],

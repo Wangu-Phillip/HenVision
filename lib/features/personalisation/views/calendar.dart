@@ -8,6 +8,13 @@ class Calendar extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("CALENDAR"),
+        centerTitle: true,
+      ),
+
+      body: const Column(
+
+        /// TODO: Implement a calendar with schedules or tasks
+
       ),
     );
   }

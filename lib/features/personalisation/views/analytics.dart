@@ -47,6 +47,8 @@ class _AnalyticsState extends State<Analytics> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+
+                      /// TODO: Automate date
                       // Date
                       Text(
                         "June 2022",
@@ -56,6 +58,7 @@ class _AnalyticsState extends State<Analytics> {
                         ),
                       ),
 
+                      /// TODO: Automate month analytics
                       // Analytics
                       Text(
                         "Down 7% from last month",
@@ -97,6 +100,7 @@ class _AnalyticsState extends State<Analytics> {
 
                     const SizedBox(width: 50),
 
+                    /// TODO: Change or Implement a piechart for Income categories with amounts
                     // Line chart
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
@@ -106,6 +110,9 @@ class _AnalyticsState extends State<Analytics> {
                         child: const HPieChart(),
                       ),
                     ),
+
+                    /// TODO: Implement a piechart for Expenses categories with amounts
+
                   ],
                 )
               ),
