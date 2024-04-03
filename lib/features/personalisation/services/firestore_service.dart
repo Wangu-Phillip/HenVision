@@ -4,9 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireStoreService {
 
-  // get collections
-  //final CollectionReference expenses = FirebaseFirestore.instance.collection('expenses');
-
   // CREATE FINANCE DATA
     Future addExpense(double amount, String category, String description) async {
       await FirebaseFirestore.instance.collection('expenses').add({
@@ -27,8 +24,23 @@ class FireStoreService {
   }
 
   // READ/GET FINANCE DATA
+    Future<double> getTotalIncome() async {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('income').get();
+      double totalIncome = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['amount'] as num? ?? 0.0)
+          .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
+      return totalIncome;
+    }
 
-  // CREATE OPERATIONS DATA
+    Future<double> getTotalExpenses() async {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('expenses').get();
+      double totalExpenses = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['amount'] as num? ?? 0.0)
+          .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
+      return totalExpenses;
+    }
+
+    // CREATE OPERATIONS DATA
     Future addLayers(int totalLayers, int totalEggsCollected, String eggSizes, double eggsWeight, String description) async {
       await FirebaseFirestore.instance.collection('layers').add({
         'number_of_layers': totalLayers,
@@ -49,7 +61,8 @@ class FireStoreService {
         'description': description,
       });
     }
-  // READ/GET FINANCE DATA
+
+  // READ/GET OPERATIONS DATA
 
 
 }

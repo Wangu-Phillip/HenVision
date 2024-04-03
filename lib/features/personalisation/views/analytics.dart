@@ -58,7 +58,7 @@ class _AnalyticsState extends State<Analytics> {
 
                       // Analytics
                       Text(
-                        "Up 7% from last month",
+                        "Down 7% from last month",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 15,
@@ -115,9 +115,9 @@ class _AnalyticsState extends State<Analytics> {
               ),
 
               // category and comparison analytics
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                child: const Row(
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -164,7 +164,7 @@ class _AnalyticsState extends State<Analytics> {
                       width: 16,
                     ),
 
-                    // pie chart colored portion
+                    // pie chart Buddget colored portion
                     Container(
                       width: 20,
                       height: 20,
@@ -184,7 +184,7 @@ class _AnalyticsState extends State<Analytics> {
 
                     // pie chart colored title
                     const Text(
-                      'Revenue',
+                      'Income',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -195,9 +195,9 @@ class _AnalyticsState extends State<Analytics> {
                     ),
                     // analytics
                     const Text(
-                      'Down -3.67%',
+                      'Up 3.67%',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.green,
                         fontWeight: FontWeight.bold,
                       ),
                     ), // Text on the right
@@ -251,7 +251,7 @@ class _AnalyticsState extends State<Analytics> {
 
                     // pie chart colored title
                     const Text(
-                      'Profit',
+                      'Expenses',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -262,9 +262,9 @@ class _AnalyticsState extends State<Analytics> {
                     ),
                     // analytics
                     const Text(
-                      'Up 7%',
+                      'Down -3.71%',
                       style: TextStyle(
-                        color: Colors.green,
+                        color: Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
                     ), // Text on the right
@@ -318,7 +318,7 @@ class _AnalyticsState extends State<Analytics> {
 
                     // pie chart colored title
                     const Text(
-                      'Loss',
+                      'Budget',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -329,9 +329,9 @@ class _AnalyticsState extends State<Analytics> {
                     ),
                     // analytics
                     const Text(
-                      'Down 4%',
+                      'Up 4.6%',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.green,
                         fontWeight: FontWeight.bold,
                       ),
                     ), // Text on the right
@@ -385,7 +385,7 @@ class _AnalyticsState extends State<Analytics> {
 
                     // pie chart colored title
                     const Text(
-                      'Utility Costs',
+                      'Profit',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -396,7 +396,7 @@ class _AnalyticsState extends State<Analytics> {
                     ),
                     // analytics
                     const Text(
-                      'Down 4%',
+                      'Up 67%',
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,

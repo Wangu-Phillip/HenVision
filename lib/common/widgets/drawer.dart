@@ -81,7 +81,7 @@ class SidebarMenu extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return const ManageOperations();
+                    return const ManageFinances();
                   }),
                 );
               },

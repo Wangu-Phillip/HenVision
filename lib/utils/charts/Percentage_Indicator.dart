@@ -25,7 +25,6 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
             blurRadius: 4.0,
             spreadRadius: 0.0,
           ),
-
         ],
       ),
       child: Column(

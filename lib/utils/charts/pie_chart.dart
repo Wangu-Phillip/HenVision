@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/personalisation/services/firestore_service.dart';
+
 class HPieChart extends StatefulWidget {
   const HPieChart({super.key});
 
@@ -9,6 +11,25 @@ class HPieChart extends StatefulWidget {
 }
 
 class _HPieChartState extends State<HPieChart> {
+
+  // Initialize firestore Service
+  final FireStoreService fireStoreService = FireStoreService();
+
+  late double totalIncome = 0.0;
+  late double totalExpenses = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadFinanceData();
+  }
+
+  Future<void> loadFinanceData() async {
+    totalIncome = await fireStoreService.getTotalIncome();
+    totalExpenses = await fireStoreService.getTotalExpenses();
+    setState(() {}); // Update the UI with the new data
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -40,9 +61,9 @@ class _HPieChartState extends State<HPieChart> {
               sections: [
                 // item-1
                 PieChartSectionData(
-                  //badgeWidget: const Text("Operations"),
-                  //badgePositionPercentageOffset: 1.7,
-                  value: 20.5,
+                  // badgeWidget: const Text("Budget"),
+                  // badgePositionPercentageOffset: 1.7,
+                  value: 15060.50,
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -52,11 +73,11 @@ class _HPieChartState extends State<HPieChart> {
 
                 // item-2
                 PieChartSectionData(
-                  value: 60.31,
+                  value: totalExpenses,
                   radius: 55,
                   color: Colors.yellow,
-                  //badgeWidget: const Text("Equipment"),
-                  //badgePositionPercentageOffset: 2,
+                  // badgeWidget: const Text("Expenses"),
+                  // badgePositionPercentageOffset: 1.5,
                   titleStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -64,35 +85,26 @@ class _HPieChartState extends State<HPieChart> {
 
                 // item-3
                 PieChartSectionData(
-                  value: 51.7,
+                  value: totalIncome,
                   radius: 55,
                   color: Colors.green,
-                  //badgeWidget: const Text("Broilers"),
-                  //badgePositionPercentageOffset: 2,
+                  // badgeWidget: const Text("Income"),
+                  // badgePositionPercentageOffset: 2,
                   titleStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
                 // item-4
-                PieChartSectionData(
-                  value: 33.4,
-                  radius: 55,
-                  color: Colors.purple,
-                 // badgeWidget: const Text("Layers"),
-                  // badgePositionPercentageOffset: 2,
-                  titleStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+
               ],
             ),
           ),
         ),
 
         // Amount used in the middle of pie chart
-        const Text(
-          "P98,252.38",
+         Text(
+          'P'+(totalIncome - totalExpenses).toStringAsFixed(2),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,

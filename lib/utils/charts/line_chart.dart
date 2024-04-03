@@ -55,7 +55,7 @@ Widget leftTitlesWidget(double value, TitleMeta meta) {
   const style = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.bold,
-    color: Colors.grey,
+    color: Colors.black,
   );
 
   String text;
@@ -73,13 +73,7 @@ Widget leftTitlesWidget(double value, TitleMeta meta) {
       text = '3m';
       break;
 
-    case 4:
-      text = '4m';
-      break;
 
-    case 5:
-      text = '5m';
-      break;
 
     default:
       return Container();
@@ -103,7 +97,7 @@ Widget bottomTitleWidgets(double value, TitleMeta meta) {
   const style = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.bold,
-    color: Colors.grey,
+    color: Colors.black,
   );
 
   Widget text;
@@ -149,7 +143,11 @@ SideTitles get bottomTitles => SideTitles(
   getTitlesWidget: bottomTitleWidgets,
 );
 
-FlGridData get gridData => FlGridData(show: false);
+FlGridData get gridData => FlGridData(
+    show: true,
+    drawHorizontalLine: true,
+  drawVerticalLine: false,
+);
 
 FlBorderData get borderData => FlBorderData(
   show: true,
@@ -163,7 +161,7 @@ FlBorderData get borderData => FlBorderData(
 
 LineChartBarData get lineChartBarData1 => LineChartBarData(
   isCurved: true,
-  color: Colors.white,
+  color: Colors.purple.shade300,
   barWidth: 2,
   isStrokeCapRound: true,
   dotData: FlDotData(show: false),
@@ -184,13 +182,13 @@ LineChartBarData get lineChartBarData1 => LineChartBarData(
 
 LineChartBarData get lineChartBarData2 => LineChartBarData(
   isCurved: true,
-  color: Colors.blue,
+  color: Colors.purple.shade700,
   barWidth: 2,
   isStrokeCapRound: true,
   dotData: FlDotData(show: false),
   belowBarData: BarAreaData(show: false),
   spots: const [
-    FlSpot(0, 0.5),
+    FlSpot(0, 0.2),
     FlSpot(1, 0.5),
     FlSpot(3, 2.4),
     FlSpot(5, 1.6),

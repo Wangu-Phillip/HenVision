@@ -20,7 +20,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text("Dashboard"),
         centerTitle: true,
       ),
@@ -36,21 +38,315 @@ class _AdminDashboardState extends State<AdminDashboard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+            // icon navigations
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+
+                // First Container
+                Container(
+                  width: 160,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        offset: const Offset(0, 4),
+                        blurRadius: 4.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+
+                      // first row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                    Icons.monetization_on,
+                                  color: Colors.deepPurple,
+                                ),
+                            ),
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.workspaces,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                      // second row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.pie_chart,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.bar_chart,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+
+                // Second Container
+                Container(
+                  width: 160,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        offset: const Offset(0, 4),
+                        blurRadius: 4.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+
+                      // first row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.person,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                      // second row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.document_scanner,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple.shade100,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade500,
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 4.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.download,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            // Line chart
             Center(
               child: Container(
                 height: 169,
                 width: 356,
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey[900],
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 4),
+                      blurRadius: 4.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
                 ),
                 child: HLineChart(),
               ),
             ),
 
-
-            //Expanded(child: HPieChart()),
-
+            // Finances used
             HPercentageIndicator(),
           ],
         ),

@@ -126,13 +126,14 @@ class _ManageOperationsState extends State<ManageOperations> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
 
-                    // Expenses button
+                    // Layers button
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           isBroilersSelected = false;
                           isLayersSelected = true;
                         });
+
                       },
                       child: Container(
                         width: 120,
@@ -152,7 +153,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                       ),
                     ),
 
-                    // Income Button
+                    // Broilers Button
                     GestureDetector(
                       onTap: () {
                         setState(() {
