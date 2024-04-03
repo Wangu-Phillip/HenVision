@@ -1,6 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/common/widgets/drawer.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
+import 'package:hen_vision/features/personalisation/views/analytics.dart';
+import 'package:hen_vision/features/personalisation/views/calendar.dart';
+import 'package:hen_vision/features/personalisation/views/reports.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
 import 'package:hen_vision/utils/charts/pie_chart.dart';
@@ -68,6 +74,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
 
+                          // Manage Finances
                           Container(
                             width: 50,
                             height: 50,
@@ -85,7 +92,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const ManageFinances();
+                                    }),
+                                  );
+                                },
                                 icon: Icon(
                                     Icons.monetization_on,
                                   color: Colors.deepPurple,
@@ -93,6 +107,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             ),
                           ),
 
+                          // Manage Operations
                           Container(
                             width: 50,
                             height: 50,
@@ -110,7 +125,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const ManageOperations();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.workspaces,
                                 color: Colors.deepPurple,
@@ -143,7 +165,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const Analytics();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.pie_chart,
                                 color: Colors.deepPurple,
@@ -168,7 +197,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const Analytics();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.bar_chart,
                                 color: Colors.deepPurple,
@@ -225,7 +261,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const Calendar();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.calendar_today,
                                 color: Colors.deepPurple,
@@ -250,7 +293,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const ManageUsers();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.person,
                                 color: Colors.deepPurple,
@@ -283,7 +333,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const Reports();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.document_scanner,
                                 color: Colors.deepPurple,

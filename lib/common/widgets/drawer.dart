@@ -8,15 +8,24 @@ import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 import '../../features/personalisation/views/admin/admin_dashboard.dart';
 import '../../features/personalisation/views/reports.dart';
 
-class SidebarMenu extends StatelessWidget {
+class SidebarMenu extends StatefulWidget {
 
-  // get user name
-  final user = FirebaseAuth.instance.currentUser!;
 
   SidebarMenu({
     super.key,
     required user,
   });
+
+  @override
+  State<SidebarMenu> createState() => _SidebarMenuState();
+}
+
+class _SidebarMenuState extends State<SidebarMenu> {
+  // get user name
+  final user = FirebaseAuth.instance.currentUser!;
+
+  // Manage Data Dropdown list
+  String _selectedOption = 'Finances';
 
   @override
   Widget build(BuildContext context) {
@@ -77,23 +86,40 @@ class SidebarMenu extends StatelessWidget {
 
             // Manage Data
             ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return const ManageFinances();
-                  }),
-                );
-              },
-              leading: const Icon(
-                  Icons.edit_document,
+              leading: Icon(
+                Icons.edit_document,
                 color: Color(0xFF6D62F7),
               ),
-              title: const Text(
+              title: Text(
                 "Manage Data",
                 style: TextStyle(
                   fontSize: 18,
                 ),
+              ),
+              trailing: DropdownButton<String>(
+                value: _selectedOption,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedOption = newValue!;
+                  });
+                  if (_selectedOption == 'Finances') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ManageFinances()),
+                    );
+                  } else if (_selectedOption == 'Operations') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ManageOperations()),
+                    );
+                  }
+                },
+                items: <String>['Finances', 'Operations'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
             ),
 
