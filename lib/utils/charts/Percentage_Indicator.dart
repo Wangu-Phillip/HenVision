@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hen_vision/utils/charts/pie_chart.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+
+import '../../features/personalisation/services/firestore_service.dart';
 
 class HPercentageIndicator extends StatefulWidget {
   const HPercentageIndicator({super.key});
@@ -9,6 +12,33 @@ class HPercentageIndicator extends StatefulWidget {
 }
 
 class _HPercentageIndicatorState extends State<HPercentageIndicator> {
+
+  // Initialize firestore Service
+  final FireStoreService fireStoreService = FireStoreService();
+
+  late double totalIncome = 0.0;
+  late double totalExpenses = 0.0;
+  late double yearlyBudget = 0.0;
+  double amountUsed = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadFinanceData();
+  }
+
+  Future<void> loadFinanceData() async {
+    totalIncome = await fireStoreService.getTotalIncome();
+    totalExpenses = await fireStoreService.getTotalExpenses();
+    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+
+    if (recentBudgetAmount != null) {
+      yearlyBudget = recentBudgetAmount;
+      amountUsed = (totalExpenses / yearlyBudget);
+    }
+    setState(() {}); // Update the UI with the new data
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -47,7 +77,7 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
             child: CircularPercentIndicator(
               radius: 80,
               lineWidth: 15,
-              percent: 0.65,
+              percent: amountUsed,
               animation: true,
               animationDuration: 1000,
               progressColor: Colors.deepPurple,
@@ -55,9 +85,9 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
               circularStrokeCap: CircularStrokeCap.round,
               arcType: ArcType.FULL,
               arcBackgroundColor: Colors.deepPurple.shade100,
-              center: const Text(
-                "65%",
-                style: TextStyle(
+              center: Text(
+                '${(amountUsed*100).toStringAsFixed(1)}%',
+                style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),

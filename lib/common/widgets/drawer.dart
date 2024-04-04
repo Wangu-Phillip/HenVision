@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 
@@ -123,6 +124,28 @@ class _SidebarMenuState extends State<SidebarMenu> {
               ),
             ),
 
+            // Users
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const ManageUsers();
+                  }),
+                );
+              },
+              leading: Icon(
+                Icons.people,
+                color: Color(0xFF6D62F7),
+              ),
+              title: const Text(
+                "Users",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+
             // Reports
             ListTile(
               onTap: () {
@@ -134,7 +157,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                 );
               },
               leading: Icon(
-                  Icons.document_scanner,
+                  Icons.download,
                 color: Color(0xFF6D62F7),
               ),
               title: const Text(
@@ -176,21 +199,6 @@ class _SidebarMenuState extends State<SidebarMenu> {
               ),
               title: const Text(
                 "Calendar",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-
-            // Export Data
-            ListTile(
-              onTap: () => (),
-              leading: const Icon(
-                  Icons.download,
-                color: Color(0xFF6D62F7),
-              ),
-              title: const Text(
-                "Export Data",
                 style: TextStyle(
                   fontSize: 18,
                 ),

@@ -64,5 +64,41 @@ class FireStoreService {
 
   // READ/GET OPERATIONS DATA
 
+  /// TODO: Add users
+  // CREATE USER
+    Future addUser(String name, String surname, String role, String email) async {
+      await FirebaseFirestore.instance.collection('users').add({
+        'name': name,
+        'surname': surname,
+        'role': role,
+        'date': DateTime.timestamp(),
+        'email': email,
+      });
+    }
+
+
+  /// TODO: Edit users
+  /// TODO: Delete users
+
+  // CREATE OR ADD NEW BUDGET
+    Future addBudget(double amount) async {
+      await FirebaseFirestore.instance.collection('budget').add({
+        'amount': amount,
+      });
+    }
+
+  // READ OR GET BUDGET
+    Future<double?> getRecentBudgetAmount() async {
+      QuerySnapshot snapshot =
+      await FirebaseFirestore.instance.collection('budget').orderBy('date', descending: true).limit(1).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.get('amount') as double?;
+      } else {
+        return null;
+      }
+    }
+
+
 
 }

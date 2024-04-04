@@ -28,18 +28,15 @@ class _ReportsState extends State<Reports> {
       // Side bar menu
       drawer: SidebarMenu(user: user),
 
-      body: Padding(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      body: const Padding(
+        padding: EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
 
           child: Column(
             children: [
-              const SizedBox(
-                height: 25,
-              ),
 
-
-
+              /// TODO: Implement generating pdfs for each month
+              ///
             ],
           ),
         ),

@@ -17,6 +17,7 @@ class _HPieChartState extends State<HPieChart> {
 
   late double totalIncome = 0.0;
   late double totalExpenses = 0.0;
+  late double yearlyBudget = 0.0;
 
   @override
   void initState() {
@@ -27,7 +28,16 @@ class _HPieChartState extends State<HPieChart> {
   Future<void> loadFinanceData() async {
     totalIncome = await fireStoreService.getTotalIncome();
     totalExpenses = await fireStoreService.getTotalExpenses();
-    setState(() {}); // Update the UI with the new data
+    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+
+    if (recentBudgetAmount != null) {
+      yearlyBudget = recentBudgetAmount;
+      double amountUsed = (totalExpenses / yearlyBudget);
+
+      setState(() {}); // Update the UI with the new data
+    } else {
+      print('No recent budget amount found.');
+    }
   }
 
   @override
@@ -63,7 +73,7 @@ class _HPieChartState extends State<HPieChart> {
                 PieChartSectionData(
                   // badgeWidget: const Text("Budget"),
                   // badgePositionPercentageOffset: 1.7,
-                  value: 15060.50,
+                  value: yearlyBudget,
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -103,13 +113,32 @@ class _HPieChartState extends State<HPieChart> {
         ),
 
         // Amount used in the middle of pie chart
-         Text(
-          'P'+(totalIncome - totalExpenses).toStringAsFixed(2),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+         Column(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+
+             const Text(
+               'Profit/Loss',
+               style: TextStyle(
+                 fontWeight: FontWeight.bold,
+                 fontSize: 20,
+               ),
+             ),
+
+             Text(
+                'P${(totalIncome - totalExpenses).toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: (totalIncome - totalExpenses) > 0 ? Colors.green.shade500 : Colors.red,
+                ),
+             ),
+
+           ],
+         ),
+
+
+
       ],
     );
   }
