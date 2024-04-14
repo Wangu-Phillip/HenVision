@@ -76,11 +76,45 @@ class FireStoreService {
       });
     }
 
+    /// TODO: Get users
 
   /// TODO: Edit users
-  /// TODO: Delete users
+    // EDIT USER
+    Future<void> editUser(String userId, String name, String surname, String role, String email) async {
+      try {
+        await FirebaseFirestore.instance.collection('users').doc(userId).update({
+          'name': name,
+          'surname': surname,
+          'role': role,
+          'email': email,
+        });
+        print('User edited successfully');
+      } catch (e) {
+        print('Error editing user: $e');
+      }
+    }
 
-  // CREATE OR ADD NEW BUDGET
+    /// TODO: Delete users
+    // REMOVE USER
+    Future<void> deleteUser(String email) async {
+      try {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .where('email', isEqualTo: email)
+            .get();
+
+        querySnapshot.docs.forEach((doc) async {
+          await FirebaseFirestore.instance.collection('users').doc(doc.id).delete();
+        });
+
+        print('User deleted successfully');
+      } catch (e) {
+        print('Error deleting user: $e');
+      }
+    }
+
+
+    // CREATE OR ADD NEW BUDGET
     Future addBudget(double amount) async {
       await FirebaseFirestore.instance.collection('budget').add({
         'amount': amount,
