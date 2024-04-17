@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/widgets/drawer.dart';
+import '../../../utils/charts/expense_pie_chart.dart';
+import '../../../utils/charts/income_pie_chart.dart';
 import '../../../utils/charts/pie_chart.dart';
 import 'Sales.dart';
 import 'operations.dart';
@@ -88,7 +90,7 @@ class _AnalyticsState extends State<Analytics> {
                 child: Row(
                   children: [
 
-                    // Pie chart
+                    // Income, Expense and Budget Pie chart
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: Container(
@@ -101,17 +103,28 @@ class _AnalyticsState extends State<Analytics> {
                     const SizedBox(width: 50),
 
                     /// TODO: Change or Implement a piechart for Income categories with amounts
-                    // Line chart
+                    // Income Categories chart
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Container(
                         width: 300,
                         height: 320,
-                        child: const HPieChart(),
+                        child: const IPieChart(),
                       ),
                     ),
 
+                    const SizedBox(width: 50),
+
                     /// TODO: Implement a piechart for Expenses categories with amounts
+                    // Income Categories chart
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Container(
+                        width: 300,
+                        height: 320,
+                        child: const EPieChart(),
+                      ),
+                    ),
 
                   ],
                 )

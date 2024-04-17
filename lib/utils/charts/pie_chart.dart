@@ -73,7 +73,7 @@ class _HPieChartState extends State<HPieChart> {
                 PieChartSectionData(
                   // badgeWidget: const Text("Budget"),
                   // badgePositionPercentageOffset: 1.7,
-                  value: yearlyBudget,
+                  value: yearlyBudget.roundToDouble(),
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -83,7 +83,7 @@ class _HPieChartState extends State<HPieChart> {
 
                 // item-2
                 PieChartSectionData(
-                  value: totalExpenses,
+                  value: totalExpenses.roundToDouble(),
                   radius: 55,
                   color: Colors.yellow,
                   // badgeWidget: const Text("Expenses"),
@@ -95,7 +95,7 @@ class _HPieChartState extends State<HPieChart> {
 
                 // item-3
                 PieChartSectionData(
-                  value: totalIncome,
+                  value: totalIncome.roundToDouble(),
                   radius: 55,
                   color: Colors.green,
                   // badgeWidget: const Text("Income"),

@@ -188,7 +188,7 @@ class _ManageUsersState extends State<ManageUsers> {
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const CircularProgressIndicator();
+                                return const Center(child: CircularProgressIndicator());
                               }
                               List<DocumentSnapshot> documents =
                                   snapshot.data!.docs;

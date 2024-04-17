@@ -133,6 +133,168 @@ class FireStoreService {
       }
     }
 
+    // GET INCOME CATEGORY AMOUNTS
+    Future<double> getTotalEggSalesAmount() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('income');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Egg Sales').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalMeatSalesAmount() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('income');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Meat Sales').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalFeatherSalesAmount() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('income');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Feather Sales').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalFertilizerSalesAmount() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('income');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Fertilizer Sales').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalChickenSalesAmount() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('income');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Meat Sales').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    // GET INCOME CATEGORY AMOUNTS
+    Future<double> getTotalFeedCosts() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('expenses');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Feed Costs').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+
+    Future<double> getTotalLaborCosts() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('expenses');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Labor Costs').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalUtilityCosts() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('expenses');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Utilities').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalVeterinaryCosts() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('expenses');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Veterinary Care').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
+
+    Future<double> getTotalEquipmentSupplies() async {
+      final firestore = FirebaseFirestore.instance;
+      final incomeRef = firestore.collection('expenses');
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Equipment & Supplies').get();
+
+      double total = 0;
+      snapshot.docs.forEach((doc) {
+        final amount = doc['amount'] as double?;
+        if (amount != null) {
+          total += amount;
+        }
+      });
+
+      return total;
+    }
 
 
 }

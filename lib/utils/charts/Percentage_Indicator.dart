@@ -16,7 +16,6 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
   // Initialize firestore Service
   final FireStoreService fireStoreService = FireStoreService();
 
-  late double totalIncome = 0.0;
   late double totalExpenses = 0.0;
   late double yearlyBudget = 0.0;
   double amountUsed = 0.0;
@@ -28,7 +27,6 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
   }
 
   Future<void> loadFinanceData() async {
-    totalIncome = await fireStoreService.getTotalIncome();
     totalExpenses = await fireStoreService.getTotalExpenses();
     double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
 
@@ -77,7 +75,7 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
             child: CircularPercentIndicator(
               radius: 80,
               lineWidth: 15,
-              percent: amountUsed,
+              percent: amountUsed > 1.0 ? 1.0 : amountUsed,
               animation: true,
               animationDuration: 1000,
               progressColor: Colors.deepPurple,
@@ -86,10 +84,11 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
               arcType: ArcType.FULL,
               arcBackgroundColor: Colors.deepPurple.shade100,
               center: Text(
-                '${(amountUsed*100).toStringAsFixed(1)}%',
-                style: const TextStyle(
+                amountUsed > 1.0 ? '+${(amountUsed*100).toStringAsFixed(1)}%' : '${(amountUsed*100).toStringAsFixed(1)}%',
+                style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
+                  color: amountUsed > 1.0 ? Colors.black : Colors.black,
                 ),
               ),
             ),
