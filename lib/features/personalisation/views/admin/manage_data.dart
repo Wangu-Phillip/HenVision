@@ -74,14 +74,14 @@ class _ManageDataState extends State<ManageData> {
                   color: Colors.white,
                   border: Border.all(
                     color: Colors.black,
-                    width: 0.3,
+                    width: 0.2,
                   ),
                   boxShadow: [
                     //
                     BoxShadow(
                       color: Colors.grey.shade500,
-                      offset: const Offset(0, 4),
-                      blurRadius: 4.0,
+                      offset: const Offset(0, 2),
+                      blurRadius: 2.0,
                       spreadRadius: 0.0,
                     ),
                   ],
@@ -104,7 +104,7 @@ class _ManageDataState extends State<ManageData> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: isViewExpenseSelected
-                              ? Color(0xFF6D62F7)
+                              ? const Color(0xFF6D62F7)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -134,7 +134,7 @@ class _ManageDataState extends State<ManageData> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: isViewIncomeSelected
-                              ? Color(0xFF6D62F7)
+                              ? const Color(0xFF6D62F7)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -160,7 +160,7 @@ class _ManageDataState extends State<ManageData> {
 
             // Expenses and Income Lists
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isViewExpenseSelected || isViewIncomeSelected ? 550 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -193,6 +193,7 @@ class _ManageDataState extends State<ManageData> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
+                                      alignment: Alignment.center,
                                       width: 343,
                                       height: 80,
                                       decoration: BoxDecoration(
@@ -209,8 +210,19 @@ class _ManageDataState extends State<ManageData> {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: ListTile(
-                                        title: Text(data['category'] +' ' + 'P' + data['amount'].toString()),
-                                        subtitle: Text(data['description']),
+                                        title: Text(
+                                            data['category'],
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                            'P ' + data['amount'].toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
                                         trailing: GestureDetector(
                                           onTap: () {
 
@@ -261,6 +273,7 @@ class _ManageDataState extends State<ManageData> {
                                     child: Container(
                                       width: 343,
                                       height: 80,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
@@ -275,8 +288,19 @@ class _ManageDataState extends State<ManageData> {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: ListTile(
-                                        title: Text(data['category'] +' ' + 'P' + data['amount'].toString()),
-                                        subtitle: Text(data['description']),
+                                        title: Text(
+                                          data['category'],
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          'P ' + data['amount'].toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
                                         trailing: GestureDetector(
                                           onTap: () {
 
@@ -309,7 +333,7 @@ class _ManageDataState extends State<ManageData> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50.0, right: 18.0),
         child: FloatingActionButton(
-          backgroundColor: Color(0xFF6D62F7),
+          backgroundColor: const Color(0xFF6D62F7),
             onPressed: () {
               Navigator.push(
                 context,

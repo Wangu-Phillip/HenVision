@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
@@ -34,6 +35,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
     // Side bar menu
     return Drawer(
       child: Container(
+        color: Colors.white,
         child: ListView(
           children: [
 
@@ -87,6 +89,14 @@ class _SidebarMenuState extends State<SidebarMenu> {
 
             // Manage Data
             ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const ManageData();
+                  }),
+                );
+              },
               leading: Icon(
                 Icons.edit_document,
                 color: Color(0xFF6D62F7),
@@ -97,31 +107,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                   fontSize: 18,
                 ),
               ),
-              trailing: DropdownButton<String>(
-                value: _selectedOption,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedOption = newValue!;
-                  });
-                  if (_selectedOption == 'Finances') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ManageFinances()),
-                    );
-                  } else if (_selectedOption == 'Operations') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ManageOperations()),
-                    );
-                  }
-                },
-                items: <String>['Finances', 'Operations'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+
             ),
 
             // Users
