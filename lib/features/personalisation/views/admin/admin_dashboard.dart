@@ -416,6 +416,23 @@ class _AdminDashboardState extends State<AdminDashboard> {
         ),
       ),
 
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xFF6D62F7),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ManageFinances();
+              }),
+            );
+          },
+
+          child: const Icon(Icons.add),
+
+        ),
+      ),
     );
   }
 

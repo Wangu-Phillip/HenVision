@@ -222,7 +222,7 @@ class FireStoreService {
     Future<double> getTotalChickenSalesAmount() async {
       final firestore = FirebaseFirestore.instance;
       final incomeRef = firestore.collection('income');
-      final snapshot = await incomeRef.where('category', isEqualTo: 'Meat Sales').get();
+      final snapshot = await incomeRef.where('category', isEqualTo: 'Chicken Sales').get();
 
       double total = 0;
       snapshot.docs.forEach((doc) {

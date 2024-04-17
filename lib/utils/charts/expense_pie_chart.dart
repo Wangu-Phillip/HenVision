@@ -79,7 +79,7 @@ class _EPieChartState extends State<EPieChart> {
                 PieChartSectionData(
                   // badgeWidget: const Text("Budget"),
                   // badgePositionPercentageOffset: 1.7,
-                  value: totalEquipmentCosts,
+                  value: totalEquipmentCosts.roundToDouble(),
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -89,7 +89,7 @@ class _EPieChartState extends State<EPieChart> {
 
                 // item-2
                 PieChartSectionData(
-                  value: totalLaborCosts,
+                  value: totalLaborCosts.roundToDouble(),
                   radius: 55,
                   color: Colors.green,
                   // badgeWidget: const Text("Expenses"),
@@ -101,7 +101,7 @@ class _EPieChartState extends State<EPieChart> {
 
                 // item-3
                 PieChartSectionData(
-                  value: totalFeedCosts,
+                  value: totalFeedCosts.roundToDouble(),
                   radius: 55,
                   color: Colors.yellow,
                   // badgeWidget: const Text("Income"),
@@ -113,7 +113,7 @@ class _EPieChartState extends State<EPieChart> {
 
                 // item-4
                 PieChartSectionData(
-                  value: totalVeterinaryCosts,
+                  value: totalVeterinaryCosts.roundToDouble(),
                   radius: 55,
                   color: Colors.grey,
                   // badgeWidget: const Text("Income"),
@@ -125,7 +125,7 @@ class _EPieChartState extends State<EPieChart> {
 
                 // item-5
                 PieChartSectionData(
-                  value: totalUtilitiesCosts,
+                  value: totalUtilitiesCosts.roundToDouble(),
                   radius: 55,
                   color: Colors.purple,
                   // badgeWidget: const Text("Income"),

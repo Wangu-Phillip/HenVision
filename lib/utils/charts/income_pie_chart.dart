@@ -79,7 +79,7 @@ class _IPieChartState extends State<IPieChart> {
                 PieChartSectionData(
                   // badgeWidget: const Text("Budget"),
                   // badgePositionPercentageOffset: 1.7,
-                  value: totalChickenSalesAmount,
+                  value: totalChickenSalesAmount.roundToDouble(),
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -89,7 +89,7 @@ class _IPieChartState extends State<IPieChart> {
 
                 // item-2
                 PieChartSectionData(
-                  value: totalMeatSalesAmount,
+                  value: totalMeatSalesAmount.roundToDouble(),
                   radius: 55,
                   color: Colors.green,
                   // badgeWidget: const Text("Expenses"),
@@ -101,7 +101,7 @@ class _IPieChartState extends State<IPieChart> {
 
                 // item-3
                 PieChartSectionData(
-                  value: totalEggSalesAmount,
+                  value: totalEggSalesAmount.roundToDouble(),
                   radius: 55,
                   color: Colors.yellow,
                   // badgeWidget: const Text("Income"),
@@ -113,7 +113,7 @@ class _IPieChartState extends State<IPieChart> {
 
                 // item-4
                 PieChartSectionData(
-                  value: totalFeatherSalesAmount,
+                  value: totalFeatherSalesAmount.roundToDouble(),
                   radius: 55,
                   color: Colors.grey,
                   // badgeWidget: const Text("Income"),
@@ -125,7 +125,7 @@ class _IPieChartState extends State<IPieChart> {
 
                 // item-5
                 PieChartSectionData(
-                  value: totalFertilizerSalesAmount,
+                  value: totalFertilizerSalesAmount.roundToDouble(),
                   radius: 55,
                   color: Colors.purple,
                   // badgeWidget: const Text("Income"),

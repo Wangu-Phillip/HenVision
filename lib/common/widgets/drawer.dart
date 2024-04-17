@@ -5,6 +5,7 @@ import 'package:hen_vision/features/personalisation/views/admin/manage_finances.
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
+import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 
 import '../../features/personalisation/views/admin/admin_dashboard.dart';
@@ -43,20 +44,17 @@ class _SidebarMenuState extends State<SidebarMenu> {
             DrawerHeader(
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    backgroundColor: Colors.black,
+                   const CircleAvatar(
+                    // backgroundColor: Colors.black,
                     radius: 45,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
+                     backgroundImage: AssetImage("assets/user_avatars/user.jpg"),
                   ),
                   const SizedBox(height: 5),
 
                   // user name
                   Text(
                       "${user.email}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
                   ),
@@ -97,11 +95,11 @@ class _SidebarMenuState extends State<SidebarMenu> {
                   }),
                 );
               },
-              leading: Icon(
+              leading: const Icon(
                 Icons.edit_document,
                 color: Color(0xFF6D62F7),
               ),
-              title: Text(
+              title: const Text(
                 "Manage Data",
                 style: TextStyle(
                   fontSize: 18,
@@ -120,7 +118,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                   }),
                 );
               },
-              leading: Icon(
+              leading: const Icon(
                 Icons.people,
                 color: Color(0xFF6D62F7),
               ),
@@ -142,7 +140,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                   }),
                 );
               },
-              leading: Icon(
+              leading: const Icon(
                   Icons.download,
                 color: Color(0xFF6D62F7),
               ),
@@ -178,7 +176,14 @@ class _SidebarMenuState extends State<SidebarMenu> {
 
             // Calendar
             ListTile(
-              onTap: () => (),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return Calendar();
+                  }),
+                );
+              },
               leading: const Icon(
                   Icons.calendar_today,
                 color: Color(0xFF6D62F7),
