@@ -62,16 +62,16 @@ class _ManageUsersState extends State<ManageUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         title: const Text("Manage Users"),
         centerTitle: true,
       ),
 
       // Side bar menu
       drawer: SidebarMenu(user: user),
-
-      /// TODO: Add user form in a dialogue
-      /// TODO: Display users in a table formart with edit and delete icons
 
       body: SingleChildScrollView(
         child: Column(
@@ -85,10 +85,20 @@ class _ManageUsersState extends State<ManageUsers> {
                 width: 250,
                 height: 40,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border.all(
                     color: Colors.black,
-                    width: 0.3,
+                    width: 0.2,
                   ),
+                  boxShadow: [
+                    //
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 2),
+                      blurRadius: 2.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
@@ -165,7 +175,7 @@ class _ManageUsersState extends State<ManageUsers> {
             // Input Fields
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
-              height: isViewUsersSelected || isAddUsersSelected ? 450 : 0,
+              height: isViewUsersSelected || isAddUsersSelected ? 500 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -175,13 +185,8 @@ class _ManageUsersState extends State<ManageUsers> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          padding: const EdgeInsets.all(14.0),
                           width: 300,
-                          height: 450,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF8F9F9),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                          height: 500,
                           child: StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
@@ -198,20 +203,51 @@ class _ManageUsersState extends State<ManageUsers> {
                                   Map<String, dynamic> data =
                                   documents[index].data()
                                   as Map<String, dynamic>;
-                                  return ListTile(
-                                    title: Text(data['name'] +' ' + data['surname']),
-                                    subtitle: Text(data['email']),
-                                    trailing: GestureDetector(
-                                      onTap: () {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 343,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          //
+                                          BoxShadow(
+                                            color: Colors.grey.shade500,
+                                            offset: const Offset(0, 4),
+                                            blurRadius: 4.0,
+                                            spreadRadius: 0.0,
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: ListTile(
+                                        title: Text(data['name'] +' ' + data['surname']),
+                                        subtitle: Text(data['email']),
+                                        trailing: GestureDetector(
+                                          onTap: () {
 
-                                        fireStoreService.deleteUser(data['email']);
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.red.shade500,
+                                            setState(() {
+                                              _isLoading = true;
+                                            });
+                                            _showLoadingDialog();
+                                            Future.delayed(const Duration(seconds: 2), () {
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                              _hideLoadingDialog();
+                                            });
+
+                                            fireStoreService.deleteUser(data['email']);
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red.shade500,
+                                          ),
+                                        ),
+                                        // Add more fields as needed
                                       ),
                                     ),
-                                    // Add more fields as needed
                                   );
                                 },
                               );
@@ -219,6 +255,7 @@ class _ManageUsersState extends State<ManageUsers> {
                           ),
                         ),
                       ),
+
                     if (isAddUsersSelected)
                       // Add users
                       Padding(
