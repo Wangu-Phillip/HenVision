@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/common/widgets/drawer.dart';
+import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
@@ -96,7 +97,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) {
-                                      return const ManageFinances();
+                                      return const ManageData();
                                     }),
                                   );
                                 },

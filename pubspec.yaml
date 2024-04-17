@@ -51,7 +51,7 @@ flutter_native_splash:
   web: false
 
   color: "#FFFFFF"
-  image: "assets/logos/HenVisionLogo.png"
+  image: "assets/logos/Hen_Vision_Logo.png"
 
 flutter:
    uses-material-design: true
