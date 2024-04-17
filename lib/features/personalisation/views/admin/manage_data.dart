@@ -189,6 +189,7 @@ class _ManageDataState extends State<ManageData> {
                                   Map<String, dynamic> data =
                                   documents[index].data()
                                   as Map<String, dynamic>;
+                                  String documentId = documents[index].id;
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -213,7 +214,7 @@ class _ManageDataState extends State<ManageData> {
                                         trailing: GestureDetector(
                                           onTap: () {
 
-                                            fireStoreService.deleteExpense(data['category']);
+                                            fireStoreService.deleteExpense(documentId);
                                           },
                                           child: Icon(
                                             Icons.delete,
@@ -254,6 +255,7 @@ class _ManageDataState extends State<ManageData> {
                                   Map<String, dynamic> data =
                                   documents[index].data()
                                   as Map<String, dynamic>;
+                                  String documentId = documents[index].id;
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -278,7 +280,7 @@ class _ManageDataState extends State<ManageData> {
                                         trailing: GestureDetector(
                                           onTap: () {
 
-                                            fireStoreService.deleteIncome(data['date']);
+                                            fireStoreService.deleteIncome(documentId);
                                           },
                                           child: Icon(
                                             Icons.delete,

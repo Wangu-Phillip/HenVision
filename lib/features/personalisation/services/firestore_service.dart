@@ -7,7 +7,6 @@ class FireStoreService {
   // CREATE FINANCE DATA
     Future addExpense(double amount, String category, String description) async {
       await FirebaseFirestore.instance.collection('expenses').add({
-        'id': 1,
         'amount': amount,
         'category': category,
         'date': DateTime.timestamp(),
@@ -41,39 +40,24 @@ class FireStoreService {
       return totalExpenses;
     }
 
-    // REMOVE EXPENSE
-    Future<void> deleteExpense(String category) async {
+    // REMOVE EXPENSES
+    Future<void> deleteExpense(String expenseId) async {
       try {
-        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-            .collection('expenses')
-            .where('category', isEqualTo: category)
-            .get();
-
-        querySnapshot.docs.forEach((doc) async {
-          await FirebaseFirestore.instance.collection('expenses').doc(doc.id).delete();
-        });
-
+        await FirebaseFirestore.instance.collection('expenses').doc(expenseId).delete();
         print('Expense deleted successfully');
       } catch (e) {
-        print('Error deleting Expense: $e');
+        print('Error deleting expense: $e');
       }
     }
 
+
     // REMOVE INCOME
-    Future<void> deleteIncome(String date) async {
+    Future<void> deleteIncome(String documentId) async {
       try {
-        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-            .collection('income')
-            .where('date', isEqualTo: date)
-            .get();
-
-        querySnapshot.docs.forEach((doc) async {
-          await FirebaseFirestore.instance.collection('expenses').doc(doc.id).delete();
-        });
-
-        print('Expense deleted successfully');
+        await FirebaseFirestore.instance.collection('income').doc(documentId).delete();
+        print('Income deleted successfully');
       } catch (e) {
-        print('Error deleting Expense: $e');
+        print('Error deleting income: $e');
       }
     }
 
