@@ -7,6 +7,7 @@ import 'package:hen_vision/features/personalisation/views/admin/manage_operation
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
+import 'package:hen_vision/features/personalisation/views/file_upload.dart';
 import 'package:hen_vision/features/personalisation/views/reports.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
@@ -370,7 +371,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const UploadFile();
+                                  }),
+                                );
+                              },
                               icon: Icon(
                                 Icons.download,
                                 color: Colors.deepPurple,

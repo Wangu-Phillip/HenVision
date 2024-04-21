@@ -34,6 +34,7 @@ dependencies:
   firebase_auth: ^4.16.0
   cloud_firestore: ^4.14.0
   syncfusion_flutter_calendar: ^20.2.50
+  file_picker: ^8.0.0+1
 
 
 #============== FLUTTER DEPENDENCIES ================#
