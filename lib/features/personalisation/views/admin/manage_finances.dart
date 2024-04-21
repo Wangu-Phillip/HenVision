@@ -295,6 +295,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 TextField(
                                   readOnly: true,
+                                  enabled: false,
                                   controller: TextEditingController(
                                     text: selectedDate != null
                                         ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
@@ -302,11 +303,11 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                   onTap: () => _selectDate(context),
                                   decoration: InputDecoration(
-                                    hintText: "Select Date",
-                                    suffixIcon: Icon(Icons.calendar_month),
+                                    hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                    suffixIcon: const Icon(Icons.calendar_month),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(12),
@@ -314,7 +315,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                 ),
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // Description
                             const Text(
@@ -333,7 +334,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 hintText: 'Enter Description',
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none
@@ -440,6 +441,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 TextField(
                                   readOnly: true,
+                                  enabled: false,
                                   controller: TextEditingController(
                                     text: selectedDate != null
                                         ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
@@ -447,7 +449,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                   onTap: () => _selectDate(context),
                                   decoration: InputDecoration(
-                                    hintText: "Select Date",
+                                    hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
                                     suffixIcon: Icon(Icons.calendar_month),
                                     filled: true,
                                     fillColor: Colors.white,

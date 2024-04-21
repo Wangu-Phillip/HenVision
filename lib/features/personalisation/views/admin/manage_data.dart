@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../common/widgets/drawer.dart';
 import '../../services/firestore_service.dart';
@@ -170,7 +171,7 @@ class _ManageDataState extends State<ManageData> {
                     // Expenses list
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                        child: SizedBox(
                           width: 330,
                           height: 500,
                           child: StreamBuilder<QuerySnapshot>(
@@ -190,12 +191,15 @@ class _ManageDataState extends State<ManageData> {
                                   documents[index].data()
                                   as Map<String, dynamic>;
                                   String documentId = documents[index].id;
+                                  Timestamp timestamp = data['date'];
+                                  DateTime dateTime = timestamp.toDate();
+                                  String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       alignment: Alignment.center,
                                       width: 343,
-                                      height: 80,
+                                      height: 90,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
@@ -211,17 +215,31 @@ class _ManageDataState extends State<ManageData> {
                                       ),
                                       child: ListTile(
                                         title: Text(
-                                            data['category'],
+                                            'Date: $formattedDate',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.normal,
-                                            fontSize: 18,
+                                            fontSize: 12,
                                           ),
                                         ),
-                                        subtitle: Text(
-                                            'P ' + data['amount'].toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                        subtitle: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+
+                                            Text(
+                                              data['category'],
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 19,
+                                              ),
+                                            ),
+                                            Text(
+                                                'P ${data['amount']}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         trailing: GestureDetector(
                                           onTap: () {
@@ -248,7 +266,7 @@ class _ManageDataState extends State<ManageData> {
                     // Income list
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                        child: SizedBox(
                           width: 330,
                           height: 500,
                           child: StreamBuilder<QuerySnapshot>(
@@ -268,11 +286,14 @@ class _ManageDataState extends State<ManageData> {
                                   documents[index].data()
                                   as Map<String, dynamic>;
                                   String documentId = documents[index].id;
+                                  Timestamp timestamp = data['date'];
+                                  DateTime dateTime = timestamp.toDate();
+                                  String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       width: 343,
-                                      height: 80,
+                                      height: 90,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -289,18 +310,35 @@ class _ManageDataState extends State<ManageData> {
                                       ),
                                       child: ListTile(
                                         title: Text(
-                                          data['category'],
+                                          'Date: $formattedDate',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.normal,
-                                            fontSize: 18,
+                                            fontSize: 12,
                                           ),
                                         ),
-                                        subtitle: Text(
-                                          'P ' + data['amount'].toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                        subtitle: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+
+                                            // Category
+                                            Text(
+                                              data['category'],
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+
+                                            // Amount
+                                            Text(
+                                              'P ${data['amount']}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
                                         ),
+
                                         trailing: GestureDetector(
                                           onTap: () {
 
