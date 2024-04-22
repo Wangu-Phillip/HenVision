@@ -8,6 +8,7 @@ import 'package:hen_vision/features/personalisation/views/admin/manage_users.dar
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/file_upload.dart';
+import 'package:hen_vision/features/personalisation/views/generate_pdf.dart';
 import 'package:hen_vision/features/personalisation/views/reports.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
@@ -342,7 +343,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return const Reports();
+                                    return PdfPage();
                                   }),
                                 );
                               },
