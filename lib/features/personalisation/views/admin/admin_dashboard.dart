@@ -343,7 +343,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return PdfPage();
+                                    return UploadFile();
                                   }),
                                 );
                               },
@@ -376,7 +376,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return const UploadFile();
+                                    return PdfPage();
                                   }),
                                 );
                               },

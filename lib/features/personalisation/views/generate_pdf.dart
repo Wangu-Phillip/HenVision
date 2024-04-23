@@ -8,18 +8,40 @@ import '../models/customer.dart';
 import '../models/invoice.dart';
 import '../models/supplier.dart';
 
+// FROM GITHUB
 class PdfPage extends StatefulWidget {
   @override
   _PdfPageState createState() => _PdfPageState();
 }
 
 class _PdfPageState extends State<PdfPage> {
+
+  // loading checker
+  bool _isLoading = false;
+
+  void _showLoadingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  void _hideLoadingDialog() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.white,
     appBar: AppBar(
+      backgroundColor: Colors.white,
       title: const Text(
-          "Generate PDF",
+          "Generate PDF Report",
       ),
       centerTitle: true,
     ),
@@ -30,100 +52,42 @@ class _PdfPageState extends State<PdfPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            // Icon(icon)
-            const TitleWidget(
-              icon: Icons.picture_as_pdf,
-              text: 'Generate Report',
-
+            const Icon(
+              Icons.picture_as_pdf,
+              color: Color(0xFF6D62F7),
+              size: 50,
             ),
-            const SizedBox(height: 48),
+
+            const Text(
+              "Generate PDF Report",
+              style: TextStyle(
+                color: Color(0xFF6D62F7),
+                fontSize: 18,
+              ),
+            ),
+
+            const SizedBox(height: 60),
 
             GestureDetector(
-              onTap: () async {
-                final date = DateTime.now();
-                final dueDate = date.add(const Duration(days: 7));
-
-                final invoice = Invoice(
-                  supplier: const Supplier(
-                    name: 'Sarah Field',
-                    address: 'Sarah Street 9, Beijing, China',
-                    paymentInfo: 'https://paypal.me/sarahfieldzz',
-                  ),
-                  customer: const Customer(
-                    name: 'Apple Inc.',
-                    address: 'Apple Street, Cupertino, CA 95014',
-                  ),
-                  info: InvoiceInfo(
-                    date: date,
-                    dueDate: dueDate,
-                    description: 'My description...',
-                    number: '${DateTime.now().year}-9999',
-                  ),
-                  items: [
-                    InvoiceItem(
-                      description: 'Coffee',
-                      date: DateTime.now(),
-                      quantity: 3,
-                      vat: 0.19,
-                      unitPrice: 5.99,
-                    ),
-                    InvoiceItem(
-                      description: 'Water',
-                      date: DateTime.now(),
-                      quantity: 8,
-                      vat: 0.19,
-                      unitPrice: 0.99,
-                    ),
-                    InvoiceItem(
-                      description: 'Orange',
-                      date: DateTime.now(),
-                      quantity: 3,
-                      vat: 0.19,
-                      unitPrice: 2.99,
-                    ),
-                    InvoiceItem(
-                      description: 'Apple',
-                      date: DateTime.now(),
-                      quantity: 8,
-                      vat: 0.19,
-                      unitPrice: 3.99,
-                    ),
-                    InvoiceItem(
-                      description: 'Mango',
-                      date: DateTime.now(),
-                      quantity: 1,
-                      vat: 0.19,
-                      unitPrice: 1.59,
-                    ),
-                    InvoiceItem(
-                      description: 'Blue Berries',
-                      date: DateTime.now(),
-                      quantity: 5,
-                      vat: 0.19,
-                      unitPrice: 0.99,
-                    ),
-                    InvoiceItem(
-                      description: 'Lemon',
-                      date: DateTime.now(),
-                      quantity: 4,
-                      vat: 0.19,
-                      unitPrice: 1.29,
-                    ),
-                  ],
-                );
-
-                final pdfFile = await PdfInvoiceApi.generate(invoice);
-
-                PdfApi.openFile(pdfFile);
-              },
+              onTap: generateReport,
 
               child: Container(
                 width: 250,
                 height: 50,
                 alignment: Alignment.center,
-                color: Colors.white,
-
-                child: Text(
+                decoration: BoxDecoration(
+                  color: Color(0xFF6D62F7),
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 4),
+                      blurRadius: 4.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
+                ),
+                child: const Text(
                   'Download Report',
                   style: TextStyle(
                     fontSize: 18,
@@ -136,4 +100,70 @@ class _PdfPageState extends State<PdfPage> {
       ),
     ),
   );
+
+  void generateReport() async {
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // show loading circle
+    _showLoadingDialog();
+
+    // after 3 seconds remove loading circle
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _isLoading = false;
+      });
+      // remove loading circle
+      _hideLoadingDialog();
+    });
+                final date = DateTime.now();
+                final dueDate = date.add(const Duration(days: 7));
+
+                final report = Report(
+                  companyName: const PoultryCompany(
+                    name: 'XYZ Company',
+                    address: 'Private Bag 001, Gantsi, Botswana',
+                    paymentInfo: 'https://paypal.me/',
+                  ),
+                  info: ReportInfo(
+                    date: date,
+                    dueDate: dueDate,
+                    description: 'My description...',
+                    number: '${DateTime.now().year}-0001',
+                  ),
+                  items: [
+                    ReportItem(
+                      category: 'Meat Sales',
+                      date: DateTime.now(),
+                      amount: 7000.45,
+                    ),
+                    ReportItem(
+                      category: 'Egg Sales',
+                      date: DateTime.now(),
+                      amount: 6845.12,
+                    ),
+                    ReportItem(
+                      category: 'Feather Sales',
+                      date: DateTime.now(),
+                      amount: 9865.07,
+                    ),
+                    ReportItem(
+                      category: 'Fertilizer Sales',
+                      date: DateTime.now(),
+                      amount: 6455.15,
+                    ),
+                    ReportItem(
+                      category: 'Chicken Sales',
+                      date: DateTime.now(),
+                      amount: 9956.12,
+                    ),
+                  ],
+                );
+
+                final pdfFile = await PdfInvoiceApi.generate(report);
+
+                PdfApi.openFile(pdfFile);
+              }
 }
