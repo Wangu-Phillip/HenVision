@@ -1,6 +1,8 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class FireStoreService {
 
@@ -87,19 +89,44 @@ class FireStoreService {
 
   /// TODO: Add users
   // CREATE USER
-    Future addUser(String name, String surname, String role, String email) async {
-      await FirebaseFirestore.instance.collection('users').add({
-        'name': name,
-        'surname': surname,
-        'role': role,
-        'date': DateTime.timestamp(),
-        'email': email,
-      });
+    Future<void> addUser(String name, String surname, String role, String email) async {
+      try {
+        // First, create the user in Firebase Authentication
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: 'password',
+        );
+
+        // Get the user's ID from the authentication result
+        String userId = userCredential.user!.uid;
+
+        // Then, save the user's information to Firestore
+        await FirebaseFirestore.instance.collection('users').doc(userId).set({
+          'name': name,
+          'surname': surname,
+          'role': role,
+          'date': DateTime.timestamp(), // Use DateTime.now() instead of DateTime.timestamp()
+          'email': email,
+        });
+      } catch (e) {
+        print('Failed to create user: $e');
+        // Handle the error appropriately
+      }
     }
 
-    /// TODO: Get users
+    // Get User Role
+    Future<String?> getUserRole(String userId) async {
 
-  /// TODO: Edit users
+      QuerySnapshot snapshot =
+      await FirebaseFirestore.instance.collection('users').orderBy('date', descending: true).limit(1).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.get('role') as String?;
+      } else {
+        return null;
+      }
+    }
+
     // EDIT USER
     Future<void> editUser(String userId, String name, String surname, String role, String email) async {
       try {

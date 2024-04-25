@@ -25,3 +25,57 @@ class AuthPage extends StatelessWidget {
     );
   }
 }
+
+/*
+* import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:hen_vision/features/personalisation/views/admin/admin_dashboard.dart';
+import 'package:hen_vision/features/personalisation/views/login.dart';
+import '../../personalisation/services/firestore_service.dart';
+import '../../personalisation/views/user/farmer_dashboard.dart';
+
+class AuthPage extends StatelessWidget {
+  const AuthPage({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    // Initialize firestore Service
+    final FireStoreService fireStoreService = FireStoreService();
+
+
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.hasData) {
+            // User is logged in
+            User? user = snapshot.data;
+            String? userId = user?.uid;
+            String role = fireStoreService.getUserRole(userId!) as String;
+
+            switch (role) {
+              case 'farmer':
+                return const FarmerDashboard();
+              case 'admin':
+                return const AdminDashboard();
+              default:
+                return const Login();
+            }
+          } else {
+            // User is not logged in
+            return const Login();
+          }
+        },
+      ),
+    );
+  }
+}
+
+*/
