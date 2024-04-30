@@ -115,10 +115,24 @@ class FireStoreService {
     }
 
     // Get User Role
-    Future<String?> getUserRole(String userId) async {
+    // Future<String?> getUserRole(String userId) async {
+    //
+    //   QuerySnapshot snapshot =
+    //   await FirebaseFirestore.instance.collection('users').limit(1).get();
+    //
+    //   if (snapshot.docs.isNotEmpty) {
+    //     return snapshot.docs.first.get('role') as String?;
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
-      QuerySnapshot snapshot =
-      await FirebaseFirestore.instance.collection('users').orderBy('date', descending: true).limit(1).get();
+    Future<String?> getUserRole(String userId) async {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: userId)
+          .limit(1)
+          .get();
 
       if (snapshot.docs.isNotEmpty) {
         return snapshot.docs.first.get('role') as String?;
@@ -126,6 +140,7 @@ class FireStoreService {
         return null;
       }
     }
+
 
     // EDIT USER
     Future<void> editUser(String userId, String name, String surname, String role, String email) async {
