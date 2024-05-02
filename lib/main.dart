@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       // Sets the theme for the app.
       theme: ThemeData(
         // Sets the color scheme for the app using a seed color.
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
 
         // Specifies that the Material 3 design guidelines should be used.
         useMaterial3: true,

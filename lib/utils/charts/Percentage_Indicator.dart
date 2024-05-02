@@ -60,11 +60,11 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          const Padding(
-            padding: EdgeInsets.only(left: 15.0, top: 10.0),
+           Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 10.0),
             child: Text(
-              "Finances Used",
-              style: TextStyle(
+              "Finances Used In ${DateTime.now().year}",
+              style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),

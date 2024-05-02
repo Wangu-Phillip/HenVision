@@ -12,9 +12,26 @@ class _HLineChartState extends State<HLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      swapAnimationDuration: const Duration(microseconds: 250),
-      sampleData1,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Monthly Sales',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        
+        Expanded(
+          child: LineChart(
+            swapAnimationDuration: const Duration(microseconds: 250),
+            sampleData1,
+          ),
+        ),
+      ],
     );
   }
 }

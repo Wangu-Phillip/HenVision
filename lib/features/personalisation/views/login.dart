@@ -16,6 +16,8 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool isChecked = false;
+
   // User auth
    void signUserIn() async {
 
@@ -69,7 +71,7 @@ class _LoginState extends State<Login> {
 
               // Place Logo here
               const Text(
-                "Logo Area",
+                "Login",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
@@ -119,12 +121,19 @@ class _LoginState extends State<Login> {
               ),
 
               // Remember me CheckBox
-              const Row(
+               Row(
                 children: [
                   Checkbox(
-                    value: false,
-                    onChanged: null,
+                    value: isChecked,
+                    onChanged: (newValue) {
+                      setState(() {
+                        isChecked = newValue!;
+                      });
+                    },
+                    activeColor: Colors.black,
+                    checkColor: Colors.white,
                   ),
+
                   Text(
                     "Remember me",
                     style: TextStyle(

@@ -41,194 +41,432 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
       // Dashboard charts
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+        padding: const EdgeInsets.all(1.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
 
-            // icon navigations
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              // icon navigations
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
 
-                // First Container
-                Container(
-                  width: 160,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade500,
-                        offset: const Offset(0, 4),
-                        blurRadius: 4.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                  // First Container
+                  Container(
+                    width: 170,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
 
-                      // first row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        // first row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
 
-                          // Manage Finances
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
+                            // Manage Finances
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return const ManageData();
+                                      }),
+                                    );
+                                  },
+                                  icon: Icon(
+                                      Icons.monetization_on,
+                                    color: Colors.deepPurple,
+                                  ),
+                              ),
                             ),
-                            child: IconButton(
+
+                            // Manage Operations
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) {
-                                      return const ManageData();
+                                      return const ManageOperations();
                                     }),
                                   );
                                 },
                                 icon: Icon(
-                                    Icons.monetization_on,
+                                  Icons.workspaces,
                                   color: Colors.deepPurple,
                                 ),
-                            ),
-                          ),
-
-                          // Manage Operations
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const ManageOperations();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.workspaces,
-                                color: Colors.deepPurple,
                               ),
                             ),
-                          ),
 
-                        ],
-                      ),
+                          ],
+                        ),
 
-                      // second row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
+                        // Second Row
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Finances"
                             ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const Analytics();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.pie_chart,
-                                color: Colors.deepPurple,
+
+                            Text(
+                                "Operations"
+                            ),
+
+                          ],
+                        ),
+
+                        // third row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const Analytics();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.pie_chart,
+                                  color: Colors.deepPurple,
+                                ),
                               ),
                             ),
-                          ),
 
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const Analytics();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.bar_chart,
+                                  color: Colors.deepPurple,
                                 ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const Analytics();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.bar_chart,
-                                color: Colors.deepPurple,
                               ),
                             ),
-                          ),
 
-                        ],
-                      ),
+                          ],
+                        ),
 
-                    ],
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                "Operations \n Analytics"
+                            ),
+
+                            Text(
+                                "Finances \n Analytics"
+                            ),
+
+                          ],
+                        ),
+
+                      ],
+                    ),
                   ),
-                ),
 
-                // Second Container
-                Container(
-                  width: 160,
-                  height: 140,
+                  // Second Container
+                  Container(
+                    width: 170,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+
+                        // first row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+
+                            // calendar
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const Calendar();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                            ),
+
+                            // manage users
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const ManageUsers();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.person,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+
+                        // Second Row
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                "Calendar"
+                            ),
+
+                            Text(
+                                "Users"
+                            ),
+
+                          ],
+                        ),
+
+                        // third row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+
+                            // reports
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return UploadFile();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.cloud_upload,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                            ),
+
+                            // download
+                            Container(
+                              width: 50,
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return PdfPage();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.download,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+
+                        // Fourth Row
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                "Upload \n files"
+                            ),
+
+                            Text(
+                                "Generate \n Reports"
+                            ),
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 35,),
+
+              /// TODO: Display layers and broilers data using line chart
+              // Line chart
+              Center(
+                child: Container(
+                  height: 200,
+                  width: 356,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.shade500,
@@ -238,190 +476,19 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       ),
                     ],
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-
-                      // first row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          // calendar
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const Calendar();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.calendar_today,
-                                color: Colors.deepPurple,
-                              ),
-                            ),
-                          ),
-
-                          // manage users
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const ManageUsers();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.person,
-                                color: Colors.deepPurple,
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                      // second row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                          // reports
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return UploadFile();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.document_scanner,
-                                color: Colors.deepPurple,
-                              ),
-                            ),
-                          ),
-
-                          // download
-                          Container(
-                            width: 50,
-                            height: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple.shade100,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade500,
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 4.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return PdfPage();
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.download,
-                                color: Colors.deepPurple,
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                    ],
-                  ),
+                  child: HLineChart(),
                 ),
-              ],
-            ),
-
-            /// TODO: Display layers and broilers data using line chart
-            // Line chart
-            Center(
-              child: Container(
-                height: 169,
-                width: 356,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade500,
-                      offset: const Offset(0, 4),
-                      blurRadius: 4.0,
-                      spreadRadius: 0.0,
-                    ),
-                  ],
-                ),
-                child: HLineChart(),
               ),
-            ),
 
-            /// TODO: Calculate finances used from the total budget
-            // Finances used
-            HPercentageIndicator(),
-          ],
+              SizedBox(height: 35,),
+
+              /// TODO: Calculate finances used from the total budget
+              // Finances used
+              HPercentageIndicator(),
+
+              SizedBox(height: 35,),
+            ],
+          ),
         ),
       ),
 
