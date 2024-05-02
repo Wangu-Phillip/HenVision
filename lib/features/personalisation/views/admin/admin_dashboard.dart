@@ -22,7 +22,6 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-
   // get user name
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -47,12 +46,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               // icon navigations
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
                   // First Container
                   Container(
                     width: 170,
@@ -72,12 +69,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         // first row
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
                             // Manage Finances
                             Container(
                               width: 50,
@@ -96,18 +91,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ],
                               ),
                               child: IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) {
-                                        return const ManageData();
-                                      }),
-                                    );
-                                  },
-                                  icon: Icon(
-                                      Icons.monetization_on,
-                                    color: Colors.deepPurple,
-                                  ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const ManageData();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.monetization_on,
+                                  color: Colors.deepPurple,
+                                ),
                               ),
                             ),
 
@@ -143,7 +138,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
 
@@ -151,14 +145,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              "Finances"
-                            ),
-
-                            Text(
-                                "Operations"
-                            ),
-
+                            Text("Finances"),
+                            Text("Operations"),
                           ],
                         ),
 
@@ -166,7 +154,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
                             Container(
                               width: 50,
                               height: 50,
@@ -198,7 +185,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ),
                               ),
                             ),
-
                             Container(
                               width: 50,
                               height: 50,
@@ -230,24 +216,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
 
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                                "Operations \n Analytics"
-                            ),
-
-                            Text(
-                                "Finances \n Analytics"
-                            ),
-
+                            Text("Operations \n Analytics"),
+                            Text("Finances \n Analytics"),
                           ],
                         ),
-
                       ],
                     ),
                   ),
@@ -271,12 +249,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
                         // first row
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
                             // calendar
                             Container(
                               width: 50,
@@ -342,7 +318,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
 
@@ -350,14 +325,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                                "Calendar"
-                            ),
-
-                            Text(
-                                "Users"
-                            ),
-
+                            Text("Calendar"),
+                            Text("Users"),
                           ],
                         ),
 
@@ -365,7 +334,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
                             // reports
                             Container(
                               width: 50,
@@ -431,7 +399,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
 
@@ -439,24 +406,19 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                                "Upload \n files"
-                            ),
-
-                            Text(
-                                "Generate \n Reports"
-                            ),
-
+                            Text("Upload \n files"),
+                            Text("Generate \n Reports"),
                           ],
                         ),
-
                       ],
                     ),
                   ),
                 ],
               ),
 
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
 
               /// TODO: Display layers and broilers data using line chart
               // Line chart
@@ -480,33 +442,84 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
               ),
 
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
 
               /// TODO: Calculate finances used from the total budget
               // Finances used
               HPercentageIndicator(),
 
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
             ],
           ),
         ),
       ),
+
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
+      //   child: FloatingActionButton(
+      //     backgroundColor: const Color(0xFF6D62F7),
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) {
+      //           return const ManageFinances();
+      //         }),
+      //       );
+      //     },
+      //
+      //     child: const Icon(Icons.add),
+      //
+      //   ),
+      // ),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
         child: FloatingActionButton(
           backgroundColor: const Color(0xFF6D62F7),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ManageFinances();
-              }),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Choose Action'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const ManageFinances();
+                            }),
+                          );
+                        },
+                        child: const Text('Poultry Finances'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const ManageOperations();
+                            }),
+                          );
+                        },
+                        child: const Text('Poultry Operations'),
+                      ),
+                    ],
+                  ),
+                );
+              },
             );
           },
-
           child: const Icon(Icons.add),
-
         ),
       ),
     );
@@ -516,4 +529,3 @@ class _AdminDashboardState extends State<AdminDashboard> {
   //   FirebaseAuth.instance.signOut();
   // }
 }
-
