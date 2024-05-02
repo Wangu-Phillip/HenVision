@@ -217,6 +217,8 @@ class FireStoreService {
     }
 
     /// Retrieves the role of a user from the Firestore database.
+    /// This method is used to verify the type of user login into the system.
+    /// It is also used to direct the different users to their respective dashboards.
     ///
     /// This method queries the 'users' collection in Firestore for a
     /// document where the 'email' field matches the provided [userId].
