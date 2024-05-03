@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/widgets/drawer.dart';
 import '../../../utils/charts/expense_pie_chart.dart';
@@ -19,14 +21,20 @@ class _AnalyticsState extends State<Analytics> {
   // get user name
   final user = FirebaseAuth.instance.currentUser!;
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    DateTime now = DateTime.now();
+    DateTime previousMonth = DateTime(now.year, now.month - 1, 1);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text("Overview"),
+        title: const Text("Analytics Overview"),
         centerTitle: true,
       ),
 
@@ -40,7 +48,7 @@ class _AnalyticsState extends State<Analytics> {
             children: [
 
               // filter
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // Calendar icon
@@ -56,7 +64,7 @@ class _AnalyticsState extends State<Analytics> {
                       /// TODO: Automate date
                       // Date
                       Text(
-                        "June 2022",
+                        "${DateFormat('dd MMMM yyyy').format(DateTime.now())}",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -109,7 +117,7 @@ class _AnalyticsState extends State<Analytics> {
                           ),
 
                           // category and comparison analytics
-                          const Row(
+                           Row(
                             children: [
                               Text(
                                 "CATEGORY",
@@ -123,7 +131,7 @@ class _AnalyticsState extends State<Analytics> {
                               ),
 
                               Text(
-                                "COMPARISON TO MAY",
+                                "COMPARISON TO ${DateFormat('MMMM').format(previousMonth).toUpperCase()}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -433,7 +441,7 @@ class _AnalyticsState extends State<Analytics> {
                         ),
 
                         // category and comparison analytics
-                        const Padding(
+                         Padding(
                           padding: EdgeInsets.only(left: 8.0, right: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -450,7 +458,7 @@ class _AnalyticsState extends State<Analytics> {
                               ),
 
                               Text(
-                                "COMPARISON TO MAY",
+                                "COMPARISON TO ${DateFormat('MMMM').format(previousMonth).toUpperCase()}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -828,7 +836,7 @@ class _AnalyticsState extends State<Analytics> {
                           ),
 
                           // category and comparison analytics
-                          const Padding(
+                           Padding(
                             padding: EdgeInsets.only(left: 8.0, right: 8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -845,7 +853,7 @@ class _AnalyticsState extends State<Analytics> {
                                 ),
 
                                 Text(
-                                  "COMPARISON TO MAY",
+                                  "COMPARISON TO ${DateFormat('MMMM').format(previousMonth).toUpperCase()}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
