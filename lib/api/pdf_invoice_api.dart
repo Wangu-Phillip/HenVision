@@ -104,9 +104,9 @@ class PdfInvoiceApi {
     ];
     final data = <String>[
       '',
-      '5434.99',
-      '4612.51',
-      '9882.00',
+      '73662.0',
+      '19677.0',
+      '53984.65',
 
     ];
 
@@ -211,7 +211,7 @@ class PdfInvoiceApi {
         .reduce((item1, item2) => item1 + item2);
     // final vatPercent = invoice.items.first.amount;
     // final vat = netTotal * vatPercent;
-    final total = 5000.56;
+    final total = 40121.91;
 
     return Container(
       alignment: Alignment.centerRight,

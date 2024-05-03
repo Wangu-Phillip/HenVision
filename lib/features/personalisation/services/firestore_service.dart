@@ -460,6 +460,22 @@ class FireStoreService {
       return total;
     }
 
+
+  Future<double> getTotalEggsCollected() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('layers').get();
+    double totalExpenses = snapshot.docs
+        .map((doc) => (doc.data() as Map<String, dynamic>?)?['eggs_collected'] as num? ?? 0.0)
+        .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
+    return totalExpenses;
+  }
+
+  Future<double> getTotalSoldBroilers() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('broilers').get();
+    double totalExpenses = snapshot.docs
+        .map((doc) => (doc.data() as Map<String, dynamic>?)?['sold_broilers'] as num? ?? 0.0)
+        .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
+    return totalExpenses;
+  }
     /// Retrieves the total amount of chicken sales from the Firestore database.
     ///
     /// This method queries the 'income' collection in Firestore for all documents,
