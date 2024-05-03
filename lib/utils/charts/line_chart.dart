@@ -291,12 +291,34 @@ class _HLineChartState extends State<HLineChart> {
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Monthly Sales',
+            'Monthly Chicken Sales',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+                Icons.circle,
+              size: 15,
+              color: Colors.purple,
+            ),
+            Text("Broilers"),
+
+            SizedBox(width: 25,),
+
+            Icon(
+              Icons.circle,
+              size: 15,
+              color: Colors.deepPurple,
+            ),
+            Text("Layers"),
+
+          ],
         ),
 
         Expanded(

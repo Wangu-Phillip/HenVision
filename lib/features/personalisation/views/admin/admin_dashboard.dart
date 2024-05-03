@@ -424,7 +424,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               // Line chart
               Center(
                 child: Container(
-                  height: 200,
+                  height: 250,
                   width: 356,
                   decoration: BoxDecoration(
                     color: Colors.white,
