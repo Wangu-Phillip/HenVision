@@ -56,7 +56,134 @@ class _FarmerDashboard extends State<FarmerDashboard> {
 
       body: Column(
         children: [
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // First Container
+                Center(
+                  child: Container(
+                    width: 240,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // first row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Manage Finances
+                            Container(
+                              width: 70,
+                              height: 70,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                // iconSize: 50,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const FarmerAddFinances();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.monetization_on,
+                                  color: Colors.deepPurple,
+                                  size: 50,
+                                ),
+                              ),
+                            ),
 
+                            // Manage Operations
+                            Container(
+                              width: 70,
+                              height: 70,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade100,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade500,
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const FarmerAddOperations();
+                                    }),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.workspaces,
+                                  color: Colors.deepPurple,
+                                  size: 50,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Second Row
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                "Finances",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                                "Operations",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
+          ),
         ],
       ),
 
