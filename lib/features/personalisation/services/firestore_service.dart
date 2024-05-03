@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FireStoreService {
 
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   /// This method is used to add an expense to the Firestore database.
   ///
   /// @param amount The amount of the expense. This should be a double value.
@@ -623,6 +625,25 @@ class FireStoreService {
 
       return total;
     }
+
+  Future<String> fetchUserNameAndSurname(String userId) async {
+    try {
+      DocumentSnapshot userSnapshot = await _firestore.collection('users').doc(userId).get();
+      if (userSnapshot.exists) {
+        String name = userSnapshot['name'];
+        String surname = userSnapshot['surname'];
+        // print('Name: $name, Surname: $surname');
+
+        return '$name $surname';
+      } else {
+        print('Document does not exist');
+        return ''; // or some other value to indicate failure
+      }
+    } catch (e) {
+      print('Error getting document: $e');
+      return ''; // or some other value to indicate failure
+    }
+  }
 
 
 
