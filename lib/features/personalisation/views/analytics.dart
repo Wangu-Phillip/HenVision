@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import '../../../common/widgets/drawer.dart';
 import '../../../utils/charts/expense_pie_chart.dart';
 import '../../../utils/charts/income_pie_chart.dart';
 import '../../../utils/charts/pie_chart.dart';
+import '../services/firestore_service.dart';
 import 'Sales.dart';
 import 'operations.dart';
 
@@ -18,9 +21,41 @@ class Analytics extends StatefulWidget {
 }
 
 class _AnalyticsState extends State<Analytics> {
+
+  // Initialize firestore Service
+  final FireStoreService fireStoreService = FireStoreService();
+
+
   // get user name
   final user = FirebaseAuth.instance.currentUser!;
 
+  late double totalIncome = 0.0;
+  late double totalExpenses = 0.0;
+  late double yearlyBudget = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadFinanceData();
+  }
+
+  Future<void> loadFinanceData() async {
+    totalIncome = await fireStoreService.getTotalIncome();
+    totalExpenses = await fireStoreService.getTotalExpenses();
+    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+
+    print(totalExpenses);
+    print(totalIncome);
+
+    if (recentBudgetAmount != null) {
+      yearlyBudget = recentBudgetAmount;
+      double amountUsed = (totalExpenses / yearlyBudget);
+
+      setState(() {}); // Update the UI with the new data
+    } else {
+      print('No recent budget amount found.');
+    }
+  }
 
 
   @override
@@ -28,6 +63,16 @@ class _AnalyticsState extends State<Analytics> {
 
     DateTime now = DateTime.now();
     DateTime previousMonth = DateTime(now.year, now.month - 1, 1);
+
+    Random random = Random();
+    int min = 10000;
+    int max = 50000;
+    int randomValue = min + random.nextInt(max - min);
+
+    double incomeChange = randomValue != 0 ? (totalIncome.roundToDouble() / 89598) * 100 : 0;
+    double expenseChange = totalExpenses.roundToDouble() != 0 ? (totalExpenses.roundToDouble() / 68554) * 100 : 0;
+    double budgetChange = yearlyBudget.roundToDouble() != 0 ? (yearlyBudget.roundToDouble() / 194560) * 100 : 0;
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -52,9 +97,9 @@ class _AnalyticsState extends State<Analytics> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // Calendar icon
-                  Icon(
-                    Icons.calendar_month,
-                  ),
+                  // Icon(
+                  //   Icons.calendar_month,
+                  // ),
 
                   // Month of Analysed Data
                   Column(
@@ -85,9 +130,9 @@ class _AnalyticsState extends State<Analytics> {
                   ),
 
                   // Filter icon
-                  Icon(
-                    Icons.filter_alt_outlined,
-                  ),
+                  // Icon(
+                  //   Icons.filter_alt_outlined,
+                  // ),
                 ],
               ),
 
@@ -197,13 +242,16 @@ class _AnalyticsState extends State<Analytics> {
                                   width: 130,
                                 ),
                                 // analytics
-                                const Text(
-                                  'Up 3.67%',
+                                Text(
+                                  incomeChange >= 0
+                                      ? 'Up ${incomeChange.toStringAsFixed(2)}%'
+                                      : 'Down ${(-incomeChange).toStringAsFixed(2)}%',
                                   style: TextStyle(
-                                    color: Colors.green,
+                                    color: incomeChange >= 0 ? Colors.green : Colors.red,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ), // Text on the right
+                                ),
+                                // Text on the right
                               ],
                             ),
                           ),
@@ -264,10 +312,12 @@ class _AnalyticsState extends State<Analytics> {
                                   width: 130,
                                 ),
                                 // analytics
-                                const Text(
-                                  'Down -3.71%',
+                                Text(
+                                  expenseChange >= 0
+                                      ? 'Up ${expenseChange.toStringAsFixed(2)}%'
+                                      : 'Down ${(-expenseChange).toStringAsFixed(2)}%',
                                   style: TextStyle(
-                                    color: Colors.red,
+                                    color: expenseChange >= 0 ? Colors.green : Colors.red,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ), // Text on the right
@@ -331,10 +381,12 @@ class _AnalyticsState extends State<Analytics> {
                                   width: 130,
                                 ),
                                 // analytics
-                                const Text(
-                                  'Up 4.6%',
+                                Text(
+                                  budgetChange >= 0
+                                      ? 'Up ${budgetChange.toStringAsFixed(2)}%'
+                                      : 'Down ${(-budgetChange).toStringAsFixed(2)}%',
                                   style: TextStyle(
-                                    color: Colors.green,
+                                    color: budgetChange >= 0 ? Colors.green : Colors.red,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ), // Text on the right
