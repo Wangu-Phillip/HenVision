@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class FileUpload extends StatefulWidget {
   const FileUpload({super.key});
@@ -14,6 +17,16 @@ class _UploadFileState extends State<FileUpload> {
 
   File? _selectedFile;
 
+  // void _selectFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _selectedFile = File(result.files.single.path!);
+  //     });
+  //   }
+  // }
+
   void _selectFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -21,8 +34,20 @@ class _UploadFileState extends State<FileUpload> {
       setState(() {
         _selectedFile = File(result.files.single.path!);
       });
+
+      // Upload file to Firebase Storage
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.ref().child('files/$fileName');
+      await ref.putFile(File(_selectedFile!.path!));
+
+      // Get download URL
+      String downloadURL = await ref.getDownloadURL();
+
+      // Save download URL to Firestore
+      await FirebaseFirestore.instance.collection('files').add({'downloadURL': downloadURL});
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
