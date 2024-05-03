@@ -10,6 +10,8 @@ import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/file_upload.dart';
 import 'package:hen_vision/features/personalisation/views/generate_pdf.dart';
 import 'package:hen_vision/features/personalisation/views/reports.dart';
+import 'package:hen_vision/features/personalisation/views/user/farmer_add_data.dart';
+import 'package:hen_vision/features/personalisation/views/user/farmer_add_operations.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
 import 'package:hen_vision/utils/charts/pie_chart.dart';
@@ -52,26 +54,59 @@ class _FarmerDashboard extends State<FarmerDashboard> {
       // Side bar menu
       drawer: FarmerDrawer(user: user),
 
+      body: Column(
+        children: [
 
+        ],
+      ),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
         child: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ManageFinances();
-              }),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Choose Action'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const FarmerAddFinances();
+                            }),
+                          );
+                        },
+                        child: const Text('Poultry Finances'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const FarmerAddOperations();
+                            }),
+                          );
+                        },
+                        child: const Text('Poultry Operations'),
+                      ),
+                    ],
+                  ),
+                );
+              },
             );
           },
-
           child: const Icon(
               Icons.add,
             color: Colors.white,
           ),
-
         ),
       ),
     );
