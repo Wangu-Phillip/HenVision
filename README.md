@@ -28,11 +28,3 @@ To install the Poultry Data Analytics & Visualization Mobile App, follow these s
 ### Contributing
 
 Contributions to the Poultry Data Analytics & Visualization Mobile App are welcome! If you have ideas for new features, improvements, or bug fixes, please submit a pull request or open an issue on GitHub.
-
-### License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### Contact
-
-For more information about the Poultry Data Analytics & Visualization Mobile App, contact the project maintainer at [wanguphillip@gmail.com](mailto:wanguphillip@gmail.com).
