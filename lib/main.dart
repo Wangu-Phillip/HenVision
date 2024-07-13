@@ -46,6 +46,8 @@ class MyApp extends StatelessWidget {
 
       // Sets the theme for the app.
       theme: ThemeData(
+
+        // TODO: Change color themes
         // Sets the color scheme for the app using a seed color.
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
 

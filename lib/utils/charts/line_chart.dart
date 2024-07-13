@@ -323,7 +323,7 @@ class _HLineChartState extends State<HLineChart> {
 
         Expanded(
           child: LineChart(
-            swapAnimationDuration: const Duration(microseconds: 250),
+            duration: const Duration(microseconds: 250),
             sampleData1,
           ),
         ),

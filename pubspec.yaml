@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fl_chart: ^0.61.0
+  fl_chart: ^0.68.0
   flutter_charts: ^0.5.2
   percent_indicator: ^4.2.3
 
@@ -77,11 +77,8 @@ flutter:
 
   #============== LOCAL ASSETS ================#
    assets:
-     - assets/fonts/
-     - assets/icons/
      - assets/images/
      - assets/logos/
-     - assets/videos/
      - assets/user_avatars/
      - assets/files/
 
