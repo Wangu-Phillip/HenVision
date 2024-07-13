@@ -49,8 +49,8 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade500,
-            offset: const Offset(0, 4),
-            blurRadius: 4.0,
+            offset: const Offset(0, 0.5),
+            blurRadius: 0.5,
             spreadRadius: 0.0,
           ),
         ],

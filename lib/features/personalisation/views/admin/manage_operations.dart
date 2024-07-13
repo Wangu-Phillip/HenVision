@@ -78,7 +78,7 @@ class _ManageOperationsState extends State<ManageOperations> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -140,7 +140,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isLayersSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isLayersSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -166,7 +166,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isBroilersSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isBroilersSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -185,11 +185,11 @@ class _ManageOperationsState extends State<ManageOperations> {
               ),
             ),
 
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
 
             // Input Fields
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isBroilersSelected || isLayersSelected ? 550 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -201,11 +201,11 @@ class _ManageOperationsState extends State<ManageOperations> {
                       Padding(
                         padding: const EdgeInsets.only(left: 35, right: 20.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
                           height: 550,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -235,7 +235,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Total eggs collected
                               const Text(
@@ -260,7 +260,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Eggs Size text field
                               const Text(
@@ -272,13 +272,13 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               DropdownButtonFormField<String>(
                                 value: eggSizeSelected,
-                                hint: Text('Select Size'),
+                                hint: const Text('Select Size'),
                                 items: eggSizes.map((category) {
                                   return DropdownMenuItem(
                                     value: category,
                                     child: Text(
                                       category,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                       ),
                                     ),
@@ -292,7 +292,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -300,7 +300,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Eggs weight
                               const Text(
@@ -325,7 +325,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Description
                               const Text(
@@ -344,7 +344,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                   hintText: 'Enter Description',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none
@@ -364,11 +364,11 @@ class _ManageOperationsState extends State<ManageOperations> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 30.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
                           height: 550,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -398,7 +398,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Sold chickens
                               const Text(
@@ -423,7 +423,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Number of Slaughtered chickens
                               const Text(
@@ -448,7 +448,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Description
                               const Text(
@@ -467,7 +467,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                   hintText: 'Enter Description',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none
@@ -488,7 +488,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
             // Button Rows
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isBroilersSelected || isLayersSelected ? 100 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -515,7 +515,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -538,7 +538,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                   _isLoading = true;
                                 });
                                 _showLoadingDialog();
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -563,7 +563,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -599,7 +599,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -627,7 +627,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 _showLoadingDialog();
 
                                 // after 3 seconds remove loading circle
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -655,7 +655,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
