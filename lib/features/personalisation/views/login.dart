@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/forgot_password.dart';
 
@@ -17,6 +18,7 @@ class _LoginState extends State<Login> {
   final passwordController = TextEditingController();
 
   bool isChecked = false;
+  bool obscurePassword = true;
 
   // User auth
    void signUserIn() async {
@@ -106,13 +108,22 @@ class _LoginState extends State<Login> {
                 style: const TextStyle(
                   fontSize: 13,
                 ),
-                obscureText: true,
+                obscureText: obscurePassword,
                 decoration: InputDecoration(
                   hintText: "Password",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
+                    icon: Icon(
+                      obscurePassword ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
+                    ),
+                  ),
                 ),
               ),
 
