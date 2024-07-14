@@ -111,6 +111,31 @@ class FireStoreService {
     });
   }
 
+  Stream<int> getBroilerMortalityCount() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('broilers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      int totalMortalityBroilers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['mortalityCount'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalMortalityBroilers;
+    });
+  }
+
+  Stream<int> getLayerMortalityCount() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      int totalMortalityLayers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['mortalityCount'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalMortalityLayers;
+    });
+  }
 
     /// Fetches the total number of layers from the Firestore database.
     ///
