@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
 
               // Place Logo here
               const Text(
-                "Login",
+                "LOGIN",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
@@ -231,7 +231,7 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (BuildContext context) => const Register()),
                     );

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'login.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -18,6 +20,7 @@ class _RegisterState extends State<Register> {
 
   bool isChecked = false;
   bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
 
   @override
   void dispose() {
@@ -33,16 +36,13 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(
-                height: 70,
+                height: 100,
               ),
 
               // Place Logo here
@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
               ),
 
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
 
               // Username TextField
@@ -145,7 +145,7 @@ class _RegisterState extends State<Register> {
                 style: const TextStyle(
                   fontSize: 13,
                 ),
-                obscureText: obscurePassword,
+                obscureText: obscureConfirmPassword,
                 decoration: InputDecoration(
                   labelText: "Confirm Password",
                   border: OutlineInputBorder(
@@ -154,11 +154,11 @@ class _RegisterState extends State<Register> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        obscurePassword = !obscurePassword;
+                        obscureConfirmPassword = !obscureConfirmPassword;
                       });
                     },
                     icon: Icon(
-                      obscurePassword ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
+                      obscureConfirmPassword ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
                     ),
                   ),
                 ),
@@ -173,10 +173,11 @@ class _RegisterState extends State<Register> {
               ),
 
               const SizedBox(
-                height: 15,
+                height: 30,
               ),
 
-              // Login Button
+              // TODO: Save user or business as (Admin) to Firestore & redirect to Login page
+              // Register Button
               GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -202,12 +203,15 @@ class _RegisterState extends State<Register> {
                 height: 40,
               ),
 
-              // LOGIN
+              // REDIRECT TO LOGIN
               Container(
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
-
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => const Login()),
+                    );
                   },
                   child: const Text(
                     "Already have an account? Login",
