@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 
 class FireStoreService {
@@ -88,6 +89,52 @@ class FireStoreService {
       return totalExpenses;
     }
 
+    /// Fetches the total number of broilers from the Firestore database.
+    ///
+    /// This method queries the 'broilers' collection in Firestore for all documents.
+    /// It then iterates over each document, retrieves the 'number_of_broilers' field from
+    /// the document, and adds it to a running total.
+    ///
+    /// If the 'number_of_broilers' field is null, it is ignored.
+    ///
+    /// @return A Future that completes with the total number of broilers as an integer.
+  Stream<int> getTotalBroilers() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('broilers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      int totalBroilers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['number_of_broilers'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalBroilers;
+    });
+  }
+
+
+    /// Fetches the total number of layers from the Firestore database.
+    ///
+    /// This method queries the 'layers' collection in Firestore for all documents.
+    /// It then iterates over each document, retrieves the 'number_of_layers' field from
+    /// the document, and adds it to a running total.
+    ///
+    /// If the 'number_of_layers' field is null, it is ignored.
+    ///
+    /// @return A Future that completes with the total number of layers as an integer.
+  Stream<int> getTotalLayers() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_layers' field and reduce them to a single value by adding them up
+      int totalLayers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['number_of_layers'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalLayers;
+    });
+  }
+
+
     /// This method is used to delete an expense from the Firestore database.
     ///
     /// @param expenseId The ID of the expense to be deleted. This should be a string value.
@@ -100,9 +147,13 @@ class FireStoreService {
     Future<void> deleteExpense(String expenseId) async {
       try {
         await FirebaseFirestore.instance.collection('expenses').doc(expenseId).delete();
-        print('Expense deleted successfully');
+        if (kDebugMode) {
+          print('Expense deleted successfully');
+        }
       } catch (e) {
-        print('Error deleting expense: $e');
+        if (kDebugMode) {
+          print('Error deleting expense: $e');
+        }
       }
     }
 
@@ -122,9 +173,13 @@ class FireStoreService {
     Future<void> deleteIncome(String documentId) async {
       try {
         await FirebaseFirestore.instance.collection('income').doc(documentId).delete();
-        print('Income deleted successfully');
+        if (kDebugMode) {
+          print('Income deleted successfully');
+        }
       } catch (e) {
-        print('Error deleting income: $e');
+        if (kDebugMode) {
+          print('Error deleting income: $e');
+        }
       }
     }
 
@@ -143,7 +198,7 @@ class FireStoreService {
     ///
     /// @return A Future that completes when the operation finishes. The Future will be
     /// completed with an error if the operation fails.
-    Future addLayers(int totalLayers, int totalEggsCollected, String eggSizes, double eggsWeight, String description) async {
+    Future addLayers(int totalLayers, int totalEggsCollected, String eggSizes, double eggsWeight, String description, int mortalityCount) async {
       await FirebaseFirestore.instance.collection('layers').add({
         'number_of_layers': totalLayers,
         'eggs_collected': totalEggsCollected,
@@ -151,6 +206,7 @@ class FireStoreService {
         'eggs_weight': eggsWeight,
         'date': DateTime.timestamp(),
         'description': description,
+        'mortalityCount': mortalityCount,
       });
     }
 
@@ -167,13 +223,14 @@ class FireStoreService {
     ///
     /// @return A Future that completes when the operation finishes. The Future will be
     /// completed with an error if the operation fails.
-    Future addBroilers(int totalBroilers, int soldBroilers, int slaughteredBroilers, String description) async {
+    Future addBroilers(int totalBroilers, int soldBroilers, int slaughteredBroilers, String description, int mortalityCount) async {
       await FirebaseFirestore.instance.collection('broilers').add({
         'number_of_broilers': totalBroilers,
         'sold_broilers': soldBroilers,
         'slaughtered_broilers': slaughteredBroilers,
         'date': DateTime.timestamp(),
         'description': description,
+        'mortalityCount': mortalityCount,
       });
     }
 
@@ -213,7 +270,9 @@ class FireStoreService {
           'email': email,
         });
       } catch (e) {
-        print('Failed to create user: $e');
+        if (kDebugMode) {
+          print('Failed to create user: $e');
+        }
         // Handle the error appropriately
       }
     }
@@ -274,9 +333,13 @@ class FireStoreService {
           'role': role,
           'email': email,
         });
-        print('User edited successfully');
+        if (kDebugMode) {
+          print('User edited successfully');
+        }
       } catch (e) {
-        print('Error editing user: $e');
+        if (kDebugMode) {
+          print('Error editing user: $e');
+        }
       }
     }
 
@@ -304,9 +367,13 @@ class FireStoreService {
           await FirebaseFirestore.instance.collection('users').doc(doc.id).delete();
         });
 
-        print('User deleted successfully');
+        if (kDebugMode) {
+          print('User deleted successfully');
+        }
       } catch (e) {
-        print('Error deleting user: $e');
+        if (kDebugMode) {
+          print('Error deleting user: $e');
+        }
       }
     }
 
@@ -652,11 +719,15 @@ class FireStoreService {
 
         return '$name $surname';
       } else {
-        print('Document does not exist');
+        if (kDebugMode) {
+          print('Document does not exist');
+        }
         return ''; // or some other value to indicate failure
       }
     } catch (e) {
-      print('Error getting document: $e');
+      if (kDebugMode) {
+        print('Error getting document: $e');
+      }
       return ''; // or some other value to indicate failure
     }
   }
