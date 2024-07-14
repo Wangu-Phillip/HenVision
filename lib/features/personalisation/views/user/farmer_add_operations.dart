@@ -27,18 +27,25 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
   //
   DateTime? selectedDate;
   String? eggSizeSelected;
+  int totalLayers = 0;
+  int totalBroilers = 0;
+  String _layerHintText = "Loading...";
+  String _broilerHintText = "Loading...";
 
   // Layers Text fields controllers
   final _totalEggsCollectedController = TextEditingController();
   final _eggsWeightController = TextEditingController();
   final _totalLayersController = TextEditingController();
   final _layersDescriptionController = TextEditingController();
+  final _deadLayersController = TextEditingController();
 
   // Layers Text fields controllers
   final _totalBroilersController = TextEditingController();
   final _soldBroilersController = TextEditingController();
   final _slaughteredBroilersController = TextEditingController();
   final _broilersDescriptionController = TextEditingController();
+  final _deadBroilersController = TextEditingController();
+
 
   @override
   void dispose() {
@@ -47,8 +54,20 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
     _totalLayersController.dispose();
     _layersDescriptionController.dispose();
     _broilersDescriptionController.dispose();
+    _deadLayersController.dispose();
+    _deadBroilersController.dispose();
 
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // GET TOTAL LAYERS AND BROILERS
+    _listenToLayerCount();
+    _listenBroilerCount();
   }
 
   // Egg sizes list
@@ -78,7 +97,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -87,6 +106,30 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
 
   void _hideLoadingDialog() {
     Navigator.of(context).pop();
+  }
+
+  void _listenToLayerCount() {
+    fireStoreService.getTotalLayers().listen((totalLayers) {
+      setState(() {
+        _layerHintText = '$totalLayers';
+      });
+    }).onError((error) {
+      setState(() {
+        _layerHintText = 'Error: $error';
+      });
+    });
+  }
+
+  void _listenBroilerCount() {
+    fireStoreService.getTotalBroilers().listen((totalBroilers) {
+      setState(() {
+        _broilerHintText = '$totalBroilers';
+      });
+    }).onError((error) {
+      setState(() {
+        _broilerHintText = 'Error: $error';
+      });
+    });
   }
 
   @override
@@ -110,7 +153,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
         child: Column(
           children: [
 
-            // Expenses and Income Buttons
+            // EXPENSES AND INCOME BUTTONS
             Center(
               child: Container(
                 width: 250,
@@ -140,7 +183,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isLayersSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isLayersSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -166,7 +209,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isBroilersSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isBroilersSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -185,27 +228,27 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
               ),
             ),
 
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
 
-            // Input Fields
+            // INPUT FIELDS
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              height: isBroilersSelected || isLayersSelected ? 550 : 0,
+              duration: const Duration(milliseconds: 300),
+              height: isBroilersSelected || isLayersSelected ? 750 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
 
-                    // Expenses input fields
+                    // LAYERS INPUT FIELDS
                     if (isLayersSelected)
                       Padding(
                         padding: const EdgeInsets.only(left: 35, right: 20.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
-                          height: 550,
+                          height: 750,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -220,8 +263,33 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _totalLayersController,
+                                decoration: InputDecoration(
+                                  hintText: _layerHintText,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
+                              // DEAD CHICKENS
+                              const Text(
+                                "Chicken Mortality Count:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              // TODO: Save to Database/FireStore
+                              TextFormField(
+                                controller: _deadLayersController,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
@@ -235,9 +303,9 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Total eggs collected
+                              // TOTAL EGGS COLLECTED
                               const Text(
                                 "Eggs Collected:",
                                 style: TextStyle(
@@ -245,7 +313,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _totalEggsCollectedController,
                                 decoration: InputDecoration(
                                   hintText: "0",
@@ -260,9 +328,9 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Eggs Size text field
+                              // EGGS SIZE TEXT-FIELD
                               const Text(
                                 "Egg Size:",
                                 style: TextStyle(
@@ -272,13 +340,13 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
 
                               DropdownButtonFormField<String>(
                                 value: eggSizeSelected,
-                                hint: Text('Select Size'),
+                                hint: const Text('Select Size'),
                                 items: eggSizes.map((category) {
                                   return DropdownMenuItem(
                                     value: category,
                                     child: Text(
                                       category,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                       ),
                                     ),
@@ -292,7 +360,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -300,9 +368,9 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Eggs weight
+                              // EGGS WEIGHT
                               const Text(
                                 "Eggs Weight:",
                                 style: TextStyle(
@@ -310,7 +378,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _eggsWeightController,
                                 decoration: InputDecoration(
                                   hintText: "0",
@@ -325,9 +393,41 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Description
+                              // CURRENT DATE TEXT-FIELD
+                              const Text(
+                                "Date:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              TextFormField(
+                                readOnly: true,
+                                enabled: false,
+                                controller: TextEditingController(
+                                  text: selectedDate != null
+                                      ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
+                                      : "",
+                                ),
+                                onTap: () => _selectDate(context),
+                                decoration: InputDecoration(
+                                  hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                  suffixIcon: const Icon(Icons.calendar_month),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
+                              // DESCRIPTION
                               const Text(
                                 "Description:",
                                 style: TextStyle(
@@ -335,8 +435,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-
-                              TextField(
+                              TextFormField(
                                 controller: _layersDescriptionController,
                                 maxLines: null,
                                 keyboardType: TextInputType.multiline,
@@ -344,7 +443,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   hintText: 'Enter Description',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none
@@ -352,30 +451,29 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-
                             ],
                           ),
 
                         ),
                       ),
 
-                    // Income input fields
+                    // BROILER INPUT FIELDS
                     if (isBroilersSelected)
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 30.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
-                          height: 550,
+                          height: 750,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              // Total Broiler chickens
+                              // TOTAL BROILER CHICKENS
                               const Text(
                                 "Total Broiler Chickens:",
                                 style: TextStyle(
@@ -383,10 +481,10 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _totalBroilersController,
                                 decoration: InputDecoration(
-                                  hintText: "0",
+                                  hintText: _broilerHintText,
                                   filled: true,
                                   fillColor: Colors.white,
                                   //border: InputBorder.none,
@@ -398,9 +496,9 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Sold chickens
+                              // SOLD CHICKENS
                               const Text(
                                 "Sold Chickens:",
                                 style: TextStyle(
@@ -408,7 +506,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _soldBroilersController,
                                 decoration: InputDecoration(
                                   hintText: "0",
@@ -423,9 +521,36 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Number of Slaughtered chickens
+                              // DEAD CHICKENS
+                              const Text(
+                                "Chicken Mortality Count:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              // TODO: Save to Database/FireStore
+                              TextFormField(
+                                controller: _deadBroilersController,
+                                decoration: InputDecoration(
+                                  hintText: "0",
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  //border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
+
+                              // NUMBER OF SLAUGHTERED CHICKENS
                               const Text(
                                 "Slaughtered Chickens:",
                                 style: TextStyle(
@@ -433,7 +558,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _slaughteredBroilersController,
                                 decoration: InputDecoration(
                                   hintText: "0",
@@ -448,9 +573,41 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // Description
+                              // CURRENT DATE TEXT-FIELD
+                              const Text(
+                                "Date:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              TextFormField(
+                                readOnly: true,
+                                enabled: false,
+                                controller: TextEditingController(
+                                  text: selectedDate != null
+                                      ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
+                                      : "",
+                                ),
+                                onTap: () => _selectDate(context),
+                                decoration: InputDecoration(
+                                  hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                  suffixIcon: const Icon(Icons.calendar_month),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
+                              // DESCRIPTION
                               const Text(
                                 "Description:",
                                 style: TextStyle(
@@ -458,8 +615,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 ),
                               ),
 
-
-                              TextField(
+                              TextFormField(
                                 controller: _broilersDescriptionController,
                                 maxLines: null,
                                 keyboardType: TextInputType.multiline,
@@ -467,14 +623,13 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   hintText: 'Enter Description',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none
                                   ),
                                 ),
                               ),
-
 
                             ],
                           ),
@@ -488,7 +643,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
 
             // Button Rows
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isBroilersSelected || isLayersSelected ? 100 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -515,7 +670,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -538,7 +693,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   _isLoading = true;
                                 });
                                 _showLoadingDialog();
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -547,6 +702,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   _totalLayersController.clear();
                                   _eggsWeightController.clear();
                                   _layersDescriptionController.clear();
+                                  _deadLayersController.clear();
                                 });
 
                                 fireStoreService.addLayers(
@@ -555,6 +711,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   eggSizeSelected!,
                                   double.parse(_eggsWeightController.text.trim()),
                                   _layersDescriptionController.text.trim(),
+                                  int.parse(_deadLayersController.text.trim()),
                                 );
                                 eggSizeSelected = null;
                               },
@@ -563,7 +720,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -599,7 +756,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -627,7 +784,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 _showLoadingDialog();
 
                                 // after 3 seconds remove loading circle
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -639,6 +796,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   _soldBroilersController.clear();
                                   _slaughteredBroilersController.clear();
                                   _broilersDescriptionController.clear();
+                                  _deadLayersController.clear();
                                 });
 
 
@@ -648,6 +806,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                   int.parse(_soldBroilersController.text.trim()),
                                   int.parse(_slaughteredBroilersController.text.trim()),
                                   _broilersDescriptionController.text.trim(),
+                                  int.parse(_deadLayersController.text.trim()),
                                 );
                               },
                               child: Container(
@@ -655,7 +814,7 @@ class _FarmerAddOperations extends State<FarmerAddOperations> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(

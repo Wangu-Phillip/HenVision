@@ -86,7 +86,7 @@ class _ManageFinancesState extends State<ManageFinances> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -147,7 +147,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isIncomeSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isIncomeSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -173,7 +173,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isExpenseSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isExpenseSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -192,11 +192,11 @@ class _ManageFinancesState extends State<ManageFinances> {
               ),
             ),
 
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
 
             // Input Fields
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isExpenseSelected || isIncomeSelected ? 450 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -208,11 +208,11 @@ class _ManageFinancesState extends State<ManageFinances> {
                         Padding(
                           padding: const EdgeInsets.only(left: 35, right: 20.0),
                           child: Container(
-                            padding: EdgeInsets.all(14.0),
+                            padding: const EdgeInsets.all(14.0),
                             width: 300,
                             height: 450,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF8F9F9),
+                              color: const Color(0xFFF8F9F9),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(
@@ -242,7 +242,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                 ),
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // category text field
                                 const Text(
@@ -254,13 +254,13 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                             DropdownButtonFormField<String>(
                               value: expenseSelectedCategory,
-                              hint: Text('Select Category'),
+                              hint: const Text('Select Category'),
                               items: expensesCategories.map((category) {
                                 return DropdownMenuItem(
                                   value: category,
                                   child: Text(
                                       category,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
@@ -274,7 +274,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
@@ -283,7 +283,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                             ),
 
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // Date & text field
                                 const Text(
@@ -354,11 +354,11 @@ class _ManageFinancesState extends State<ManageFinances> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0, right: 30.0),
                           child: Container(
-                            padding: EdgeInsets.all(14.0),
+                            padding: const EdgeInsets.all(14.0),
                             width: 300,
                             height: 450,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF8F9F9),
+                              color: const Color(0xFFF8F9F9),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(
@@ -388,7 +388,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                 ),
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // category text field
                                 const Text(
@@ -400,13 +400,13 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 DropdownButtonFormField<String>(
                                   value: incomeSelectedCategory,
-                                  hint: Text('Select Category'),
+                                  hint: const Text('Select Category'),
                                   items: incomeCategories.map((category) {
                                     return DropdownMenuItem(
                                       value: category,
                                       child: Text(
                                         category,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                         ),
                                       ),
@@ -420,7 +420,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none,
@@ -429,7 +429,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 ),
 
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // Date & text field
                                 const Text(
@@ -450,10 +450,10 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   onTap: () => _selectDate(context),
                                   decoration: InputDecoration(
                                     hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                                    suffixIcon: Icon(Icons.calendar_month),
+                                    suffixIcon: const Icon(Icons.calendar_month),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(12),
@@ -461,7 +461,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                 ),
 
-                                SizedBox(height: 25,),
+                                const SizedBox(height: 25,),
 
                                 // Description
                                 const Text(
@@ -480,7 +480,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                     hintText: 'Enter Description',
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(12),
                                         borderSide: BorderSide.none
@@ -501,7 +501,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
             // Button Rows
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isExpenseSelected || isIncomeSelected ? 100 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -528,7 +528,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -551,7 +551,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   _isLoading = true;
                                 });
                                 _showLoadingDialog();
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -572,7 +572,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -608,7 +608,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -637,7 +637,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 _showLoadingDialog();
 
                                 // after 3 seconds remove loading circle
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -665,7 +665,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(

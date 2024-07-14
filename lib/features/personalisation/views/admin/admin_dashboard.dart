@@ -61,8 +61,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade500,
-                          offset: const Offset(0, 4),
-                          blurRadius: 4.0,
+                          offset: const Offset(0, 1),
+                          blurRadius: 1.0,
                           spreadRadius: 0.0,
                         ),
                       ],
@@ -100,7 +100,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.monetization_on,
                                   color: Colors.deepPurple,
                                 ),
@@ -133,7 +133,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.workspaces,
                                   color: Colors.deepPurple,
                                 ),
@@ -173,7 +173,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ),
                               child: IconButton(
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.pie_chart,
                                   color: Colors.deepPurple,
                                 ),
@@ -204,7 +204,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.bar_chart,
                                   color: Colors.deepPurple,
                                 ),
@@ -234,8 +234,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade500,
-                          offset: const Offset(0, 4),
-                          blurRadius: 4.0,
+                          offset: const Offset(0, 1),
+                          blurRadius: 1.0,
                           spreadRadius: 0.0,
                         ),
                       ],
@@ -273,7 +273,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.calendar_today,
                                   color: Colors.deepPurple,
                                 ),
@@ -306,7 +306,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.person,
                                   color: Colors.deepPurple,
                                 ),
@@ -350,11 +350,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) {
-                                      return UploadFile();
+                                      return const UploadFile();
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.cloud_upload,
                                   color: Colors.deepPurple,
                                 ),
@@ -387,7 +387,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     }),
                                   );
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.download,
                                   color: Colors.deepPurple,
                                 ),
@@ -410,7 +410,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ],
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
 
@@ -426,49 +426,31 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.shade500,
-                        offset: const Offset(0, 4),
-                        blurRadius: 4.0,
+                        offset: const Offset(0, 1),
+                        blurRadius: 0.5,
                         spreadRadius: 0.0,
                       ),
                     ],
                   ),
-                  child: HLineChart(),
+                  child: const HLineChart(),
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
 
               /// TODO: Calculate finances used from the total budget
               // Finances used
-              HPercentageIndicator(),
+              const HPercentageIndicator(),
 
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
             ],
           ),
         ),
       ),
-
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
-      //   child: FloatingActionButton(
-      //     backgroundColor: const Color(0xFF6D62F7),
-      //     onPressed: () {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) {
-      //           return const ManageFinances();
-      //         }),
-      //       );
-      //     },
-      //
-      //     child: const Icon(Icons.add),
-      //
-      //   ),
-      // ),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
@@ -479,10 +461,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text('Choose Action'),
+                  title: const Center(child: Text('Choose Action')),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+
+                      // MANAGE FINANCES
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context); // Close the dialog
@@ -493,8 +477,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             }),
                           );
                         },
+                        style: ButtonStyle(
+                          // backgroundColor: WidgetStateProperty.all(color ?? BColors.bdLightGreen),
+                          // padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 16.0, horizontal: 17.0)),
+                          shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                          elevation: WidgetStateProperty.all(2.0),
+                          fixedSize: WidgetStateProperty.all(const Size.fromWidth(170)),
+                        ),
                         child: const Text('Poultry Finances'),
                       ),
+
+                      // MANAGE OPERATIONS
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context); // Close the dialog
@@ -505,7 +498,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             }),
                           );
                         },
+                        style: ButtonStyle(
+                          // backgroundColor: WidgetStateProperty.all(color ?? BColors.bdLightGreen),
+                          // padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 16.0, horizontal: 17.0)),
+                          shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                          elevation: WidgetStateProperty.all(2.0),
+                          fixedSize: WidgetStateProperty.all(const Size.fromWidth(170)),
+                        ),
                         child: const Text('Poultry Operations'),
+                      ),
+
+                      // MANAGE BUDGET
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          // backgroundColor: WidgetStateProperty.all(color ?? BColors.bdLightGreen),
+                          // padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 16.0, horizontal: 17.0)),
+                          shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                          elevation: WidgetStateProperty.all(2.0),
+                          fixedSize: WidgetStateProperty.all(const Size.fromWidth(170)),
+                        ),
+                        child: const Text('Budget'),
                       ),
                     ],
                   ),

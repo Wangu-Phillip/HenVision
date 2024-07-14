@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/forgot_password.dart';
+import 'package:hen_vision/features/personalisation/views/register.dart';
 
 class Login extends StatefulWidget {
    const Login({
@@ -73,7 +74,7 @@ class _LoginState extends State<Login> {
 
               // Place Logo here
               const Text(
-                "Login",
+                "LOGIN",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
@@ -85,25 +86,31 @@ class _LoginState extends State<Login> {
               ),
 
               // Username TextField
-              TextField(
+              TextFormField(
                 controller: emailController,
                 style: const TextStyle(
                   fontSize: 13,
                 ),
                 decoration: InputDecoration(
-                  hintText: "Username",
+                  hintText: "Email",
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty ) {
+                    return 'Please enter am email';
+                  }
+                  return null;
+                },
               ),
 
               const SizedBox(
                 height: 15,
               ),
 
-              // Password TextField
-              TextField(
+              // PASSWORD TEXT-FIELD
+              TextFormField(
                 controller: passwordController,
                 style: const TextStyle(
                   fontSize: 13,
@@ -112,7 +119,7 @@ class _LoginState extends State<Login> {
                 decoration: InputDecoration(
                   hintText: "Password",
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -125,13 +132,19 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty ) {
+                    return 'Please enter a password';
+                  }
+                  return null;
+                },
               ),
 
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
 
-              // Remember me CheckBox
+              // REMEMBER ME CHECKBOX
                Row(
                 children: [
                   Checkbox(
@@ -145,7 +158,7 @@ class _LoginState extends State<Login> {
                     checkColor: Colors.white,
                   ),
 
-                  Text(
+                  const Text(
                     "Remember me",
                     style: TextStyle(
                       fontSize: 13,
@@ -156,7 +169,7 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
 
               // Login Button
@@ -168,7 +181,7 @@ class _LoginState extends State<Login> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.black,
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                     child: const Text(
                       "Login",
@@ -182,19 +195,18 @@ class _LoginState extends State<Login> {
               ),
 
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
 
-              // forgot password
+              // FORGOT PASSWORD
               Container(
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return const ForgotPassword();
-                      }),
+                      MaterialPageRoute(builder: (BuildContext context) =>
+                         const ForgotPassword(),),
                     );
                   },
                   child: const Text(
@@ -210,6 +222,32 @@ class _LoginState extends State<Login> {
                 ),
               ),
 
+              const SizedBox(
+                height: 40,
+              ),
+
+              // REGISTER
+              Container(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => const Register()),
+                    );
+                  },
+                  child: const Text(
+                    "Don't have an account? Register",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
