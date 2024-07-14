@@ -42,7 +42,7 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
 
     return Container(
       width: 340,
-      height: 230,
+      height: 240,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -61,11 +61,11 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
         children: [
 
            Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+            padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
             child: Text(
               "Finances Used In ${DateTime.now().year}",
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -90,6 +90,16 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
                   fontWeight: FontWeight.bold,
                   color: amountUsed > 1.0 ? Colors.black : Colors.black,
                 ),
+              ),
+            ),
+          ),
+
+          const Center(
+            child: Text(
+              "P50,000.00 / P100,000.00",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
