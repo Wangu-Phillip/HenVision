@@ -30,23 +30,17 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
 
     // CONTINUOUSLY LISTEN TO EXPENSES CHANGES
     fireStoreService.getTotalExpensesStream().listen((expenses) {
-      setState(() {
         totalExpenses = expenses;
-      });
     }).onError((error) {
-      setState(() {
         totalExpenses = 0.0;
-      });
     });
 
     // CONTINUOUSLY LISTEN TO BUDGET CHANGES
     fireStoreService.getRecentBudgetAmountStream().listen((budget) {
-      setState(() {
         if (budget != null) {
           yearlyBudget = budget;
           amountUsed = (totalExpenses / yearlyBudget);
         }
-      });
     });
 
   }
