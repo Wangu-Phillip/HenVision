@@ -89,6 +89,20 @@ class FireStoreService {
       return totalExpenses;
     }
 
+  Stream<double> getTotalExpensesStream() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('expenses').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      double totalExpenses = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['amount'] as double? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalExpenses;
+    });
+  }
+
+
     /// Fetches the total number of broilers from the Firestore database.
     ///
     /// This method queries the 'broilers' collection in Firestore for all documents.
@@ -440,8 +454,24 @@ class FireStoreService {
       }
     }
 
+  Stream<double?> getRecentBudgetAmountStream() {
+    return FirebaseFirestore.instance
+        .collection('budget')
+        .orderBy('date', descending: true)
+        .limit(1)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.get('amount') as double?;
+      } else {
+        return null;
+      }
+    });
+  }
 
-    /// Retrieves the total amount of egg sales from the Firestore database.
+
+
+  /// Retrieves the total amount of egg sales from the Firestore database.
     ///
     /// This method queries the 'income' collection in Firestore for all documents,
     /// where the 'category' field matches 'Egg Sales'.

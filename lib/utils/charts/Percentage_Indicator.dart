@@ -23,19 +23,34 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
   @override
   void initState() {
     super.initState();
-    loadFinanceData();
+    _loadFinanceData();
   }
 
-  Future<void> loadFinanceData() async {
-    totalExpenses = await fireStoreService.getTotalExpenses();
-    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+  void _loadFinanceData()  {
 
-    if (recentBudgetAmount != null) {
-      yearlyBudget = recentBudgetAmount;
-      amountUsed = (totalExpenses / yearlyBudget);
-    }
-    setState(() {}); // Update the UI with the new data
+    // CONTINUOUSLY LISTEN TO EXPENSES CHANGES
+    fireStoreService.getTotalExpensesStream().listen((expenses) {
+      setState(() {
+        totalExpenses = expenses;
+      });
+    }).onError((error) {
+      setState(() {
+        totalExpenses = 0.0;
+      });
+    });
+
+    // CONTINUOUSLY LISTEN TO BUDGET CHANGES
+    fireStoreService.getRecentBudgetAmountStream().listen((budget) {
+      setState(() {
+        if (budget != null) {
+          yearlyBudget = budget;
+          amountUsed = (totalExpenses / yearlyBudget);
+        }
+      });
+    });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +109,10 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
             ),
           ),
 
-          const Center(
+          Center(
             child: Text(
-              "P50,000.00 / P100,000.00",
-              style: TextStyle(
+              "P${totalExpenses.toStringAsFixed(2)} / P${yearlyBudget.toStringAsFixed(2)}",
+              style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
