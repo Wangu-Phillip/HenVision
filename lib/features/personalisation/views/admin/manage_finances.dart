@@ -124,10 +124,20 @@ class _ManageFinancesState extends State<ManageFinances> {
                 width: 250,
                 height: 40,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border.all(
                     color: Colors.black,
-                    width: 0.3,
+                    width: 0.1,
                   ),
+                  boxShadow: [
+                    //
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 0.5),
+                      blurRadius: 0.5,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
