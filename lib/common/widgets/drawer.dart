@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart';
-import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
-import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
 import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
@@ -180,12 +178,12 @@ class _SidebarMenuState extends State<SidebarMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return Calendar();
+                    return const Calendar();
                   }),
                 );
               },
               leading: const Icon(
-                  Icons.calendar_today,
+                  Icons.calendar_month_rounded,
                 color: Color(0xFF6D62F7),
               ),
               title: const Text(

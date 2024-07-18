@@ -9,11 +9,8 @@ import 'package:hen_vision/features/personalisation/views/analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/file_upload.dart';
 import 'package:hen_vision/features/personalisation/views/generate_pdf.dart';
-import 'package:hen_vision/features/personalisation/views/op_piechart.dart';
-import 'package:hen_vision/features/personalisation/views/reports.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
-import 'package:hen_vision/utils/charts/pie_chart.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -33,6 +30,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text("Dashboard"),
+        // leading: Icon(Icons.notifications),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Icon(
+                Icons.notifications,
+            ),
+          ),
+        ],
         centerTitle: true,
       ),
 
@@ -281,7 +287,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 );
                               },
                               icon: const Icon(
-                                Icons.calendar_today,
+                                Icons.calendar_month_rounded,
                                 color: Colors.white,
                               ),
                             ),
@@ -314,7 +320,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 );
                               },
                               icon: const Icon(
-                                Icons.person,
+                                Icons.people_alt_rounded,
                                 color: Colors.white,
                               ),
                             ),
