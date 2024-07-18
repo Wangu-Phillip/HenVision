@@ -22,10 +22,11 @@ class FireStoreService {
   /// accessing the 'expenses' collection.
   /// It then adds a new document to this collection with the provided amount, category, and description.
   /// The date of the expense is set to the current timestamp.
-    Future addExpense(double amount, String category, String description) async {
+    Future addExpense(double amount, String category, String description, String customer) async {
       await FirebaseFirestore.instance.collection('expenses').add({
         'amount': amount,
         'category': category,
+        'customer':customer,
         'date': DateTime.timestamp(),
         'description': description,
       });
@@ -44,12 +45,13 @@ class FireStoreService {
     /// then accessing the 'income' collection.
     /// It then adds a new document to this collection with the provided amount, category, and description.
     /// The date of the income is set to the current timestamp.
-  Future addIncome(double amount, String category, String description) async {
+  Future addIncome(double amount, String category, String description, String customer) async {
     await FirebaseFirestore.instance.collection('income').add({
       'amount': amount,
       'category': category,
       'date': DateTime.timestamp(),
       'description': description,
+      'customer': customer,
     });
   }
 

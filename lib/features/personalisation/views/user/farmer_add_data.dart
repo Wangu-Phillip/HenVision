@@ -34,9 +34,13 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
   // Text fields controllers
   final _expenseAmountController = TextEditingController();
   final _expenseDescriptionController = TextEditingController();
+  final _expenseCustomerController = TextEditingController();
+
 
   final _incomeAmountController = TextEditingController();
   final _incomeDescriptionController = TextEditingController();
+  final _incomeCustomerController = TextEditingController();
+
 
   @override
   void dispose() {
@@ -197,8 +201,8 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
 
             // Input Fields
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              height: isExpenseSelected || isIncomeSelected ? 450 : 0,
+              duration: const Duration(milliseconds: 300),
+              height: isExpenseSelected || isIncomeSelected ? 550 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -209,16 +213,56 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                       Padding(
                         padding: const EdgeInsets.only(left: 35, right: 20.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
-                          height: 450,
+                          height: 550,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
+                              // category text field
+                              const Text(
+                                "Category:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              DropdownButtonFormField<String>(
+                                value: expenseSelectedCategory,
+                                hint: const Text('Select Category'),
+                                items: expensesCategories.map((category) {
+                                  return DropdownMenuItem(
+                                    value: category,
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    expenseSelectedCategory = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
 
                               // Amount text & text field
                               const Text(
@@ -228,7 +272,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-                              TextField(
+                              TextFormField(
                                 controller: _expenseAmountController,
                                 decoration: InputDecoration(
                                   hintText: "P 0.00",
@@ -243,39 +287,24 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // category text field
+                              // Amount text & text field
                               const Text(
-                                "Category:",
+                                "Customer/Business name:",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
 
-                              DropdownButtonFormField<String>(
-                                value: expenseSelectedCategory,
-                                hint: Text('Select Category'),
-                                items: expensesCategories.map((category) {
-                                  return DropdownMenuItem(
-                                    value: category,
-                                    child: Text(
-                                      category,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    expenseSelectedCategory = value;
-                                  });
-                                },
+                              TextFormField(
+                                controller: _expenseCustomerController,
                                 decoration: InputDecoration(
+                                  hintText: "XYZ Company",
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  //border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -283,8 +312,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Date & text field
                               const Text(
@@ -355,20 +383,60 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 30.0),
                         child: Container(
-                          padding: EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14.0),
                           width: 300,
-                          height: 450,
+                          height: 550,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF8F9F9),
+                            color: const Color(0xFFF8F9F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
+                              // category text field
+                              const Text(
+                                "Category:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              DropdownButtonFormField<String>(
+                                value: incomeSelectedCategory,
+                                hint: const Text('Select Category'),
+                                items: incomeCategories.map((category) {
+                                  return DropdownMenuItem(
+                                    value: category,
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    incomeSelectedCategory = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25,),
+
                               // Amount text & text field
                               const Text(
-                                "Amount (Profit/Loss):",
+                                "Amount:",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -389,39 +457,24 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
-                              // category text field
+                              // CUSTOMER NAME
                               const Text(
-                                "Category:",
+                                "Customer/Business name:",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
 
-                              DropdownButtonFormField<String>(
-                                value: incomeSelectedCategory,
-                                hint: Text('Select Category'),
-                                items: incomeCategories.map((category) {
-                                  return DropdownMenuItem(
-                                    value: category,
-                                    child: Text(
-                                      category,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    incomeSelectedCategory = value;
-                                  });
-                                },
+                              TextFormField(
+                                controller: _incomeCustomerController,
                                 decoration: InputDecoration(
+                                  hintText: "John Dory",
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  //border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -429,8 +482,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Date & text field
                               const Text(
@@ -451,10 +503,10 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 onTap: () => _selectDate(context),
                                 decoration: InputDecoration(
                                   hintText: "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                                  suffixIcon: Icon(Icons.calendar_month),
+                                  suffixIcon: const Icon(Icons.calendar_month),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius: BorderRadius.circular(12),
@@ -462,7 +514,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 ),
                               ),
 
-                              SizedBox(height: 25,),
+                              const SizedBox(height: 25,),
 
                               // Description
                               const Text(
@@ -481,7 +533,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                   hintText: 'Enter Description',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
                                       borderSide: BorderSide.none
@@ -502,7 +554,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
 
             // Button Rows
             AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               height: isExpenseSelected || isIncomeSelected ? 100 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -512,6 +564,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                     if (isIncomeSelected)
                       Row(
                         children: [
+                          //
                           // Cancel button
                           Padding(
                             padding: const EdgeInsets.only(right: 30.0, left: 30.0),
@@ -529,7 +582,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -542,6 +595,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                               ),
                             ),
                           ),
+                          //
                           // Save Button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -552,19 +606,21 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                   _isLoading = true;
                                 });
                                 _showLoadingDialog();
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
                                   _hideLoadingDialog();
                                   _expenseAmountController.clear();
                                   _expenseDescriptionController.clear();
+                                  _expenseCustomerController.clear();
                                 });
 
                                 fireStoreService.addExpense(
                                   double.parse(_expenseAmountController.text.trim()),
                                   expenseSelectedCategory!,
                                   _expenseDescriptionController.text.trim(),
+                                  _expenseCustomerController.text.trim(),
                                 );
                                 expenseSelectedCategory = null;
                               },
@@ -573,7 +629,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -592,6 +648,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                     if (isExpenseSelected)
                       Row(
                         children: [
+                          //
                           // Cancel button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -609,7 +666,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6C63DC),
+                                  color: const Color(0xFF6C63DC),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
@@ -623,6 +680,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                             ),
                           ),
 
+                          //
                           // Save Button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -638,7 +696,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 _showLoadingDialog();
 
                                 // after 3 seconds remove loading circle
-                                Future.delayed(Duration(seconds: 3), () {
+                                Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
                                     _isLoading = false;
                                   });
@@ -648,6 +706,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                   // clear data after saving in database
                                   _incomeAmountController.clear();
                                   _incomeDescriptionController.clear();
+                                  _incomeCustomerController.clear();
                                 });
 
 
@@ -656,6 +715,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                   double.parse(_incomeAmountController.text.trim()),
                                   incomeSelectedCategory!,
                                   _incomeDescriptionController.text.trim(),
+                                  _incomeCustomerController.text.trim(),
                                 );
 
                                 // clear data after sending
@@ -666,7 +726,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF6D62F7),
+                                  color: const Color(0xFF6D62F7),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: const Text(
