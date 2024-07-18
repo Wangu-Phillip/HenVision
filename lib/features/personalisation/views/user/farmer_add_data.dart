@@ -91,7 +91,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -123,6 +123,8 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
         child: Column(
           children: [
 
+            const SizedBox(height: 5,),
+
             // Expenses and Income Buttons
             Center(
               child: Container(
@@ -152,7 +154,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isIncomeSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isIncomeSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -178,7 +180,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
                         height: 40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isExpenseSelected ? Color(0xFF6D62F7) : Colors.white,
+                          color: isExpenseSelected ? const Color(0xFF6D62F7) : Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Text(
@@ -197,7 +199,7 @@ class _FarmerAddFinances extends State<FarmerAddFinances> {
               ),
             ),
 
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
 
             // Input Fields
             AnimatedContainer(

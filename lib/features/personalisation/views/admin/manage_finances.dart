@@ -121,6 +121,8 @@ class _ManageFinancesState extends State<ManageFinances> {
         child: Column(
           children: [
 
+            const SizedBox(height: 5,),
+
             // Expenses and Income Buttons
             Center(
               child: Container(
@@ -282,6 +284,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 TextFormField(
                                   controller: _expenseAmountController,
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,
@@ -452,6 +455,7 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 TextField(
                                   controller: _incomeAmountController,
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,

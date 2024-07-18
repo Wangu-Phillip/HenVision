@@ -264,6 +264,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               TextFormField(
                                 controller: _totalLayersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: _layerHintText,
                                   filled: true,
@@ -289,6 +290,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                               // TODO: Save to Database/FireStore
                               TextFormField(
                                 controller: _deadLayersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
@@ -314,6 +316,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               TextFormField(
                                 controller: _totalEggsCollectedController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
@@ -380,7 +383,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                               TextFormField(
                                 controller: _eggsWeightController,
                                 decoration: InputDecoration(
-                                  hintText: "0",
+                                  hintText: "0.0g",
                                   filled: true,
                                   fillColor: Colors.white,
                                   //border: InputBorder.none,
@@ -482,6 +485,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               TextFormField(
                                 controller: _totalBroilersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: _broilerHintText,
                                   filled: true,
@@ -507,6 +511,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               TextFormField(
                                 controller: _soldBroilersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
@@ -533,6 +538,7 @@ class _ManageOperationsState extends State<ManageOperations> {
                               // TODO: Save to Database/FireStore
                               TextFormField(
                                 controller: _deadBroilersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
@@ -559,6 +565,7 @@ class _ManageOperationsState extends State<ManageOperations> {
 
                               TextFormField(
                                 controller: _slaughteredBroilersController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "0",
                                   filled: true,
