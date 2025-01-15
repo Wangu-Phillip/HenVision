@@ -100,8 +100,8 @@ class _ManageUsersState extends State<ManageUsers> {
                     //
                     BoxShadow(
                       color: Colors.grey.shade500,
-                      offset: const Offset(0, 2),
-                      blurRadius: 2.0,
+                      offset: const Offset(0, 0.5),
+                      blurRadius: 0.5,
                       spreadRadius: 0.0,
                     ),
                   ],
@@ -213,23 +213,37 @@ class _ManageUsersState extends State<ManageUsers> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       width: 343,
-                                      height: 80,
+                                      height: 60,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
                                           //
                                           BoxShadow(
                                             color: Colors.grey.shade500,
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 4.0,
+                                            offset: const Offset(0, 0.5),
+                                            blurRadius: 0.5,
                                             spreadRadius: 0.0,
                                           ),
                                         ],
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: ListTile(
-                                        title: Text(data['name'] +' ' + data['surname']),
-                                        subtitle: Text(data['email']),
+                                        // title: Text(data['name'] +' ' + data['surname']),
+                                        subtitle: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                data['name'] +' ' + data['surname'],
+                                              style: TextStyle(
+                                                fontSize: 19,
+                                              ),
+                                            ),
+                                            Text(data['email']),
+                                          ],
+                                        ),
                                         trailing: GestureDetector(
                                           onTap: () {
 
@@ -246,9 +260,12 @@ class _ManageUsersState extends State<ManageUsers> {
 
                                             fireStoreService.deleteUser(data['email']);
                                           },
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: Colors.red.shade500,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(bottom: 15.0),
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red.shade500,
+                                            ),
                                           ),
                                         ),
                                         // Add more fields as needed

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -206,6 +207,7 @@ class _ManageDataState extends State<ManageData> {
                                   documentsByDate[formattedDate] = [];
                                 }
                                 documentsByDate[formattedDate]!.add(doc);
+
                               }
 
                               // Build the list with sections
@@ -239,7 +241,7 @@ class _ManageDataState extends State<ManageData> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         width: 343,
-                                        height: 60,
+                                        height: 80,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           boxShadow: [
@@ -264,6 +266,29 @@ class _ManageDataState extends State<ManageData> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+
+                                              // CUSTOMER
+                                              Center(
+                                                child: Container(
+                                                  width: 180,
+                                                  height: 20,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red.shade400,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  child: Text(
+                                                    data['customer'].length > 15 ? "${data['customer'].substring(0,10)}..." : data['customer'],
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.normal,
+                                                      fontSize: 15,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                              // CATEGORY
                                               Text(
                                                 data['category'],
                                                 style: const TextStyle(
@@ -271,6 +296,8 @@ class _ManageDataState extends State<ManageData> {
                                                   fontSize: 19,
                                                 ),
                                               ),
+
+                                              // TRANSACTION AMOUNT
                                               Text(
                                                 'P${data['amount'].toStringAsFixed(2)}',
                                                 style: const TextStyle(
@@ -381,7 +408,7 @@ class _ManageDataState extends State<ManageData> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         width: 343,
-                                        height: 60,
+                                        height: 80,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           boxShadow: [
@@ -405,6 +432,28 @@ class _ManageDataState extends State<ManageData> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+
+                                              // CUSTOMER
+                                              Center(
+                                                child: Container(
+                                                  width: 180,
+                                                  height: 20,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green.shade400,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  child: Text(
+                                                    data['customer'].length > 15 ? "${data['customer'].substring(0,12)}..." : data['customer'],
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Colors.white
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
                                               Text(
                                                 data['category'],
                                                 style: const TextStyle(
@@ -468,7 +517,10 @@ class _ManageDataState extends State<ManageData> {
               }),
             );
           },
-          child: const Icon(Icons.add),
+          child: const Icon(
+              Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -518,7 +570,7 @@ class _ManageDataState extends State<ManageData> {
             ),
             TextButton(
               onPressed: () {
-                fireStoreService.deleteExpense(documentId);
+                fireStoreService.deleteIncome(documentId);
                 Navigator.pop(context);
               },
               child: const Text('Delete'),

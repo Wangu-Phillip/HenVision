@@ -140,11 +140,11 @@ class FireStoreService {
     });
   }
 
-  Stream<int> getLayerMortalityCount() {
+  Stream<double> getLayerMortalityCount() {
     // Create a stream that listens to changes in the Firestore collection
     return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
       // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
-      int totalMortalityLayers = snapshot.docs
+      double totalMortalityLayers = snapshot.docs
           .map((doc) => (doc.data() as Map<String, dynamic>?)?['mortalityCount'] as int? ?? 0)
           .fold(0, (prev, element) => prev + element);
 
@@ -162,11 +162,11 @@ class FireStoreService {
     /// If the 'number_of_layers' field is null, it is ignored.
     ///
     /// @return A Future that completes with the total number of layers as an integer.
-  Stream<int> getTotalLayers() {
+  Stream<double> getTotalLayers() {
     // Create a stream that listens to changes in the Firestore collection
     return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
       // Map each document to its 'number_of_layers' field and reduce them to a single value by adding them up
-      int totalLayers = snapshot.docs
+      double totalLayers = snapshot.docs
           .map((doc) => (doc.data() as Map<String, dynamic>?)?['number_of_layers'] as int? ?? 0)
           .fold(0, (prev, element) => prev + element);
 
@@ -591,6 +591,19 @@ class FireStoreService {
         .map((doc) => (doc.data() as Map<String, dynamic>?)?['eggs_collected'] as num? ?? 0.0)
         .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
     return totalExpenses;
+  }
+
+  Stream<double> getTotalEggsCollectedStream() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
+      // Map each document to its 'eggs_cllected' field and reduce them to a single value by adding them up
+      double totalEggsCollected = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['eggs_collected'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of eggs collected
+      return totalEggsCollected;
+    });
   }
 
   Future<double> getTotalSoldBroilers() async {

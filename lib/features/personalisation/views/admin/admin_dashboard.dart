@@ -1,16 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/common/widgets/drawer.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
-import 'package:hen_vision/features/personalisation/views/analytics.dart';
+import 'package:hen_vision/features/personalisation/views/finance_analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/file_upload.dart';
 import 'package:hen_vision/features/personalisation/views/generate_pdf.dart';
 import 'package:hen_vision/utils/charts/Percentage_Indicator.dart';
 import 'package:hen_vision/utils/charts/line_chart.dart';
+
+import '../operations_analytics.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -31,11 +34,26 @@ class _AdminDashboardState extends State<AdminDashboard> {
         backgroundColor: Colors.white,
         title: const Text("Dashboard"),
         // leading: Icon(Icons.notifications),
-        actions: const [
+        actions:  [
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Icon(
-                Icons.notifications,
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                const Icon(
+                  Icons.notifications,
+                  size: 20,
+                ),
+
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ]
             ),
           ),
         ],
@@ -182,7 +200,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               ],
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const OperationsAnalytics();
+                                    })
+                                );
+                              },
                               icon: const Icon(
                                 Icons.pie_chart,
                                 color: Colors.white,
@@ -212,7 +237,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return const Analytics();
+                                    return const FinanceAnalytics();
                                   }),
                                 );
                               },

@@ -635,6 +635,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   _expenseCustomerController.text.trim(),
                                 );
                                 expenseSelectedCategory = null;
+
                               },
                               child: Container(
                                 width: 100,
