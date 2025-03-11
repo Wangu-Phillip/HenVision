@@ -22,10 +22,11 @@ class FireStoreService {
   /// accessing the 'expenses' collection.
   /// It then adds a new document to this collection with the provided amount, category, and description.
   /// The date of the expense is set to the current timestamp.
-    Future addExpense(double amount, String category, String description) async {
+    Future addExpense(double amount, String category, String description, String customer) async {
       await FirebaseFirestore.instance.collection('expenses').add({
         'amount': amount,
         'category': category,
+        'customer':customer,
         'date': DateTime.timestamp(),
         'description': description,
       });
@@ -44,12 +45,13 @@ class FireStoreService {
     /// then accessing the 'income' collection.
     /// It then adds a new document to this collection with the provided amount, category, and description.
     /// The date of the income is set to the current timestamp.
-  Future addIncome(double amount, String category, String description) async {
+  Future addIncome(double amount, String category, String description, String customer) async {
     await FirebaseFirestore.instance.collection('income').add({
       'amount': amount,
       'category': category,
       'date': DateTime.timestamp(),
       'description': description,
+      'customer': customer,
     });
   }
 
@@ -89,6 +91,20 @@ class FireStoreService {
       return totalExpenses;
     }
 
+  Stream<double> getTotalExpensesStream() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('expenses').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      double totalExpenses = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['amount'] as double? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalExpenses;
+    });
+  }
+
+
     /// Fetches the total number of broilers from the Firestore database.
     ///
     /// This method queries the 'broilers' collection in Firestore for all documents.
@@ -111,6 +127,31 @@ class FireStoreService {
     });
   }
 
+  Stream<int> getBroilerMortalityCount() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('broilers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      int totalMortalityBroilers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['mortalityCount'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalMortalityBroilers;
+    });
+  }
+
+  Stream<double> getLayerMortalityCount() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
+      // Map each document to its 'number_of_broilers' field and reduce them to a single value by adding them up
+      double totalMortalityLayers = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['mortalityCount'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of layers
+      return totalMortalityLayers;
+    });
+  }
 
     /// Fetches the total number of layers from the Firestore database.
     ///
@@ -121,11 +162,11 @@ class FireStoreService {
     /// If the 'number_of_layers' field is null, it is ignored.
     ///
     /// @return A Future that completes with the total number of layers as an integer.
-  Stream<int> getTotalLayers() {
+  Stream<double> getTotalLayers() {
     // Create a stream that listens to changes in the Firestore collection
     return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
       // Map each document to its 'number_of_layers' field and reduce them to a single value by adding them up
-      int totalLayers = snapshot.docs
+      double totalLayers = snapshot.docs
           .map((doc) => (doc.data() as Map<String, dynamic>?)?['number_of_layers'] as int? ?? 0)
           .fold(0, (prev, element) => prev + element);
 
@@ -415,8 +456,24 @@ class FireStoreService {
       }
     }
 
+  Stream<double?> getRecentBudgetAmountStream() {
+    return FirebaseFirestore.instance
+        .collection('budget')
+        .orderBy('date', descending: true)
+        .limit(1)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.get('amount') as double?;
+      } else {
+        return null;
+      }
+    });
+  }
 
-    /// Retrieves the total amount of egg sales from the Firestore database.
+
+
+  /// Retrieves the total amount of egg sales from the Firestore database.
     ///
     /// This method queries the 'income' collection in Firestore for all documents,
     /// where the 'category' field matches 'Egg Sales'.
@@ -534,6 +591,19 @@ class FireStoreService {
         .map((doc) => (doc.data() as Map<String, dynamic>?)?['eggs_collected'] as num? ?? 0.0)
         .fold(0.0, (prev, amount) => prev + (amount ?? 0.0));
     return totalExpenses;
+  }
+
+  Stream<double> getTotalEggsCollectedStream() {
+    // Create a stream that listens to changes in the Firestore collection
+    return FirebaseFirestore.instance.collection('layers').snapshots().map((snapshot) {
+      // Map each document to its 'eggs_cllected' field and reduce them to a single value by adding them up
+      double totalEggsCollected = snapshot.docs
+          .map((doc) => (doc.data() as Map<String, dynamic>?)?['eggs_collected'] as int? ?? 0)
+          .fold(0, (prev, element) => prev + element);
+
+      // Return the total number of eggs collected
+      return totalEggsCollected;
+    });
   }
 
   Future<double> getTotalSoldBroilers() async {

@@ -3,42 +3,54 @@ import 'package:flutter/material.dart';
 
 import '../../features/personalisation/services/firestore_service.dart';
 
-class HPieChart extends StatefulWidget {
-  const HPieChart({super.key});
+class LayersChart extends StatefulWidget {
+  const LayersChart({super.key});
 
   @override
-  State<HPieChart> createState() => _HPieChartState();
+  State<LayersChart> createState() => _LayersChartState();
 }
 
-class _HPieChartState extends State<HPieChart> {
+class _LayersChartState extends State<LayersChart> {
 
   // Initialize firestore Service
   final FireStoreService fireStoreService = FireStoreService();
 
-  late double totalIncome = 0.0;
-  late double totalExpenses = 0.0;
-  late double yearlyBudget = 0.0;
+  late double totalLayerChickens = 0;
+  late double mortalityCount = 0;
+  late double eggsCollected = 0;
 
   @override
   void initState() {
     super.initState();
-    loadFinanceData();
+
+    _loadData();
   }
 
-  Future<void> loadFinanceData() async {
-    totalIncome = await fireStoreService.getTotalIncome();
-    totalExpenses = await fireStoreService.getTotalExpenses();
-    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+  void _loadData() {
 
-    if (recentBudgetAmount != null) {
-      yearlyBudget = recentBudgetAmount;
-      double amountUsed = (totalExpenses / yearlyBudget);
+    // CONTINUOUSLY LISTEN TO CHICKEN MORTALITY COUNT
+    fireStoreService.getLayerMortalityCount().listen((data) {
+      mortalityCount = data;
+    }).onError((error) {
+      mortalityCount = 0;
+    });
 
-      setState(() {}); // Update the UI with the new data
-    } else {
-      print('No recent budget amount found.');
-    }
+    // CONTINUOUSLY LISTEN TO TOTAL LAYERS
+    fireStoreService.getTotalLayers().listen((data) {
+      totalLayerChickens = data;
+    }).onError((error) {
+      totalLayerChickens = 0;
+    });
+
+    // CONTINUOUSLY LISTEN TO EGGS COLLECTED
+    fireStoreService.getTotalEggsCollectedStream().listen((data) {
+      eggsCollected = data;
+    }).onError((error) {
+      eggsCollected = 0;
+    });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +81,12 @@ class _HPieChartState extends State<HPieChart> {
               centerSpaceRadius: 90,
               sectionsSpace: 1,
               sections: [
-                // item-1
+                //
+                // TOTAL LAYER CHICKENS
                 PieChartSectionData(
-                  // badgeWidget: const Text("Budget"),
+                  // badgeWidget: const Text("Total Chickens"),
                   // badgePositionPercentageOffset: 1.7,
-                  value: yearlyBudget.roundToDouble(),
+                  value: totalLayerChickens,
                   radius: 55,
                   color: Colors.blue,
                   titleStyle: const TextStyle(
@@ -81,61 +94,63 @@ class _HPieChartState extends State<HPieChart> {
                   ),
                 ),
 
-                // item-2
+                //
+                // TOTAL MORTALITY COUNT
                 PieChartSectionData(
-                  value: totalExpenses.roundToDouble(),
+                  value: mortalityCount,
                   radius: 55,
                   color: Colors.yellow,
-                  // badgeWidget: const Text("Expenses"),
+                  // badgeWidget: const Text("Mortality Count"),
                   // badgePositionPercentageOffset: 1.5,
                   titleStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                // item-3
+                //
+                // TOTAL EGGS COLLECTED
                 PieChartSectionData(
-                  value: totalIncome.roundToDouble(),
+                  value: eggsCollected,
                   radius: 55,
                   color: Colors.green,
-                  // badgeWidget: const Text("Income"),
+                  // badgeWidget: const Text("Eggs Collected"),
                   // badgePositionPercentageOffset: 2,
                   titleStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                // item-4
 
               ],
             ),
           ),
         ),
 
+
         // Amount used in the middle of pie chart
          Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
 
-             const Text(
-               'Profit/Loss',
-               style: TextStyle(
-                 fontWeight: FontWeight.bold,
-                 fontSize: 20,
-               ),
-             ),
+            const Text(
+              'Layers',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
 
-             Text(
-                'P${(totalIncome - totalExpenses).toStringAsFixed(2)}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: (totalIncome - totalExpenses) > 0 ? Colors.green.shade500 : Colors.red,
-                ),
-             ),
+            Text(
+              "$totalLayerChickens",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
 
-           ],
-         ),
+          ],
+        ),
+
       ],
     );
   }

@@ -20,6 +20,8 @@ class _ManageUsersState extends State<ManageUsers> {
   // get user name
   final user = FirebaseAuth.instance.currentUser!;
 
+  String? roleSelectedCategory;
+  
   // buttons checker
   bool isViewUsersSelected = true;
   bool isAddUsersSelected = false;
@@ -30,19 +32,22 @@ class _ManageUsersState extends State<ManageUsers> {
   // Text fields controllers
   final _firstnameController = TextEditingController();
   final _surnameController = TextEditingController();
-  final _userRoleController = TextEditingController();
   final _userEmailController = TextEditingController();
 
   @override
   void dispose() {
     _firstnameController.dispose();
     _surnameController.dispose();
-    _userRoleController.dispose();
     _userEmailController.dispose();
 
     super.dispose();
   }
 
+  List<String> roles = [
+    'Farmer',
+    'Admin',
+  ];
+  
   void _showLoadingDialog() {
     showDialog(
       context: context,
@@ -80,6 +85,7 @@ class _ManageUsersState extends State<ManageUsers> {
               height: 25,
             ),
 
+            // USER LIST & ADD USER BUTTONS
             Center(
               child: Container(
                 width: 250,
@@ -94,8 +100,8 @@ class _ManageUsersState extends State<ManageUsers> {
                     //
                     BoxShadow(
                       color: Colors.grey.shade500,
-                      offset: const Offset(0, 2),
-                      blurRadius: 2.0,
+                      offset: const Offset(0, 0.5),
+                      blurRadius: 0.5,
                       spreadRadius: 0.0,
                     ),
                   ],
@@ -207,23 +213,37 @@ class _ManageUsersState extends State<ManageUsers> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       width: 343,
-                                      height: 80,
+                                      height: 60,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
                                           //
                                           BoxShadow(
                                             color: Colors.grey.shade500,
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 4.0,
+                                            offset: const Offset(0, 0.5),
+                                            blurRadius: 0.5,
                                             spreadRadius: 0.0,
                                           ),
                                         ],
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: ListTile(
-                                        title: Text(data['name'] +' ' + data['surname']),
-                                        subtitle: Text(data['email']),
+                                        // title: Text(data['name'] +' ' + data['surname']),
+                                        subtitle: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                data['name'] +' ' + data['surname'],
+                                              style: TextStyle(
+                                                fontSize: 19,
+                                              ),
+                                            ),
+                                            Text(data['email']),
+                                          ],
+                                        ),
                                         trailing: GestureDetector(
                                           onTap: () {
 
@@ -240,9 +260,12 @@ class _ManageUsersState extends State<ManageUsers> {
 
                                             fireStoreService.deleteUser(data['email']);
                                           },
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: Colors.red.shade500,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(bottom: 15.0),
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red.shade500,
+                                            ),
                                           ),
                                         ),
                                         // Add more fields as needed
@@ -308,7 +331,7 @@ class _ManageUsersState extends State<ManageUsers> {
                                 ),
                               ),
 
-                              // Surname textfield
+                              // Surname textzxfield
                               TextField(
                                 controller: _surnameController,
                                 decoration: InputDecoration(
@@ -337,16 +360,29 @@ class _ManageUsersState extends State<ManageUsers> {
                                 ),
                               ),
 
-                              // Role text field
-                              TextField(
-                                controller: _userRoleController,
+                              DropdownButtonFormField<String>(
+                                value: roleSelectedCategory,
+                                hint: const Text('Choose User Role'),
+                                items: roles.map((category) {
+                                  return DropdownMenuItem(
+                                    value: category,
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    roleSelectedCategory = value;
+                                  });
+                                },
                                 decoration: InputDecoration(
-                                  hintText: "Farmer",
                                   filled: true,
                                   fillColor: Colors.white,
-                                  //border: InputBorder.none,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 20),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -457,7 +493,6 @@ class _ManageUsersState extends State<ManageUsers> {
                                   // clear all textfields
                                   _firstnameController.clear();
                                   _surnameController.clear();
-                                  _userRoleController.clear();
                                   _userEmailController.clear();
                                 });
 
@@ -465,9 +500,12 @@ class _ManageUsersState extends State<ManageUsers> {
                                 fireStoreService.addUser(
                                   _firstnameController.text.trim(),
                                   _surnameController.text.trim(),
-                                  _userRoleController.text.trim(),
+                                  roleSelectedCategory!,
                                   _userEmailController.text.trim(),
                                 );
+
+                                // clear data after sending
+                                roleSelectedCategory = null;
                               },
                               child: Container(
                                 width: 100,

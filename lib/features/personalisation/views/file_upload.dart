@@ -26,80 +26,86 @@ class _UploadFileState extends State<UploadFile> {
 
   @override
   Widget build(BuildContext context) {
+
+    // GET SCREEN WIDTH
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('File Upload Page'),
+        title: const Text('Upload Files'),
         backgroundColor: Colors.white,
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            // Browse Files
-            Container(
-              width: 307,
-              height: 290,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  width: 0.3,
-                  color: Colors.grey,
+      body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+              child: Container(
+                width: screenWidth * 0.9,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 1),
+                      blurRadius: 1.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade500,
-                    offset: const Offset(0, 4),
-                    blurRadius: 4.0,
-                    spreadRadius: 0.0,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(8),
-              ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
 
-                    Image.asset(
-                      'assets/images/upload.png',
+                    // PDF ICON
+                    const Icon(
+                      Icons.picture_as_pdf,
+                      color: Color(0xFF6D62F7),
+                      size: 25,
                     ),
 
-                    const Text(
-                      "Browse Files",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                    // FILE NAME
+                    Text(
+                      "Uploaded file_${index+1}",
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontSize: 18,
-                        color: Color(0xFF6D62F7),
-                        decoration: TextDecoration.underline,
                       ),
                     ),
 
-                    const Text(
-                      "Supported formats: excel sheet, pdf, csv",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 13,
+                    // DOWNLOAD ICON
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.download,
+                        size: 25,
+                        color: Color(0xFF6D62F7),
                       ),
                     ),
 
                   ],
                 ),
-            ),
+              ),
+            );
+          },
+      ),
 
-            const SizedBox(height: 25,),
-
-            // Upload File
-            ElevatedButton(
-              onPressed: _selectFile,
-              child: const Text('Select File'),
-            ),
-            const SizedBox(height: 20),
-            if (_selectedFile != null)
-              Text('Selected File: ${_selectedFile!.path}'),
-          ],
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 40.0, right: 15.0),
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xFF7070E7),
+          onPressed: _selectFile,
+          child: const Icon(
+              Icons.cloud_upload_rounded,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
 }
+

@@ -23,26 +23,35 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
   @override
   void initState() {
     super.initState();
-    loadFinanceData();
+    _loadFinanceData();
   }
 
-  Future<void> loadFinanceData() async {
-    totalExpenses = await fireStoreService.getTotalExpenses();
-    double? recentBudgetAmount = await fireStoreService.getRecentBudgetAmount();
+  void _loadFinanceData()  {
 
-    if (recentBudgetAmount != null) {
-      yearlyBudget = recentBudgetAmount;
-      amountUsed = (totalExpenses / yearlyBudget);
-    }
-    setState(() {}); // Update the UI with the new data
+    // CONTINUOUSLY LISTEN TO EXPENSES CHANGES
+    fireStoreService.getTotalExpensesStream().listen((expenses) {
+        totalExpenses = expenses;
+    }).onError((error) {
+        totalExpenses = 0.0;
+    });
+
+    // CONTINUOUSLY LISTEN TO BUDGET CHANGES
+    fireStoreService.getRecentBudgetAmountStream().listen((budget) {
+        if (budget != null) {
+          yearlyBudget = budget;
+          amountUsed = (totalExpenses / yearlyBudget);
+        }
+    });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
 
     return Container(
       width: 340,
-      height: 230,
+      height: 240,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -61,11 +70,11 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
         children: [
 
            Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+            padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
             child: Text(
               "Finances Used In ${DateTime.now().year}",
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -90,6 +99,16 @@ class _HPercentageIndicatorState extends State<HPercentageIndicator> {
                   fontWeight: FontWeight.bold,
                   color: amountUsed > 1.0 ? Colors.black : Colors.black,
                 ),
+              ),
+            ),
+          ),
+
+          Center(
+            child: Text(
+              "P${totalExpenses.toStringAsFixed(2)} / P${yearlyBudget.toStringAsFixed(2)}",
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

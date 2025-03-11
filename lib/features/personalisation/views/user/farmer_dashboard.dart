@@ -5,7 +5,7 @@ import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart
 import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
-import 'package:hen_vision/features/personalisation/views/analytics.dart';
+import 'package:hen_vision/features/personalisation/views/finance_analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/file_upload.dart';
 import 'package:hen_vision/features/personalisation/views/generate_pdf.dart';
