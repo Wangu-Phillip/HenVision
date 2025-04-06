@@ -33,9 +33,12 @@ class _ManageFinancesState extends State<ManageFinances> {
   // Text fields controllers
   final _expenseAmountController = TextEditingController();
   final _expenseDescriptionController = TextEditingController();
+  final _expenseCustomerController = TextEditingController();
+
 
   final _incomeAmountController = TextEditingController();
   final _incomeDescriptionController = TextEditingController();
+  final _incomeCustomerController = TextEditingController();
 
   @override
   void dispose() {
@@ -118,16 +121,28 @@ class _ManageFinancesState extends State<ManageFinances> {
         child: Column(
           children: [
 
+            const SizedBox(height: 5,),
+
             // Expenses and Income Buttons
             Center(
               child: Container(
                 width: 250,
                 height: 40,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   border: Border.all(
                     color: Colors.black,
-                    width: 0.3,
+                    width: 0.1,
                   ),
+                  boxShadow: [
+                    //
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: const Offset(0, 0.5),
+                      blurRadius: 0.5,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
@@ -197,7 +212,7 @@ class _ManageFinancesState extends State<ManageFinances> {
             // Input Fields
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isExpenseSelected || isIncomeSelected ? 450 : 0,
+              height: isExpenseSelected || isIncomeSelected ? 550 : 0,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -210,7 +225,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                           child: Container(
                             padding: const EdgeInsets.all(14.0),
                             width: 300,
-                            height: 450,
+                            height: 550,
                             decoration: BoxDecoration(
                               color: const Color(0xFFF8F9F9),
                               borderRadius: BorderRadius.circular(12),
@@ -218,6 +233,46 @@ class _ManageFinancesState extends State<ManageFinances> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+
+                                // category text field
+                                const Text(
+                                  "Category:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                DropdownButtonFormField<String>(
+                                  value: expenseSelectedCategory,
+                                  hint: const Text('Select Category'),
+                                  items: expensesCategories.map((category) {
+                                    return DropdownMenuItem(
+                                      value: category,
+                                      child: Text(
+                                        category,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      expenseSelectedCategory = value;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 25,),
 
                                 // Amount text & text field
                                 const Text(
@@ -227,8 +282,9 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   ),
                                 ),
 
-                                TextField(
+                                TextFormField(
                                   controller: _expenseAmountController,
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: "P 0.00",
                                     filled: true,
@@ -244,44 +300,28 @@ class _ManageFinancesState extends State<ManageFinances> {
 
                                 const SizedBox(height: 25,),
 
-                                // category text field
+                                // Customer text & text field
                                 const Text(
-                                  "Category:",
+                                  "Customer/Business name:",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
 
-                            DropdownButtonFormField<String>(
-                              value: expenseSelectedCategory,
-                              hint: const Text('Select Category'),
-                              items: expensesCategories.map((category) {
-                                return DropdownMenuItem(
-                                  value: category,
-                                  child: Text(
-                                      category,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                TextFormField(
+                                  controller: _expenseCustomerController,
+                                  decoration: InputDecoration(
+                                    hintText: "XYZ Company",
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
                                     ),
                                   ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  expenseSelectedCategory = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide.none,
                                 ),
-                              ),
-                            ),
-
 
                                 const SizedBox(height: 25,),
 
@@ -356,7 +396,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                           child: Container(
                             padding: const EdgeInsets.all(14.0),
                             width: 300,
-                            height: 450,
+                            height: 550,
                             decoration: BoxDecoration(
                               color: const Color(0xFFF8F9F9),
                               borderRadius: BorderRadius.circular(12),
@@ -364,31 +404,6 @@ class _ManageFinancesState extends State<ManageFinances> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
-                                // Amount text & text field
-                                const Text(
-                                  "Amount (Profit/Loss):",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-
-                                TextField(
-                                  controller: _incomeAmountController,
-                                  decoration: InputDecoration(
-                                    hintText: "P 0.00",
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    //border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 25,),
 
                                 // category text field
                                 const Text(
@@ -427,7 +442,57 @@ class _ManageFinancesState extends State<ManageFinances> {
                                     ),
                                   ),
                                 ),
+                                
+                                const SizedBox(height: 25,),
 
+                                // Amount text & text field
+                                const Text(
+                                  "Amount:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                TextField(
+                                  controller: _incomeAmountController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: "P 0.00",
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 25,),
+
+                                // CUSTOMER NAME
+                                const Text(
+                                  "Customer/Business name:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                TextFormField(
+                                  controller: _incomeCustomerController,
+                                  decoration: InputDecoration(
+                                    hintText: "John Dory",
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
+                                ),
 
                                 const SizedBox(height: 25,),
 
@@ -511,6 +576,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                     if (isIncomeSelected)
                       Row(
                         children: [
+                          //
                           // Cancel button
                           Padding(
                             padding: const EdgeInsets.only(right: 30.0, left: 30.0),
@@ -541,6 +607,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                               ),
                             ),
                           ),
+                          //
                           // Save Button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -558,14 +625,17 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   _hideLoadingDialog();
                                   _expenseAmountController.clear();
                                   _expenseDescriptionController.clear();
+                                  _expenseCustomerController.clear();
                                 });
 
                                 fireStoreService.addExpense(
                                   double.parse(_expenseAmountController.text.trim()),
                                   expenseSelectedCategory!,
                                   _expenseDescriptionController.text.trim(),
+                                  _expenseCustomerController.text.trim(),
                                 );
                                 expenseSelectedCategory = null;
+
                               },
                               child: Container(
                                 width: 100,
@@ -591,6 +661,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                     if (isExpenseSelected)
                       Row(
                         children: [
+                          //
                           // Cancel button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -622,6 +693,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                             ),
                           ),
 
+                          //
                           // Save Button
                           Padding(
                             padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -647,6 +719,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   // clear data after saving in database
                                   _incomeAmountController.clear();
                                   _incomeDescriptionController.clear();
+                                  _incomeCustomerController.clear();
                                 });
 
 
@@ -655,6 +728,7 @@ class _ManageFinancesState extends State<ManageFinances> {
                                   double.parse(_incomeAmountController.text.trim()),
                                   incomeSelectedCategory!,
                                   _incomeDescriptionController.text.trim(),
+                                  _incomeCustomerController.text.trim(),
                                 );
 
                                 // clear data after sending

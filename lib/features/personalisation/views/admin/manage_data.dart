@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -67,6 +68,7 @@ class _ManageDataState extends State<ManageData> {
               height: 25,
             ),
 
+            // EXPENSES AND INCOME BUTTONS
             Center(
               child: Container(
                 width: 250,
@@ -75,14 +77,14 @@ class _ManageDataState extends State<ManageData> {
                   color: Colors.white,
                   border: Border.all(
                     color: Colors.black,
-                    width: 0.2,
+                    width: 0.1,
                   ),
                   boxShadow: [
                     //
                     BoxShadow(
                       color: Colors.grey.shade500,
-                      offset: const Offset(0, 2),
-                      blurRadius: 2.0,
+                      offset: const Offset(0, 0.5),
+                      blurRadius: 0.5,
                       spreadRadius: 0.0,
                     ),
                   ],
@@ -159,7 +161,7 @@ class _ManageDataState extends State<ManageData> {
               height: 8,
             ),
 
-            // Expenses and Income Lists
+            // EXPENSES AND INCOME TRANSACTIONS LISTS
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               height: isViewExpenseSelected || isViewIncomeSelected ? 550 : 0,
@@ -167,8 +169,9 @@ class _ManageDataState extends State<ManageData> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
+
                     if (isViewExpenseSelected)
-                    // Expenses list
+                      // EXPENSES LIST
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -180,90 +183,163 @@ class _ManageDataState extends State<ManageData> {
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const Center(child: CircularProgressIndicator());
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               }
+
+                              // List of all documents in expenses collection
                               List<DocumentSnapshot> documents =
                                   snapshot.data!.docs;
-                              return ListView.builder(
-                                itemCount: documents.length,
-                                itemBuilder: (context, index) {
-                                  Map<String, dynamic> data =
-                                  documents[index].data()
-                                  as Map<String, dynamic>;
-                                  String documentId = documents[index].id;
-                                  Timestamp timestamp = data['date'];
-                                  DateTime dateTime = timestamp.toDate();
-                                  String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 343,
-                                      height: 90,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          //
-                                          BoxShadow(
-                                            color: Colors.grey.shade500,
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 4.0,
-                                            spreadRadius: 0.0,
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: ListTile(
-                                        title: Text(
-                                            'Date: $formattedDate',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        subtitle: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
 
-                                            Text(
-                                              data['category'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 19,
-                                              ),
-                                            ),
-                                            Text(
-                                                'P ${data['amount']}',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                              ),
+                              // Organize documents by date
+                              Map<String, List<DocumentSnapshot>>
+                                  documentsByDate = {};
+                              for (var doc in documents) {
+                                Map<String, dynamic> data =
+                                    doc.data() as Map<String, dynamic>;
+                                Timestamp timestamp = data['date'];
+                                DateTime dateTime = timestamp.toDate();
+                                String formattedDate =
+                                    DateFormat('dd-MM-yyyy').format(dateTime);
+
+                                if (!documentsByDate
+                                    .containsKey(formattedDate)) {
+                                  documentsByDate[formattedDate] = [];
+                                }
+                                documentsByDate[formattedDate]!.add(doc);
+
+                              }
+
+                              // Build the list with sections
+                              List<Widget> expenseTiles = [];
+                              documentsByDate.forEach((date, docs) {
+                                // Date header
+                                expenseTiles.add(
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0, top: 10.0),
+                                    child: Text(
+                                      date,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ),
+                                );
+
+                                // Expense tiles for the date
+                                docs.forEach((doc) {
+                                  Map<String, dynamic> data =
+                                      doc.data() as Map<String, dynamic>;
+                                  String documentId = doc.id;
+
+                                  expenseTiles.add(
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 343,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.shade500,
+                                              offset: const Offset(0, 0.5),
+                                              blurRadius: 0.5,
+                                              spreadRadius: 0.0,
                                             ),
                                           ],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
-                                        trailing: GestureDetector(
+                                        child: ListTile(
                                           onTap: () {
-
-                                            fireStoreService.deleteExpense(documentId);
+                                            buildShowDialogExpense(
+                                                context, documentId);
                                           },
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: Colors.red.shade500,
+                                          subtitle: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+
+                                              // CUSTOMER
+                                              Center(
+                                                child: Container(
+                                                  width: 180,
+                                                  height: 20,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red.shade400,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  child: Text(
+                                                    data['customer'].length > 15 ? "${data['customer'].substring(0,10)}..." : data['customer'],
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.normal,
+                                                      fontSize: 15,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                              // CATEGORY
+                                              Text(
+                                                data['category'],
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 19,
+                                                ),
+                                              ),
+
+                                              // TRANSACTION AMOUNT
+                                              Text(
+                                                'P${data['amount'].toStringAsFixed(2)}',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ],
                                           ),
+
+                                          trailing: GestureDetector(
+                                            onTap: () {
+                                              buildShowDialogExpense(
+                                                  context, documentId);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 15.0),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.red.shade400,
+                                              ),
+                                            ),
+                                          ),
+                                          // Add more fields as needed
                                         ),
-                                        // Add more fields as needed
                                       ),
                                     ),
                                   );
-                                },
+                                });
+                              });
+
+                              return ListView(
+                                children: expenseTiles,
                               );
                             },
                           ),
                         ),
                       ),
 
+
                     if (isViewIncomeSelected)
-                    // Income list
+                      // INCOME LIST
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -275,85 +351,147 @@ class _ManageDataState extends State<ManageData> {
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const Center(child: CircularProgressIndicator());
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               }
+
+                              // List of all documents in expenses collection
                               List<DocumentSnapshot> documents =
                                   snapshot.data!.docs;
-                              return ListView.builder(
-                                itemCount: documents.length,
-                                itemBuilder: (context, index) {
-                                  Map<String, dynamic> data =
-                                  documents[index].data()
-                                  as Map<String, dynamic>;
-                                  String documentId = documents[index].id;
-                                  Timestamp timestamp = data['date'];
-                                  DateTime dateTime = timestamp.toDate();
-                                  String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: 343,
-                                      height: 90,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          //
-                                          BoxShadow(
-                                            color: Colors.grey.shade500,
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 4.0,
-                                            spreadRadius: 0.0,
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(8),
+
+                              // Organize documents by date
+                              Map<String, List<DocumentSnapshot>>
+                                  documentsByDate = {};
+                              for (var doc in documents) {
+                                Map<String, dynamic> data =
+                                    doc.data() as Map<String, dynamic>;
+                                Timestamp timestamp = data['date'];
+                                DateTime dateTime = timestamp.toDate();
+                                String formattedDate =
+                                    DateFormat('dd-MM-yyyy').format(dateTime);
+
+                                if (!documentsByDate
+                                    .containsKey(formattedDate)) {
+                                  documentsByDate[formattedDate] = [];
+                                }
+                                documentsByDate[formattedDate]!.add(doc);
+                              }
+
+                              // Build the list with sections
+                              List<Widget> expenseTiles = [];
+                              documentsByDate.forEach((date, docs) {
+                                // Date header
+                                expenseTiles.add(
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0, top: 10.0),
+                                    child: Text(
+                                      date,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[600],
                                       ),
-                                      child: ListTile(
-                                        title: Text(
-                                          'Date: $formattedDate',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        subtitle: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
+                                    ),
+                                  ),
+                                );
 
-                                            // Category
-                                            Text(
-                                              data['category'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 18,
-                                              ),
-                                            ),
+                                // Expense tiles for the date
+                                docs.forEach((doc) {
+                                  Map<String, dynamic> data =
+                                      doc.data() as Map<String, dynamic>;
+                                  String documentId = doc.id;
 
-                                            // Amount
-                                            Text(
-                                              'P ${data['amount']}',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                              ),
+                                  expenseTiles.add(
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 343,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.shade500,
+                                              offset: const Offset(0, 0.5),
+                                              blurRadius: 0.5,
+                                              spreadRadius: 0.0,
                                             ),
                                           ],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
-
-                                        trailing: GestureDetector(
+                                        child: ListTile(
                                           onTap: () {
-
-                                            fireStoreService.deleteIncome(documentId);
+                                            buildShowDialogIncome(context, documentId);
                                           },
-                                          child: Icon(
-                                            Icons.delete,
-                                            color: Colors.red.shade500,
+                                          subtitle: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+
+                                              // CUSTOMER
+                                              Center(
+                                                child: Container(
+                                                  width: 180,
+                                                  height: 20,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green.shade400,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                  ),
+                                                  child: Text(
+                                                    data['customer'].length > 15 ? "${data['customer'].substring(0,12)}..." : data['customer'],
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Colors.white
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                              Text(
+                                                data['category'],
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 19,
+                                                ),
+                                              ),
+                                              Text(
+                                                'P${data['amount'].toStringAsFixed(2)}',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ],
                                           ),
+                                          trailing: GestureDetector(
+                                            onTap: () {
+                                              buildShowDialogIncome(context, documentId);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 15.0),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.red.shade400,
+                                              ),
+                                            ),
+                                          ),
+                                          // Add more fields as needed
                                         ),
-                                        // Add more fields as needed
                                       ),
                                     ),
                                   );
-                                },
+                                });
+                              });
+
+                              return ListView(
+                                children: expenseTiles,
                               );
                             },
                           ),
@@ -363,7 +501,6 @@ class _ManageDataState extends State<ManageData> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -372,19 +509,77 @@ class _ManageDataState extends State<ManageData> {
         padding: const EdgeInsets.only(bottom: 50.0, right: 18.0),
         child: FloatingActionButton(
           backgroundColor: const Color(0xFF6D62F7),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const ManageFinances();
-                }),
-              );
-            },
-
-            child: const Icon(Icons.add),
-
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ManageFinances();
+              }),
+            );
+          },
+          child: const Icon(
+              Icons.add,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
+
+  // DISPLAYS DELETE CONFIRMATION
+  Future<dynamic> buildShowDialogExpense(BuildContext context, String documentId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text('Choose Action')),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                fireStoreService.deleteExpense(documentId);
+                Navigator.pop(context);
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  // DISPLAYS DELETE CONFIRMATION
+  Future<dynamic> buildShowDialogIncome(BuildContext context, String documentId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text('Choose Action')),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                fireStoreService.deleteIncome(documentId);
+                Navigator.pop(context);
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
+  
 }

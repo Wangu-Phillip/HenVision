@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_data.dart';
-import 'package:hen_vision/features/personalisation/views/admin/manage_finances.dart';
-import 'package:hen_vision/features/personalisation/views/admin/manage_operations.dart';
 import 'package:hen_vision/features/personalisation/views/admin/manage_users.dart';
-import 'package:hen_vision/features/personalisation/views/analytics.dart';
+import 'package:hen_vision/features/personalisation/views/finance_analytics.dart';
 import 'package:hen_vision/features/personalisation/views/calendar.dart';
 import 'package:hen_vision/features/personalisation/views/user_profile.dart';
 
@@ -158,7 +156,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return const Analytics();
+                    return const FinanceAnalytics();
                   }),
                 );
               },
@@ -180,12 +178,12 @@ class _SidebarMenuState extends State<SidebarMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return Calendar();
+                    return const Calendar();
                   }),
                 );
               },
               leading: const Icon(
-                  Icons.calendar_today,
+                  Icons.calendar_month_rounded,
                 color: Color(0xFF6D62F7),
               ),
               title: const Text(
@@ -223,11 +221,15 @@ class _SidebarMenuState extends State<SidebarMenu> {
             // Logout
             ListTile(
               onTap: logoutUser,
-              leading: const Icon(Icons.logout),
+              leading: const Icon(
+                  Icons.logout,
+                color: Colors.red,
+              ),
               title: const Text(
                 "Logout",
                 style: TextStyle(
                   fontSize: 18,
+                  color: Colors.red,
                 ),
               ),
             ),
